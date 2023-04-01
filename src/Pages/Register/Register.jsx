@@ -38,23 +38,6 @@ const Register = () => {
                             id="yourName"
                             required
                           />
-                          <div className="invalid-feedback">
-                            Please, enter your name!
-                          </div>
-                        </div>
-
-                        <div className="col-12">
-                          <label className="form-label">Your Email</label>
-                          <input
-                            type="email"
-                            name="email"
-                            className="form-control"
-                            id="yourEmail"
-                            required
-                          />
-                          <div className="invalid-feedback">
-                            Please enter a valid Email adddress!
-                          </div>
                         </div>
 
                         <div className="col-12">
@@ -67,10 +50,18 @@ const Register = () => {
                               id="yourUsername"
                               required
                             />
-                            <div className="invalid-feedback">
-                              Please choose a username.
-                            </div>
                           </div>
+                        </div>
+
+                        <div className="col-12">
+                          <label className="form-label">Your Email</label>
+                          <input
+                            type="email"
+                            name="email"
+                            className="form-control"
+                            id="yourEmail"
+                            required
+                          />
                         </div>
 
                         <div className="col-12">
@@ -82,9 +73,6 @@ const Register = () => {
                             id="yourPassword"
                             required
                           />
-                          <div className="invalid-feedback">
-                            Please enter your password!
-                          </div>
                         </div>
 
                         <div className="col-12">

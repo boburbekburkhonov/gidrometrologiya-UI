@@ -39,9 +39,6 @@ const Login = () => {
                               id="yourUsername"
                               required
                             />
-                            <div className="invalid-feedback">
-                              Please enter your username.
-                            </div>
                           </div>
                         </div>
 
@@ -54,9 +51,6 @@ const Login = () => {
                             id="yourPassword"
                             required
                           />
-                          <div className="invalid-feedback">
-                            Please enter your password!
-                          </div>
                         </div>
 
                         <div className="col-12">
