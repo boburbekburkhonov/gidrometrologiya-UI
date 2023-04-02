@@ -22,7 +22,7 @@ const Admin = () => {
         className="header fixed-top d-flex align-items-center"
       >
         <div className="d-flex align-items-center justify-content-between">
-          <a href="index.html" className="logo d-flex align-items-center">
+          <a href="#" className="logo d-flex align-items-center">
             <img
               src="https://smart-solution.uz/assets/img/apple-touch-icon.png"
               alt=""
@@ -92,39 +92,39 @@ const Admin = () => {
                 </li>
 
                 <li>
-                  <a
+                  <button
                     className="dropdown-item d-flex align-items-center"
-                    href="users-profile.html"
+                    onClick={() => navigate("/admin/profile")}
                   >
                     <i className="bi bi-person"></i>
                     <span>My Profile</span>
-                  </a>
+                  </button>
                 </li>
                 <li>
                   <hr className="dropdown-divider" />
                 </li>
 
                 <li>
-                  <a
+                  <button
                     className="dropdown-item d-flex align-items-center"
-                    href="pages-faq.html"
+                    onClick={() => navigate("/admin")}
                   >
                     <i className="bi bi-bar-chart"></i>
                     <span>Statistics</span>
-                  </a>
+                  </button>
                 </li>
                 <li>
                   <hr className="dropdown-divider" />
                 </li>
 
                 <li>
-                  <a
+                  <button
                     className="dropdown-item d-flex align-items-center"
-                    href="pages-faq.html"
+                    onClick={() => navigate("/admin/devices")}
                   >
                     <i className="bi bi-layout-text-window-reverse"></i>
                     <span>Devices</span>
-                  </a>
+                  </button>
                 </li>
                 <li>
                   <hr className="dropdown-divider" />

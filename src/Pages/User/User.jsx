@@ -1,4 +1,5 @@
 import React from "react";
+import { Routes, Route } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import "../../assets/vendor/bootstrap/css/bootstrap.min.css";
 import "../../assets/vendor/bootstrap-icons/bootstrap-icons.css";
@@ -8,8 +9,24 @@ import "../../assets/vendor/quill/quill.bubble.css";
 import "../../assets/vendor/remixicon/remixicon.css";
 import "../../assets/vendor/simple-datatables/style.css";
 import "../../assets/css/style.css";
+import { useNavigate } from "react-router-dom";
+import Statistic from "../Statistic/Statistic";
+import Profile from "../Profile/Profile";
+import Devices from "../Devices/Devices";
 
 const User = () => {
+  const token = window.localStorage.getItem("token");
+
+  if (!token) {
+    window.location.href = "/";
+  }
+
+  function logout() {
+    window.localStorage.removeItem("token");
+    window.location.href = "/";
+  }
+
+  const navigate = useNavigate();
   return (
     <div>
       <header
@@ -17,7 +34,7 @@ const User = () => {
         className="header fixed-top d-flex align-items-center"
       >
         <div className="d-flex align-items-center justify-content-between">
-          <a href="index.html" className="logo d-flex align-items-center">
+          <a href="#" className="logo d-flex align-items-center">
             <img
               src="https://smart-solution.uz/assets/img/apple-touch-icon.png"
               alt=""
@@ -87,39 +104,39 @@ const User = () => {
                 </li>
 
                 <li>
-                  <a
+                  <button
                     className="dropdown-item d-flex align-items-center"
-                    href="users-profile.html"
+                    onClick={() => navigate("/user/profile")}
                   >
                     <i className="bi bi-person"></i>
                     <span>My Profile</span>
-                  </a>
+                  </button>
                 </li>
                 <li>
                   <hr className="dropdown-divider" />
                 </li>
 
                 <li>
-                  <a
+                  <button
                     className="dropdown-item d-flex align-items-center"
-                    href="pages-faq.html"
+                    onClick={() => navigate("/user")}
                   >
                     <i className="bi bi-bar-chart"></i>
                     <span>Statistics</span>
-                  </a>
+                  </button>
                 </li>
                 <li>
                   <hr className="dropdown-divider" />
                 </li>
 
                 <li>
-                  <a
+                  <button
                     className="dropdown-item d-flex align-items-center"
-                    href="pages-faq.html"
+                    onClick={() => navigate("/user/devices")}
                   >
                     <i className="bi bi-layout-text-window-reverse"></i>
                     <span>Devices</span>
-                  </a>
+                  </button>
                 </li>
                 <li>
                   <hr className="dropdown-divider" />
@@ -130,43 +147,51 @@ const User = () => {
                 </li>
 
                 <li>
-                  <a
+                  <button
                     className="dropdown-item d-flex align-items-center"
-                    href="#"
+                    onClick={logout}
                   >
                     <i className="bi bi-box-arrow-right"></i>
                     <span>Sign Out</span>
-                  </a>
+                  </button>
                 </li>
               </ul>
             </li>
           </ul>
         </nav>
       </header>
-
       <aside id="sidebar" className="sidebar">
         <ul className="sidebar-nav" id="sidebar-nav">
           <li className="nav-heading">Pages</li>
 
           <li className="nav-item">
-            <a className="nav-link collapsed" href="pages-blank.html">
+            <button
+              className="nav-link collapsed w-100"
+              onClick={() => navigate("/user")}
+            >
               <i className="bi bi-bar-chart"></i>
               <span>Statistics</span>
-            </a>
+            </button>
           </li>
 
           <li className="nav-item">
-            <a className="nav-link collapsed" href="users-profile.html">
+            <button
+              className="nav-link collapsed w-100"
+              onClick={() => navigate("/user/profile")}
+            >
               <i className="bi bi-person"></i>
               <span>Profile</span>
-            </a>
+            </button>
           </li>
 
           <li className="nav-item">
-            <a className="nav-link collapsed" href="pages-blank.html">
+            <button
+              className="nav-link collapsed w-100"
+              onClick={() => navigate("/user/devices")}
+            >
               <i className="bi bi-layout-text-window-reverse"></i>
               <span>Devices</span>
-            </a>
+            </button>
           </li>
 
           <li className="nav-item">
@@ -184,7 +209,11 @@ const User = () => {
           </li>
         </ul>
       </aside>
-
+      <Routes>
+        <Route path="/" element={<Statistic />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/devices" element={<Devices />} />
+      </Routes>
       <Helmet>
         <script src="../../src/assets/vendor/apexcharts/apexcharts.min.js"></script>
         <script src="../../src/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

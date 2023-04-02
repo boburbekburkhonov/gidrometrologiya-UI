@@ -9,6 +9,39 @@ import "../../assets/vendor/simple-datatables/style.css";
 import "../../assets/css/style.css";
 
 const Register = () => {
+
+  const registerUser = (e) => {
+    e.preventDefault();
+    const { name, username, email, password } = e.target;
+
+    fetch("http://localhost:3000/users/register", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({
+        name: name.value,
+        username: username.value,
+        email: email.value,
+        password: password.value,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.access_token) {
+          window.localStorage.setItem("token", data.access_token);
+          window.location.href = "/user";
+        } else if (data.statusCode) {
+          alert(data.message);
+        }
+      });
+
+    name.value = "";
+    username.value = "";
+    email.value = "";
+    password.value = "";
+  };
+
   return (
     <>
       <main>
@@ -17,6 +50,21 @@ const Register = () => {
             <div className="container">
               <div className="row justify-content-center">
                 <div className="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
+                  <div className="d-flex justify-content-center py-4">
+                    <a
+                      href="#"
+                      className="logo d-flex align-items-center w-auto"
+                    >
+                      <img
+                        src="https://smart-solution.uz/assets/img/apple-touch-icon.png"
+                        alt=""
+                      />
+                      <span className="d-none d-lg-block fs-5">
+                        Smart Solutions System
+                      </span>
+                    </a>
+                  </div>
+
                   <div className="card mb-3">
                     <div className="card-body">
                       <div className="pt-4 pb-2">
@@ -28,7 +76,10 @@ const Register = () => {
                         </p>
                       </div>
 
-                      <form className="row g-3 needs-validation">
+                      <form
+                        className="row g-3 needs-validation"
+                        onSubmit={registerUser}
+                      >
                         <div className="col-12">
                           <label className="form-label">Your Name</label>
                           <input
