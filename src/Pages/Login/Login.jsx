@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "../../assets/vendor/bootstrap/css/bootstrap.min.css";
 import "../../assets/vendor/bootstrap-icons/bootstrap-icons.css";
 import "../../assets/vendor/boxicons/css/boxicons.min.css";
@@ -9,6 +9,8 @@ import "../../assets/vendor/simple-datatables/style.css";
 import "../../assets/css/style.css";
 
 const Login = () => {
+  const [errorMessage, setErrorMessage] = useState("");
+  const [error, setError] = useState(false);
 
   const login = (e) => {
     e.preventDefault();
@@ -28,9 +30,16 @@ const Login = () => {
       .then((data) => {
         if (data.access_token) {
           window.localStorage.setItem("token", data.access_token);
-          window.location.href = "/user";
+          window.localStorage.setItem("name", data.name);
+          window.localStorage.setItem("username", data.username);
+          if (data.role == "admin") {
+            window.location.href = "/admin";
+          } else {
+            window.location.href = "/user";
+          }
         } else if (data.statusCode) {
-          alert(data.message);
+          setError(true);
+          setErrorMessage(data.message);
         }
       });
 
@@ -98,6 +107,9 @@ const Login = () => {
                             id="yourPassword"
                             required
                           />
+                          <div className="error mt-3 text-danger fs-5 fw-semibold d-flex align-items-center justify-content-center">
+                            {error ? errorMessage : ""}
+                          </div>
                         </div>
 
                         <div className="col-12">
