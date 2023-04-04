@@ -1375,3 +1375,81 @@ td:first-of-type {
     justify-content: center;
   }
 }
+
+/* !LOADER */
+
+.loader{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.loader span{
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #03a9f4;
+  margin: 0 10px;
+
+}
+
+.loader span:nth-child(1){
+    animation: 1s jump infinite ease-in-out;
+}
+
+.loader span:nth-child(2){
+    animation: 1s 0.333s jump infinite ease-in-out;
+}
+
+.loader span:nth-child(3){
+    animation: 1s 0.667s jump infinite ease-in-out;
+}
+
+@keyframes jump{
+  0%{
+    transform: translateY(0) scale(1);
+  }
+  30%{
+    transform: translateY(-20px) scale(1.2);
+  }
+  75%{
+    transform: translateY(0) scale(1);
+  }
+
+}
+
+/* !TABLE */
+@media screen and (max-width: 766px) {
+	table td {
+		text-align: center;
+	}
+}
+
+@media screen and (max-width: 600px) {
+	table td {
+		border-bottom: 1px solid #e1e5e9;
+		display: block;
+    font-size: 15px;
+		text-align: right;
+		color: #9da9b9;
+	}
+}
+
+.table-scrol {
+  max-width: 1442px !important;
+  overflow: auto;
+}
+
+/* !CARD DATA & LASTDATA */
+.color-data-lastdata {
+  color: #0095ff !important;
+
+}
+
+@media (min-width: 1400px){
+  .col-xxl-4-data {
+      width: 43.33333333%;
+  }
+}

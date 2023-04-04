@@ -14,6 +14,8 @@ import "../../assets/vendor/quill/quill.bubble.css";
 import "../../assets/vendor/remixicon/remixicon.css";
 import "../../assets/vendor/simple-datatables/style.css";
 import "../../assets/css/style.css";
+import DevicesInformation from "../DevicesInformation/DevicesInformation";
+import DataAndLastdata from "../DataAndLastData/DataAndLastdata";
 
 const User = () => {
   const token = window.localStorage.getItem("token");
@@ -214,17 +216,24 @@ const User = () => {
                 <span>Contact</span>
               </a>
             </li>
+
+            <li className="nav-item">
+              <button className="nav-link collapsed w-100" onClick={logout}>
+                <i className="bi bi-box-arrow-right"></i>
+                <span>Sign Out</span>
+              </button>
+            </li>
           </ul>
         </aside>
         <Helmet>
-          {/* <script src="http://localhost:5173/src/assets/vendor/apexcharts/apexcharts.min.js"></script>
+          <script src="http://localhost:5173/src/assets/vendor/apexcharts/apexcharts.min.js"></script>
           <script src="http://localhost:5173/src/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
           <script src="http://localhost:5173/src/assets/vendor/chart.js/chart.umd.js"></script>
           <script src="http://localhost:5173/src/assets/vendor/echarts/echarts.min.js"></script>
           <script src="http://localhost:5173/src/assets/vendor/quill/quill.min.js"></script>
           <script src="http://localhost:5173/src/assets/vendor/simple-datatables/simple-datatables.js"></script>
           <script src="http://localhost:5173/src/assets/vendor/php-email-form/validate.js"></script>
-          <script src="http://localhost:5173/src/assets/vendor/tinymce/tinymce.min.js"></script> */}
+          <script src="http://localhost:5173/src/assets/vendor/tinymce/tinymce.min.js"></script>
 
           <script src="http://localhost:5173/src/assets/js/main.js"></script>
         </Helmet>
@@ -233,6 +242,11 @@ const User = () => {
           <Route path="/profile" element={<Profile />} />
           <Route path="/devices" element={<Devices />} />
           <Route path="/working/devices/:term" element={<WorkingDevices />} />
+          <Route
+            path="/information/devices/:term"
+            element={<DevicesInformation />}
+          />
+          <Route path="/mqtt/:term" element={<DataAndLastdata />} />
         </Routes>
       </div>
     </HelmetProvider>

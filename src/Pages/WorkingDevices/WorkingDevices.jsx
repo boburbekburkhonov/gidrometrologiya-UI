@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { Helmet } from "react-helmet-async";
 import { useParams } from "react-router-dom";
 
 const WorkingDevices = () => {
   const [dataDevices, setDataDevices] = useState([]);
+  const [loader, setLoader] = useState(true);
   const { term } = useParams();
 
   useEffect(() => {
@@ -14,7 +16,12 @@ const WorkingDevices = () => {
       },
     })
       .then((res) => res.json())
-      .then((data) => setDataDevices(data));
+      .then((data) => {
+        if (data) {
+          setDataDevices(data);
+          setLoader(false);
+        }
+      });
   }, []);
 
   return (
@@ -22,13 +29,19 @@ const WorkingDevices = () => {
       <div className="pagetitle">
         <section className="section dashboard">
           <div className="row">
-            {!dataDevices.length ? (
+            {loader ? (
+              <div className="loader">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            ) : dataDevices.length == 0 && !loader ? (
               <div className="alert alert-info fs-4 fw-semibold" role="alert">
                 Hozircha bu qurilmadan ma'lumot kelmadi!
               </div>
             ) : (
               <>
-                <h1>Devices working</h1>
+                <h2>Devices working</h2>
                 <table className="c-table mt-4">
                   <thead className="c-table__header">
                     <tr>
@@ -73,6 +86,10 @@ const WorkingDevices = () => {
           </div>
         </section>
       </div>
+
+      <Helmet>
+        <script src="http://localhost:5173/src/assets/js/table.js"></script>
+      </Helmet>
     </main>
   );
 };
