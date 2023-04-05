@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
@@ -19,6 +19,7 @@ import DataAndLastdata from "../DataAndLastData/DataAndLastdata";
 
 const User = () => {
   const token = window.localStorage.getItem("token");
+  const [dataProfile, setDataProfile] = useState([]);
 
   if (!token) {
     window.location.href = "/";
@@ -28,8 +29,23 @@ const User = () => {
     window.localStorage.removeItem("token");
     window.location.href = "/";
   }
-
   const navigate = useNavigate();
+
+  useEffect(() => {
+    fetch(`http://localhost:3000/users/profile`, {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+        Authorization: "Bearer " + window.localStorage.getItem("token"),
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data) {
+          setDataProfile(data);
+        }
+      });
+  }, []);
 
   return (
     <HelmetProvider>
@@ -96,17 +112,13 @@ const User = () => {
                   data-bs-toggle="dropdown"
                 >
                   <span className="d-none d-md-block dropdown-toggle ps-2">
-                    {`${
-                      window.localStorage.getItem("name")[0]
-                    }.${window.localStorage.getItem("username")}`}
+                    {`${dataProfile.name} ${dataProfile.username}`}
                   </span>
                 </a>
 
                 <ul className="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                   <li className="dropdown-header">
-                    <h6>{`${window.localStorage.getItem(
-                      "name"
-                    )} ${window.localStorage.getItem("username")}`}</h6>
+                    <h6>{`${dataProfile.name} ${dataProfile.username}`}</h6>
                   </li>
                   <li>
                     <hr className="dropdown-divider" />

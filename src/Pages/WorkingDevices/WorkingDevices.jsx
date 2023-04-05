@@ -45,7 +45,7 @@ const WorkingDevices = () => {
                 <table className="c-table mt-4">
                   <thead className="c-table__header">
                     <tr>
-                      <th></th>
+                      <th>N</th>
                       <th className="c-table__col-label">Name</th>
                       <th className="c-table__col-label">District</th>
                       <th className="c-table__col-label">Region</th>
@@ -61,7 +61,7 @@ const WorkingDevices = () => {
                       dataDevices.map((element, index) => {
                         return (
                           <tr className="fs-6" key={index}>
-                            <td className="fw-semibold">{index + 1}</td>
+                            <td className="fw-semibold ps-2">{index + 1}</td>
                             <td className="c-table__cell">{element.name}</td>
                             <td className="c-table__cell">
                               {element.district}

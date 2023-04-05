@@ -1453,3 +1453,39 @@ td:first-of-type {
       width: 43.33333333%;
   }
 }
+
+
+.btn-devices-edit {
+  background: transparent;
+  border: transparent;
+}
+
+/* !MODAL */
+.modal {
+  padding-right: 0 !important;
+}
+
+.modal-label {
+  color: #000000;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.devices-btn {
+  background-color: #012a70c1;
+}
+
+.devices-form-wrapper {
+  max-width: 600px;
+}
+
+.devices-create-btn {
+  border: transparent;
+  background-color: #02a090c1;
+}
+
+.modal-title {
+  color: #012a70c1;
+  font-weight: 500;
+  font-size: 26px !important;
+}
