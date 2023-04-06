@@ -16,6 +16,8 @@ import "../../assets/vendor/simple-datatables/style.css";
 import "../../assets/css/style.css";
 import DevicesInformation from "../DevicesInformation/DevicesInformation";
 import DataAndLastdata from "../DataAndLastData/DataAndLastdata";
+import LocationList from "../Location/LocationList";
+import History from "../History/History";
 
 const User = () => {
   const token = window.localStorage.getItem("token");
@@ -164,6 +166,32 @@ const User = () => {
                   </li>
 
                   <li>
+                    <button
+                      className="dropdown-item d-flex align-items-center"
+                      onClick={() => navigate("/user/location")}
+                    >
+                      <i className="bi bi-geo-alt-fill"></i>
+
+                      <span>Location</span>
+                    </button>
+                  </li>
+
+                  <li>
+                    <hr className="dropdown-divider" />
+                  </li>
+
+                  <li>
+                    <button
+                      className="dropdown-item d-flex align-items-center"
+                      onClick={() => navigate("/user/history")}
+                    >
+                      <i className="bi bi-archive"></i>
+
+                      <span>History</span>
+                    </button>
+                  </li>
+
+                  <li>
                     <hr className="dropdown-divider" />
                   </li>
 
@@ -216,17 +244,23 @@ const User = () => {
             </li>
 
             <li className="nav-item">
-              <a className="nav-link collapsed" href="pages-faq.html">
-                <i className="bi bi-question-circle"></i>
-                <span>F.A.Q</span>
-              </a>
+              <button
+                className="nav-link collapsed w-100"
+                onClick={() => navigate("/user/location")}
+              >
+                <i className="bi bi-geo-alt-fill"></i>
+                <span>Location</span>
+              </button>
             </li>
 
             <li className="nav-item">
-              <a className="nav-link collapsed" href="pages-contact.html">
-                <i className="bi bi-envelope"></i>
-                <span>Contact</span>
-              </a>
+              <button
+                className="nav-link collapsed w-100"
+                onClick={() => navigate("/user/history")}
+              >
+                <i className="bi bi-archive"></i>
+                <span>History</span>
+              </button>
             </li>
 
             <li className="nav-item">
@@ -253,6 +287,8 @@ const User = () => {
           <Route path="/" element={<Statistic />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/devices" element={<Devices />} />
+          <Route path="/location" element={<LocationList />} />
+          <Route path="/history" element={<History />} />
           <Route path="/working/devices/:term" element={<WorkingDevices />} />
           <Route
             path="/information/devices/:term"
