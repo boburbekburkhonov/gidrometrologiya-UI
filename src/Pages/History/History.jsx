@@ -46,7 +46,6 @@ const History = () => {
                     <table className="c-table mt-4 table-scroll">
                       <thead className="c-table__header">
                         <tr>
-                          <th>N</th>
                           <th className="c-table__col-label">WindDirection</th>
                           <th className="c-table__col-label">RainHeight</th>
                           <th className="c-table__col-label">WindSpeed</th>
@@ -69,9 +68,6 @@ const History = () => {
                             time.setHours(time.getHours() - 5);
                             return (
                               <tr className="fs-6" key={index}>
-                                <td className="fw-semibold p-0 ps-3">
-                                  {index + 1}
-                                </td>
                                 <td className="c-table__cell">
                                   <a href="#" className="text-dark">
                                     {element.windDirection}

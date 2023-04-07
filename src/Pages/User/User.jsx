@@ -15,7 +15,7 @@ import "../../assets/vendor/remixicon/remixicon.css";
 import "../../assets/vendor/simple-datatables/style.css";
 import "../../assets/css/style.css";
 import DevicesInformation from "../DevicesInformation/DevicesInformation";
-import DataAndLastdata from "../DataAndLastData/DataAndLastdata";
+import LastData from "../LastData/LastData";
 import LocationList from "../Location/LocationList";
 import History from "../History/History";
 
@@ -29,7 +29,7 @@ const User = () => {
 
   function logout() {
     window.localStorage.removeItem("token");
-    window.location.href = "/";
+    window.location.href = "/login";
   }
   const navigate = useNavigate();
 
@@ -66,7 +66,9 @@ const User = () => {
                 Smart Solutions System
               </span>
             </a>
-            <i className="bi bi-list toggle-sidebar-btn"></i>
+            <button className="toggle-sidebar-btn">
+              <i className="bi bi-list"></i>
+            </button>
           </div>
 
           <div className="search-bar">
@@ -226,20 +228,20 @@ const User = () => {
             <li className="nav-item">
               <button
                 className="nav-link collapsed w-100"
-                onClick={() => navigate("/user/profile")}
+                onClick={() => navigate("/user/devices")}
               >
-                <i className="bi bi-person"></i>
-                <span>Profile</span>
+                <i className="bi bi-layout-text-window-reverse"></i>
+                <span>Devices</span>
               </button>
             </li>
 
             <li className="nav-item">
               <button
                 className="nav-link collapsed w-100"
-                onClick={() => navigate("/user/devices")}
+                onClick={() => navigate("/user/history")}
               >
-                <i className="bi bi-layout-text-window-reverse"></i>
-                <span>Devices</span>
+                <i className="bi bi-archive"></i>
+                <span>History</span>
               </button>
             </li>
 
@@ -256,10 +258,10 @@ const User = () => {
             <li className="nav-item">
               <button
                 className="nav-link collapsed w-100"
-                onClick={() => navigate("/user/history")}
+                onClick={() => navigate("/user/profile")}
               >
-                <i className="bi bi-archive"></i>
-                <span>History</span>
+                <i className="bi bi-person"></i>
+                <span>Profile</span>
               </button>
             </li>
 
@@ -294,7 +296,7 @@ const User = () => {
             path="/information/devices/:term"
             element={<DevicesInformation />}
           />
-          <Route path="/mqtt/:term" element={<DataAndLastdata />} />
+          <Route path="/mqtt/:term" element={<LastData />} />
         </Routes>
       </div>
     </HelmetProvider>

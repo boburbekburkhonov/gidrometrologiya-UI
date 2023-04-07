@@ -34,6 +34,14 @@
     });
   }
 
+  setInterval(() => {
+    if (select(".pagetitle")) {
+      on("click", ".pagetitle", function (e) {
+        select("body").classList.add("toggle-sidebar");
+      });
+    }
+  }, [1000]);
+
   /**
    * Search bar toggle
    */

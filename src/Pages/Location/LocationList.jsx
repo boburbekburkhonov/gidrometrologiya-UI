@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { YMaps, Map, Placemark } from "@pbe/react-yandex-maps";
+import {
+  YMaps,
+  Map,
+  Placemark,
+  GeolocationControl,
+  TypeSelector,
+} from "@pbe/react-yandex-maps";
 
 const LocationList = () => {
   const [info, setInfo] = useState([]);
@@ -49,9 +55,22 @@ const LocationList = () => {
                       <Placemark
                         geometry={[element.lat, element.lon]}
                         key={index}
+                        properties={{
+                          hintContent: element.name,
+                          balloonContent: `<div className='text-danger'>Imei ${element.imei}</div>`,
+                        }}
+                        modules={[
+                          "geoObject.addon.hint",
+                          "geoObject.addon.balloon",
+                        ]}
+                        options={{
+                          preset: "islands#redDotIcon",
+                        }}
                       />
                     );
                   })}
+                <GeolocationControl options={{ float: "left" }} />
+                <TypeSelector options={{ float: "right" }} />
               </Map>
             </YMaps>
           </div>

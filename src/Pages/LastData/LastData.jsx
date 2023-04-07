@@ -4,12 +4,12 @@ import { useParams } from "react-router-dom";
 import moment from "moment";
 
 const DataAndLastdata = () => {
-  const [data, setData] = useState([]);
+  const [lastdata, setLastData] = useState([]);
   const [loader, setLoader] = useState(true);
   const { term } = useParams();
 
   useEffect(() => {
-    fetch(`http://localhost:3000/mqtt/${term}`, {
+    fetch(`http://localhost:3000/mqtt/lastdata/${term}`, {
       method: "GET",
       headers: {
         "content-type": "application/json",
@@ -19,12 +19,12 @@ const DataAndLastdata = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data) {
-          setData(data);
+          setLastData(data);
           setLoader(false);
         }
       });
   }, []);
-
+  console.log(lastdata);
   return (
     <main id="main" className="main">
       <div className="pagetitle">
@@ -36,10 +36,6 @@ const DataAndLastdata = () => {
                 <span></span>
                 <span></span>
               </div>
-            ) : data.length == 0 && !loader ? (
-              <div className="alert alert-info fs-4 fw-semibold" role="alert">
-                Hozircha bu qurilmadan ma'lumot kelmadi!
-              </div>
             ) : (
               <>
                 <h2>{term == "data" ? "Data" : "Last Data"}</h2>
@@ -47,7 +43,6 @@ const DataAndLastdata = () => {
                   <table className="c-table mt-4 table-scroll">
                     <thead className="c-table__header">
                       <tr>
-                        <th>N</th>
                         <th className="c-table__col-label">WindDirection</th>
                         <th className="c-table__col-label">RainHeight</th>
                         <th className="c-table__col-label">WindSpeed</th>
@@ -64,13 +59,12 @@ const DataAndLastdata = () => {
                       </tr>
                     </thead>
                     <tbody className="c-table__body">
-                      {data.length > 0 &&
-                        data.map((element, index) => {
+                      {lastdata.length > 0 &&
+                        lastdata.map((element, index) => {
                           const time = new Date(element.time);
                           time.setHours(time.getHours() - 5);
                           return (
                             <tr className="fs-6" key={index}>
-                              <td className="fw-semibold">{index + 1}</td>
                               <td className="c-table__cell">
                                 {element.windDirection}
                               </td>
@@ -106,7 +100,10 @@ const DataAndLastdata = () => {
                               </td>
                               <td className="c-table__cell">{element.imei}</td>
                               <td className="c-table__cell">
-                                {moment(time).format("LLLL")}
+                                {new Date().getDate() ==
+                                new Date(element.time).getDate()
+                                  ? moment(time).format("LTS")
+                                  : moment(time).format("LLLL")}
                               </td>
                             </tr>
                           );

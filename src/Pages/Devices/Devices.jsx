@@ -531,7 +531,6 @@ const Devices = () => {
               <table className="c-table mt-4">
                 <thead className="c-table__header">
                   <tr>
-                    <th>N</th>
                     <th className="c-table__col-label">Name</th>
                     <th className="c-table__col-label">District</th>
                     <th className="c-table__col-label">Region</th>
@@ -549,7 +548,6 @@ const Devices = () => {
                     info.map((element, index) => {
                       return (
                         <tr className="fs-6" key={index}>
-                          <td className="fw-semibold ps-2">{index + 1}</td>
                           <td className="c-table__cell">{element.name}</td>
                           <td className="c-table__cell">{element.district}</td>
                           <td className="c-table__cell">{element.region}</td>

@@ -12,7 +12,6 @@ import "../../assets/css/style.css";
 
 const CharInformation = (props) => {
   const { data } = props;
-
   const colors = ["#FF8042", "#0088FE", "red", "#00C49F", "#FFBB28"];
 
   const getPath = (x, y, width, height) => {

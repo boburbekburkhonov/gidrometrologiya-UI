@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CharInformation from "../CharInformation/CharInformation";
+import moment from "moment";
 
 const Statistic = () => {
   const [dataDevicesStatistics, setDataDevicesStatistics] = useState([]);
@@ -45,6 +46,43 @@ const Statistic = () => {
       <div className="pagetitle">
         <section className="section dashboard">
           <div className="row">
+            <h2 className="statis-heading">Last Data</h2>
+            {lastData.length > 0 &&
+              lastData.map((element, index) => {
+                const time = new Date(element.time);
+                time.setHours(time.getHours() - 5);
+                return (
+                  <div className="col-md-4 col-xl-3" key={index}>
+                    <div className="card bg-c-blue order-card">
+                      <div className="card-block">
+                        <h6 className="m-b-20 fs-4 heading-lastdata">
+                          Toshkent
+                        </h6>
+                        <h2 className="text-right">
+                          <span className="fs-5 time-lastdata">
+                            {new Date().getDate() ==
+                            new Date(element.time).getDate()
+                              ? moment(time).format("LTS")
+                              : moment(time).format("LLLL")}
+                          </span>
+                        </h2>
+
+                        <div className="d-flex justify-content-end">
+                          <button
+                            className="lastdata-learn-more"
+                            onClick={() =>
+                              navigate(`/user/mqtt/${element.imei}`)
+                            }
+                          >
+                            Batafsil
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+
             <CharInformation data={dataInformation} />
 
             <h2 className="statis-heading mt-4">Devices that worked</h2>
