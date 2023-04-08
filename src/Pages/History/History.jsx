@@ -6,6 +6,32 @@ const History = () => {
   const [data, setData] = useState([]);
   const [loader, setLoader] = useState(true);
 
+  function filterDate(e) {
+    e.preventDefault();
+
+    const { startDate, endDate } = e.target;
+
+    if (startDate.value.length > 0 && endDate.value.length > 0) {
+      fetch("http://localhost:3000/mqtt/filter/data", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+          Authorization: "Bearer " + window.localStorage.getItem("token"),
+        },
+        body: JSON.stringify({
+          start: startDate.value,
+          end: endDate.value,
+        }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data) {
+            setData(data);
+          }
+        });
+    }
+  }
+
   useEffect(() => {
     fetch("http://localhost:3000/mqtt/data", {
       method: "GET",
@@ -41,7 +67,44 @@ const History = () => {
                 </div>
               ) : (
                 <>
-                  <h2 className="statis-heading">Data History</h2>
+                  <h2 className="statis-heading">Ma'lumotlar tarixi</h2>
+                  <div>
+                    <form
+                      className="d-flex justify-content-center date-wrapper"
+                      onSubmit={filterDate}
+                    >
+                      <div className="d-flex flex-column date-filter me-3 date-filter-responsive">
+                        <label className="date-content" htmlFor="start-date">
+                          Boshlanish sanasi
+                        </label>
+                        <input
+                          className="form-control date-input"
+                          name="startDate"
+                          type="date"
+                          id="start-date"
+                        />
+                      </div>
+
+                      <div className="d-flex flex-column date-filter">
+                        <label className="date-content" htmlFor="start-date">
+                          Tugash sanasi
+                        </label>
+                        <input
+                          className="form-control date-input"
+                          name="endDate"
+                          type="date"
+                          id="start-date"
+                        />
+                      </div>
+
+                      <div className="d-flex flex-column-reverse ms-3 filter-btn-wrapper">
+                        <button className="btn btn-info date-filter-btn">
+                          Qidirish
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+
                   <div className="table-scrol m-auto">
                     <table className="c-table mt-4 table-scroll">
                       <thead className="c-table__header">

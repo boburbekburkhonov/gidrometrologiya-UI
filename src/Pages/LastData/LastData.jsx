@@ -24,7 +24,7 @@ const DataAndLastdata = () => {
         }
       });
   }, []);
-  console.log(lastdata);
+
   return (
     <main id="main" className="main">
       <div className="pagetitle">
@@ -39,7 +39,7 @@ const DataAndLastdata = () => {
             ) : (
               <>
                 <h2>{term == "data" ? "Data" : "Last Data"}</h2>
-                <div className="table-scrol">
+                <div className="table-scrol m-auto">
                   <table className="c-table mt-4 table-scroll">
                     <thead className="c-table__header">
                       <tr>

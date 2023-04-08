@@ -109,7 +109,7 @@ const Profile = () => {
                             data-bs-toggle="tab"
                             data-bs-target="#profile-overview"
                           >
-                            Overview
+                            Umumiy koʻrinish
                           </button>
                         </li>
 
@@ -119,7 +119,7 @@ const Profile = () => {
                             data-bs-toggle="tab"
                             data-bs-target="#profile-edit"
                           >
-                            Edit Profile
+                            Ma'lumotlarni o'zgartirish
                           </button>
                         </li>
                       </ul>
@@ -128,7 +128,7 @@ const Profile = () => {
                           className="tab-pane fade show active profile-overview"
                           id="profile-overview"
                         >
-                          <h5 className="card-title">Profile Details</h5>
+                          <h5 className="card-title">Profil tafsilotlari</h5>
 
                           <div className="row">
                             <div className="col-lg-3 col-md-4 label ">Name</div>
@@ -225,7 +225,7 @@ const Profile = () => {
                             </div>
                             <div className="text-end">
                               <button className="btn btn-primary">
-                                Save Changes
+                                Saqlash
                               </button>
                             </div>
                           </form>

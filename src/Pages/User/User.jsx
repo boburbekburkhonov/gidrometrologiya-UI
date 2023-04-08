@@ -134,7 +134,7 @@ const User = () => {
                       onClick={() => navigate("/user/profile")}
                     >
                       <i className="bi bi-person"></i>
-                      <span>My Profile</span>
+                      <span>Mening Profilim</span>
                     </button>
                   </li>
                   <li>
@@ -147,7 +147,7 @@ const User = () => {
                       onClick={() => navigate("/user")}
                     >
                       <i className="bi bi-bar-chart"></i>
-                      <span>Statistics</span>
+                      <span>Statistika</span>
                     </button>
                   </li>
                   <li>
@@ -160,7 +160,7 @@ const User = () => {
                       onClick={() => navigate("/user/devices")}
                     >
                       <i className="bi bi-layout-text-window-reverse"></i>
-                      <span>Devices</span>
+                      <span>Qurilmalar</span>
                     </button>
                   </li>
                   <li>
@@ -174,7 +174,7 @@ const User = () => {
                     >
                       <i className="bi bi-geo-alt-fill"></i>
 
-                      <span>Location</span>
+                      <span>Lokatsiya</span>
                     </button>
                   </li>
 
@@ -189,7 +189,7 @@ const User = () => {
                     >
                       <i className="bi bi-archive"></i>
 
-                      <span>History</span>
+                      <span>Tarix</span>
                     </button>
                   </li>
 
@@ -221,7 +221,7 @@ const User = () => {
                 onClick={() => navigate("/user")}
               >
                 <i className="bi bi-bar-chart"></i>
-                <span>Statistics</span>
+                <span>Statistika</span>
               </button>
             </li>
 
@@ -231,7 +231,7 @@ const User = () => {
                 onClick={() => navigate("/user/devices")}
               >
                 <i className="bi bi-layout-text-window-reverse"></i>
-                <span>Devices</span>
+                <span>Qurilmalar</span>
               </button>
             </li>
 
@@ -241,7 +241,7 @@ const User = () => {
                 onClick={() => navigate("/user/history")}
               >
                 <i className="bi bi-archive"></i>
-                <span>History</span>
+                <span>Tarix</span>
               </button>
             </li>
 
@@ -251,7 +251,7 @@ const User = () => {
                 onClick={() => navigate("/user/location")}
               >
                 <i className="bi bi-geo-alt-fill"></i>
-                <span>Location</span>
+                <span>Lokatsiya</span>
               </button>
             </li>
 
@@ -261,7 +261,7 @@ const User = () => {
                 onClick={() => navigate("/user/profile")}
               >
                 <i className="bi bi-person"></i>
-                <span>Profile</span>
+                <span>Profil</span>
               </button>
             </li>
 

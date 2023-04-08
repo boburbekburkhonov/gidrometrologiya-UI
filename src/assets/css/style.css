@@ -216,6 +216,24 @@ h6 {
   box-shadow: 0px 0 30px rgba(1, 41, 112, 0.1);
 }
 
+.col-xxl-4 {
+  max-width: 280px;
+  width: 100%;
+}
+
+@media only screen and (max-width: 840px){
+  .col-xxl-4 {
+    max-width: 300px;
+  }
+}
+
+@media only screen and (max-width: 615px){
+  .col-xxl-4 {
+    max-width: 400px;
+  }
+}
+
+
 .card-header,
 .card-footer {
   border-color: #ebeef4;
@@ -1443,11 +1461,11 @@ th {
 
 }
 
-@media (min-width: 1400px){
+/* @media (min-width: 1400px){
   .col-xxl-4-data {
       width: 43.33333333%;
   }
-}
+} */
 
 
 .btn-devices-edit {
@@ -1527,19 +1545,71 @@ th {
   float: right;
 }
 
-.heading-lastdata {
-  color: #ffffff;
-  font-weight: 700;
-}
-
 .time-lastdata {
   color: #ffffff;
   font-weight: 600;
+
 }
 
 .lastdata-learn-more {
   border: transparent;
   background: transparent;
-  color: #1aff00;
+  color: #003796d5;
+  font-weight: 600;
   text-decoration: underline;
+}
+
+.lastdata-learn-more {
+  padding: 5px 10px;
+  background: #00ff0d;
+  border-radius: 10px;
+}
+
+.col-md-4 {
+  max-width: 400px;
+}
+
+.date-wrapper {
+  padding: 10px 15px;
+  border: 2px solid #003796b8;
+  border-radius: 10px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.date-content {
+  color: #008e80c1;
+  font-weight: 700;
+}
+
+.date-input {
+  max-width: 150px;
+}
+
+@media only screen and (max-width: 470px)  {
+  .date-wrapper {
+    flex-direction: column;
+    margin: auto;
+  }
+
+  .date-input {
+    max-width: 250px;
+    width: 100%;
+  }
+
+  .date-filter-responsive {
+    margin: 0 !important;
+    margin-bottom: 7px !important;
+  }
+
+  .filter-btn-wrapper {
+    margin: 0 !important;
+    margin-top: 10px !important;
+  }
+}
+
+.date-filter-btn {
+  background: #02a090c1 !important;
+  color: #ffffff;
+  border: transparent;
 }

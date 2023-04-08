@@ -158,7 +158,7 @@ const Devices = () => {
           <div className="modal-content">
             <div className="modal-header">
               <h1 className="modal-title fs-5" id="exampleModalLabel">
-                Edit Devices
+                Qurilmani o'zgartirish
               </h1>
               <button
                 type="button"
@@ -307,7 +307,7 @@ const Devices = () => {
 
                 <div className="text-end">
                   <button className="btn btn-primary devices-btn">
-                    Save changes
+                    Saqlash
                   </button>
                 </div>
               </form>
@@ -329,7 +329,7 @@ const Devices = () => {
           <div className="modal-content">
             <div className="modal-header">
               <h5 className="modal-title" id="exampleModalLongTitle">
-                Create Device
+                Qurilma yaratish
               </h5>
               <button
                 className="btn-close"
@@ -486,7 +486,7 @@ const Devices = () => {
 
                 <div className="text-end">
                   <button className="btn btn-primary devices-btn">
-                    Save changes
+                    Saqlash
                   </button>
                 </div>
               </form>
@@ -517,7 +517,7 @@ const Devices = () => {
                 data-bs-toggle="modal"
                 data-bs-target="#exampleModalLong"
               >
-                Add Device
+                Qurilma qo'shish
               </button>
             </div>
 

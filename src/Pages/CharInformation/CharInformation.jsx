@@ -33,7 +33,7 @@ const CharInformation = (props) => {
 
   return (
     <>
-      <h2 className="statis-heading">Received information from devices</h2>
+      <h2 className="statis-heading">Qurilmalardan olingan ma'lumotlar</h2>
       <ResponsiveContainer maxWidth={1000} height={400}>
         <BarChart
           data={data}
