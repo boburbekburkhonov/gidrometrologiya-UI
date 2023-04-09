@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from "react";
 import moment from "moment";
 import { Helmet } from "react-helmet-async";
+import * as XLSX from "xlsx";
 
 const History = () => {
   const [data, setData] = useState([]);
   const [loader, setLoader] = useState(true);
+  const [dataName, setDataName] = useState([]);
 
   function filterDate(e) {
     e.preventDefault();
 
-    const { startDate, endDate } = e.target;
+    const { startDate, endDate, deviceName } = e.target;
 
     if (startDate.value.length > 0 && endDate.value.length > 0) {
       fetch("http://localhost:3000/mqtt/filter/data", {
@@ -19,6 +21,7 @@ const History = () => {
           Authorization: "Bearer " + window.localStorage.getItem("token"),
         },
         body: JSON.stringify({
+          deviceName: deviceName.value,
           start: startDate.value,
           end: endDate.value,
         }),
@@ -43,11 +46,25 @@ const History = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data) {
+          const mySet = new Set();
+          data.filter((e) => {
+            mySet.add(e.typeSensor);
+          });
           setData(data);
+          setDataName([...mySet]);
           setLoader(false);
         }
       });
   }, []);
+
+  const exportDataToExcel = () => {
+    const workBook = XLSX.utils.book_new();
+    const workSheet = XLSX.utils.json_to_sheet(data);
+
+    XLSX.utils.book_append_sheet(workBook, workSheet, "MySheet1");
+
+    XLSX.writeFile(workBook, "History.xlsx");
+  };
 
   return (
     <>
@@ -61,14 +78,10 @@ const History = () => {
                   <span></span>
                   <span></span>
                 </div>
-              ) : data.length == 0 && !loader ? (
-                <div className="alert alert-info fs-4 fw-semibold" role="alert">
-                  Hozircha qurilmadan ma'lumot kelmadi!
-                </div>
               ) : (
                 <>
                   <h2 className="statis-heading">Ma'lumotlar tarixi</h2>
-                  <div>
+                  <div className="d-flex flex-wrap">
                     <form
                       className="d-flex justify-content-center date-wrapper"
                       onSubmit={filterDate}
@@ -97,12 +110,38 @@ const History = () => {
                         />
                       </div>
 
+                      <div className="d-flex flex-column date-filter filter-select">
+                        <label className="date-content" htmlFor="start-date">
+                          Qurilma nomi
+                        </label>
+                        <select className="form-select" name="deviceName">
+                          <option value="All">All</option>
+                          {dataName.map((e, index) => {
+                            return (
+                              <option value={e} key={index}>
+                                {e}
+                              </option>
+                            );
+                          })}
+                          <option value="Mydored">Mydored</option>
+                        </select>
+                      </div>
+
                       <div className="d-flex flex-column-reverse ms-3 filter-btn-wrapper">
                         <button className="btn btn-info date-filter-btn">
                           Qidirish
                         </button>
                       </div>
                     </form>
+
+                    <div className="ms-auto">
+                      <button
+                        className="btn btn-info btn-save-data"
+                        onClick={exportDataToExcel}
+                      >
+                        Ma'lumotlarni saqlash
+                      </button>
+                    </div>
                   </div>
 
                   <div className="table-scrol m-auto">

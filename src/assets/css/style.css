@@ -1573,7 +1573,7 @@ th {
   padding: 10px 15px;
   border: 2px solid #003796b8;
   border-radius: 10px;
-  max-width: 500px;
+  max-width: 620px;
   width: 100%;
 }
 
@@ -1586,7 +1586,7 @@ th {
   max-width: 150px;
 }
 
-@media only screen and (max-width: 470px)  {
+@media only screen and (max-width: 640px)  {
   .date-wrapper {
     flex-direction: column;
     margin: auto;
@@ -1606,9 +1606,30 @@ th {
     margin: 0 !important;
     margin-top: 10px !important;
   }
+
+  .filter-select {
+    margin: 0 !important;
+    margin-top: 10px !important;
+  }
+}
+
+@media only screen and (max-width: 850px) {
+  .btn-save-data {
+    margin-top: 20px;
+  }
 }
 
 .date-filter-btn {
+  background: #02a090c1 !important;
+  color: #ffffff;
+  border: transparent;
+}
+
+.filter-select {
+  margin-left: 20px;
+}
+
+.btn-save-data {
   background: #02a090c1 !important;
   color: #ffffff;
   border: transparent;
