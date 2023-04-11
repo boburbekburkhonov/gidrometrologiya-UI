@@ -1,15 +1,15 @@
+import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useParams } from "react-router-dom";
-import moment from "moment";
 
-const DevicesInformation = () => {
-  const [dataDevicesInformation, setDataDevicesInformation] = useState([]);
+const LastDataAdmin = () => {
+  const [lastdata, setLastData] = useState([]);
   const [loader, setLoader] = useState(true);
   const { term } = useParams();
 
   useEffect(() => {
-    fetch(`http://localhost:3000/mqtt/data/${term}`, {
+    fetch(`http://localhost:3000/mqtt/admin/lastdata/${term}`, {
       method: "GET",
       headers: {
         "content-type": "application/json",
@@ -19,7 +19,7 @@ const DevicesInformation = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data) {
-          setDataDevicesInformation(data);
+          setLastData(data);
           setLoader(false);
         }
       });
@@ -36,18 +36,14 @@ const DevicesInformation = () => {
                 <span></span>
                 <span></span>
               </div>
-            ) : dataDevicesInformation.length == 0 && !loader ? (
-              <div className="alert alert-info fs-4 fw-semibold" role="alert">
-                Hozircha bu qurilmadan ma'lumot kelmadi!
-              </div>
             ) : (
               <>
-                <h2>Received information</h2>
-                <div className="table-scrol">
+                <h2>{term == "data" ? "Data" : "Last Data"}</h2>
+                <div className="table-scrol m-auto">
                   <table className="c-table mt-4 table-scroll">
                     <thead className="c-table__header">
                       <tr>
-                        <th>N</th>
+                        <th className="c-table__col-label">Name</th>
                         <th className="c-table__col-label">WindDirection</th>
                         <th className="c-table__col-label">RainHeight</th>
                         <th className="c-table__col-label">WindSpeed</th>
@@ -64,13 +60,13 @@ const DevicesInformation = () => {
                       </tr>
                     </thead>
                     <tbody className="c-table__body">
-                      {dataDevicesInformation.length > 0 &&
-                        dataDevicesInformation.map((element, index) => {
+                      {lastdata.length > 0 &&
+                        lastdata.map((element, index) => {
                           const time = new Date(element.time);
                           time.setHours(time.getHours() - 5);
                           return (
                             <tr className="fs-6" key={index}>
-                              <td className="fw-semibold">{index + 1}</td>
+                              <td className="c-table__cell">{element.name}</td>
                               <td className="c-table__cell">
                                 {element.windDirection}
                               </td>
@@ -106,7 +102,10 @@ const DevicesInformation = () => {
                               </td>
                               <td className="c-table__cell">{element.imei}</td>
                               <td className="c-table__cell">
-                                {moment(time).format("LLLL")}
+                                {new Date().getDate() ==
+                                new Date(element.time).getDate()
+                                  ? moment(time).format("LTS")
+                                  : moment(time).format("LLLL")}
                               </td>
                             </tr>
                           );
@@ -127,4 +126,4 @@ const DevicesInformation = () => {
   );
 };
 
-export default DevicesInformation;
+export default LastDataAdmin;

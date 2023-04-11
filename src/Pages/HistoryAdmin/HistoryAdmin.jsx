@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
 import moment from "moment";
+import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import * as XLSX from "xlsx";
 
-const History = () => {
+const HistoryAdmin = () => {
   const [data, setData] = useState([]);
   const [loader, setLoader] = useState(true);
   const [dataName, setDataName] = useState([]);
@@ -14,7 +14,7 @@ const History = () => {
     const { startDate, endDate, deviceName } = e.target;
 
     if (startDate.value.length > 0 && endDate.value.length > 0) {
-      fetch("http://localhost:3000/mqtt/filter/data", {
+      fetch("http://localhost:3000/mqtt/admin/filter/data", {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -36,7 +36,7 @@ const History = () => {
   }
 
   useEffect(() => {
-    fetch("http://localhost:3000/mqtt/data", {
+    fetch("http://localhost:3000/mqtt/admin/data", {
       method: "GET",
       headers: {
         "content-type": "application/json",
@@ -261,4 +261,4 @@ const History = () => {
   );
 };
 
-export default History;
+export default HistoryAdmin;

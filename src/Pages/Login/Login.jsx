@@ -30,8 +30,7 @@ const Login = () => {
       .then((data) => {
         if (data.access_token) {
           window.localStorage.setItem("token", data.access_token);
-          window.localStorage.setItem("name", data.name);
-          window.localStorage.setItem("username", data.username);
+          window.localStorage.setItem("role", data.role);
           if (data.role == "admin") {
             window.location.href = "/admin";
           } else {

@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CharInformation from "../CharInformation/CharInformation";
-import moment from "moment";
 import AliceCarousel from "react-alice-carousel";
-import "react-alice-carousel/lib/alice-carousel.css";
+import moment from "moment";
 
-const Statistic = () => {
+const StatisticAdmin = () => {
   const [dataDevicesStatistics, setDataDevicesStatistics] = useState([]);
   const [dataInformation, setDataInformation] = useState([]);
   const [lastData, setLastData] = useState([]);
@@ -13,7 +12,7 @@ const Statistic = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:3000/mqtt/data/statistics/devices", {
+    fetch("http://localhost:3000/mqtt/admin/data/statistics/devices", {
       method: "GET",
       headers: {
         "content-type": "application/json",
@@ -23,7 +22,7 @@ const Statistic = () => {
       .then((res) => res.json())
       .then((data) => setDataDevicesStatistics(data));
 
-    fetch("http://localhost:3000/mqtt/data/statistics", {
+    fetch("http://localhost:3000/mqtt/admin/data/statistics", {
       method: "GET",
       headers: {
         "content-type": "application/json",
@@ -33,7 +32,7 @@ const Statistic = () => {
       .then((res) => res.json())
       .then((data) => setDataInformation(data));
 
-    fetch("http://localhost:3000/mqtt/lastdata", {
+    fetch("http://localhost:3000/mqtt/admin/lastdata", {
       method: "GET",
       headers: {
         "content-type": "application/json",
@@ -79,7 +78,7 @@ const Statistic = () => {
               <div className="d-flex justify-content-end">
                 <button
                   className="lastdata-learn-more"
-                  onClick={() => navigate(`/user/mqtt/${element.imei}`)}
+                  onClick={() => navigate(`/admin/mqtt/${element.imei}`)}
                 >
                   Batafsil
                 </button>
@@ -130,7 +129,7 @@ const Statistic = () => {
                 <h2 className="statis-heading mt-4">Ishlagan qurilmalar</h2>
                 <div
                   className="col-xxl-4 col-md-6 cursor"
-                  onClick={() => navigate("/user/working/devices/present")}
+                  onClick={() => navigate("/admin/working/devices/present")}
                 >
                   <div className="card info-card sales-card">
                     <div className="card-body">
@@ -160,7 +159,7 @@ const Statistic = () => {
 
                 <div
                   className="col-xxl-4 col-md-6 cursor"
-                  onClick={() => navigate("/user/working/devices/three")}
+                  onClick={() => navigate("/admin/working/devices/three")}
                 >
                   <div className="card info-card sales-card">
                     <div className="card-body">
@@ -190,7 +189,7 @@ const Statistic = () => {
 
                 <div
                   className="col-xxl-4 col-md-6 cursor"
-                  onClick={() => navigate("/user/working/devices/ten")}
+                  onClick={() => navigate("/admin/working/devices/ten")}
                 >
                   <div className="card info-card sales-card">
                     <div className="card-body">
@@ -220,7 +219,7 @@ const Statistic = () => {
 
                 <div
                   className="col-xxl-4 col-md-6 cursor"
-                  onClick={() => navigate("/user/working/devices/month")}
+                  onClick={() => navigate("/admin/working/devices/month")}
                 >
                   <div className="card info-card sales-card">
                     <div className="card-body">
@@ -250,7 +249,7 @@ const Statistic = () => {
 
                 <div
                   className="col-xxl-4 col-md-6 cursor"
-                  onClick={() => navigate("/user/working/devices/year")}
+                  onClick={() => navigate("/admin/working/devices/year")}
                 >
                   <div className="card info-card sales-card">
                     <div className="card-body">
@@ -286,4 +285,4 @@ const Statistic = () => {
   );
 };
 
-export default Statistic;
+export default StatisticAdmin;

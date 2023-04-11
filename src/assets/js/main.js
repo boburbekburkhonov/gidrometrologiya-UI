@@ -1,5 +1,5 @@
 (function () {
-  "use strict";
+  ("use strict");
 
   const select = (el, all = false) => {
     el = el.trim();
@@ -34,14 +34,16 @@
     });
   }
 
-  setInterval(() => {
-    if (select(".pagetitle")) {
-      on("click", ".pagetitle", function (e) {
-        select("body").classList.add("toggle-sidebar");
-      });
-    }
-  }, [1000]);
-
+  // setInterval(() => {
+  //   if (select(".pagetitle")) {
+  //     on("click", ".pagetitle", function (e) {
+  //       if (!select("body").classList.contains("toggle-sidebar")) {
+  //         console.log(select("body").classList.contains("toggle-sidebar"));
+  //         select("body").classList.add("toggle-sidebar");
+  //       }
+  //     });
+  //   }
+  // }, [1000]);
   /**
    * Search bar toggle
    */

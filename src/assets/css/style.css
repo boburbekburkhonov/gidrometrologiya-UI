@@ -1461,13 +1461,6 @@ th {
 
 }
 
-/* @media (min-width: 1400px){
-  .col-xxl-4-data {
-      width: 43.33333333%;
-  }
-} */
-
-
 .btn-devices-edit {
   background: transparent;
   border: transparent;
@@ -1565,7 +1558,7 @@ th {
   border-radius: 10px;
 }
 
-.col-md-4 {
+.col-md-4-spinner {
   max-width: 400px;
 }
 

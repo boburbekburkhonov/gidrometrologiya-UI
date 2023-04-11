@@ -3,7 +3,7 @@ import { Helmet } from "react-helmet-async";
 import { useParams } from "react-router-dom";
 import moment from "moment";
 
-const DataAndLastdata = () => {
+const Lastdata = () => {
   const [lastdata, setLastData] = useState([]);
   const [loader, setLoader] = useState(true);
   const { term } = useParams();
@@ -43,6 +43,7 @@ const DataAndLastdata = () => {
                   <table className="c-table mt-4 table-scroll">
                     <thead className="c-table__header">
                       <tr>
+                        <th className="c-table__col-label">Name</th>
                         <th className="c-table__col-label">WindDirection</th>
                         <th className="c-table__col-label">RainHeight</th>
                         <th className="c-table__col-label">WindSpeed</th>
@@ -65,6 +66,7 @@ const DataAndLastdata = () => {
                           time.setHours(time.getHours() - 5);
                           return (
                             <tr className="fs-6" key={index}>
+                              <td className="c-table__cell">{element.name}</td>
                               <td className="c-table__cell">
                                 {element.windDirection}
                               </td>
@@ -124,4 +126,4 @@ const DataAndLastdata = () => {
   );
 };
 
-export default DataAndLastdata;
+export default Lastdata;

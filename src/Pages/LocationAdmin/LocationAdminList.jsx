@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from "react";
 import {
   YMaps,
   Map,
@@ -6,8 +5,9 @@ import {
   GeolocationControl,
   TypeSelector,
 } from "@pbe/react-yandex-maps";
+import React, { useEffect, useState } from "react";
 
-const LocationList = () => {
+const LocationAdminList = () => {
   const [info, setInfo] = useState([]);
 
   const defaultState = {
@@ -17,7 +17,7 @@ const LocationList = () => {
   };
 
   useEffect(() => {
-    fetch(`http://localhost:3000/info/user`, {
+    fetch(`http://localhost:3000/info/list`, {
       method: "GET",
       headers: {
         "content-type": "application/json",
@@ -31,7 +31,7 @@ const LocationList = () => {
         }
       });
   }, []);
-  console.log(info);
+
   return (
     <main id="main" className="main">
       <div className="pagetitle">
@@ -80,4 +80,4 @@ const LocationList = () => {
   );
 };
 
-export default LocationList;
+export default LocationAdminList;
