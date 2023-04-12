@@ -216,16 +216,6 @@ const User = () => {
                 <li className="nav-item">
                   <button
                     className="nav-link collapsed w-100"
-                    onClick={() => navigate("/user/devices")}
-                  >
-                    <i className="bi bi-layout-text-window-reverse"></i>
-                    <span>Qurilmalar</span>
-                  </button>
-                </li>
-
-                <li className="nav-item">
-                  <button
-                    className="nav-link collapsed w-100"
                     onClick={() => navigate("/user/history")}
                   >
                     <i className="bi bi-archive"></i>
@@ -240,6 +230,16 @@ const User = () => {
                   >
                     <i className="bi bi-geo-alt-fill"></i>
                     <span>Lokatsiya</span>
+                  </button>
+                </li>
+
+                <li className="nav-item">
+                  <button
+                    className="nav-link collapsed w-100"
+                    onClick={() => navigate("/user/devices")}
+                  >
+                    <i className="bi bi-layout-text-window-reverse"></i>
+                    <span>Qurilmalar</span>
                   </button>
                 </li>
 

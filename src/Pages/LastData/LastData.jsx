@@ -38,7 +38,7 @@ const Lastdata = () => {
               </div>
             ) : (
               <>
-                <h2>{term == "data" ? "Data" : "Last Data"}</h2>
+                <h2>Oxirgi ma'lumotlar</h2>
                 <div className="table-scrol m-auto">
                   <table className="c-table mt-4 table-scroll">
                     <thead className="c-table__header">
@@ -115,7 +115,9 @@ const Lastdata = () => {
                                 {new Date().getDate() ==
                                 new Date(element.time).getDate()
                                   ? moment(time).format("LTS")
-                                  : moment(time).format("LLLL")}
+                                  : moment(time).format("L") +
+                                    " " +
+                                    moment().format("LTS")}
                               </td>
                             </tr>
                           );

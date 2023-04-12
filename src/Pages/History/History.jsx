@@ -224,7 +224,9 @@ const History = () => {
                                   {new Date().getDate() ==
                                   new Date(element.time).getDate()
                                     ? moment(time).format("LTS")
-                                    : moment(time).format("LLLL")}
+                                    : moment(time).format("L") +
+                                      " " +
+                                      moment().format("LTS")}
                                 </td>
                               </tr>
                             );

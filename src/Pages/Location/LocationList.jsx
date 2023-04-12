@@ -57,7 +57,17 @@ const LocationList = () => {
                         key={index}
                         properties={{
                           hintContent: element.name,
-                          balloonContent: `<div className='text-danger'>Imei ${element.imei}</div>`,
+                          balloonContentHeader:
+                            '<img src="https://cdn-icons-png.flaticon.com/512/1865/1865269.png" height="120" width="180"> <br/> ',
+                          balloonContentBody:
+                            `<b><span href = "#">Qurilma nomi: ${element.name}</span></b><br>` +
+                            `<span class="description">Viloyat: ${element.region}</span><br/>` +
+                            `<span class="description">Tuman: ${element.district}</span> <br/>` +
+                            `<span>Telefon raqam: <a href="tel:${element.phoneNumber}">${element.phoneNumber}</a></span><br/>` +
+                            `<span class="description">Latitude: ${element.lat}</span> <br/>` +
+                            `<span class="description">Longitude: ${element.lon}</span> <br/>` +
+                            `<b><span class="description">Imei: ${element.imei}</span></b> <br/>` +
+                            `<span class="description">Suv ombori identifikatori: ${element.reservoirId}</span> <br/>`,
                         }}
                         modules={[
                           "geoObject.addon.hint",

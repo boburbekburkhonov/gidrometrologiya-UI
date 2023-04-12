@@ -41,7 +41,7 @@ const WorkingDevices = () => {
               </div>
             ) : (
               <>
-                <h2>Devices working</h2>
+                <h2>Ishlagan qurilmalar</h2>
                 <table className="c-table mt-4">
                   <thead className="c-table__header">
                     <tr>

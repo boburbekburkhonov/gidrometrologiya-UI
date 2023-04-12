@@ -58,21 +58,21 @@ const Statistic = () => {
           <div className="card bg-c-blue order-card">
             <div className="card-block">
               <h2 className="m-b-20 fs-5 heading-lastdata time-lastdata">
-                Name: {element.name}
+                Qurilma nomi: {element.name}
               </h2>
 
               <h2 className="text-right">
                 <span className="fs-5 time-lastdata">
-                  TypeSensor: {element.typeSensor}
+                  Sensor turi: {element.typeSensor}
                 </span>
               </h2>
 
               <h2 className="text-right">
                 <span className="fs-5 time-lastdata">
-                  Date:{" "}
+                  Vaqti:{" "}
                   {new Date().getDate() == new Date(element.time).getDate()
                     ? moment(time).format("LTS")
-                    : time.toLocaleString()}
+                    : moment(time).format("L") + " " + moment().format("LTS")}
                 </span>
               </h2>
 
