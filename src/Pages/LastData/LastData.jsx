@@ -43,20 +43,30 @@ const Lastdata = () => {
                   <table className="c-table mt-4 table-scroll">
                     <thead className="c-table__header">
                       <tr>
-                        <th className="c-table__col-label">Name</th>
-                        <th className="c-table__col-label">WindDirection</th>
-                        <th className="c-table__col-label">RainHeight</th>
-                        <th className="c-table__col-label">WindSpeed</th>
-                        <th className="c-table__col-label">AirHumidity</th>
-                        <th className="c-table__col-label">AirTemp</th>
-                        <th className="c-table__col-label">AirPressure</th>
-                        <th className="c-table__col-label">SoilHumidity</th>
-                        <th className="c-table__col-label">SoilTemp</th>
-                        <th className="c-table__col-label">LeafHumidity</th>
-                        <th className="c-table__col-label">LeafTemp</th>
-                        <th className="c-table__col-label">TypeSensor</th>
+                        <th className="c-table__col-label">Qurilma nomi</th>
+                        <th className="c-table__col-label">
+                          Shamol yo'nalishi
+                        </th>
+                        <th className="c-table__col-label">Shamol tezligi</th>
+                        <th className="c-table__col-label">
+                          Tuproq temperaturasi
+                        </th>
+                        <th className="c-table__col-label">Tuproq namligi</th>
+                        <th className="c-table__col-label">
+                          Havo temperaturasi
+                        </th>
+                        <th className="c-table__col-label">Havo namligi</th>
+                        <th className="c-table__col-label">Havo bosimi</th>
+                        <th className="c-table__col-label">
+                          Barg temperaturasi
+                        </th>
+                        <th className="c-table__col-label">Barg namligi</th>
+                        <th className="c-table__col-label">
+                          Yomg'ir qalingligi
+                        </th>
+                        <th className="c-table__col-label">Sensor turi</th>
                         <th className="c-table__col-label">Imei</th>
-                        <th className="c-table__col-label">Time</th>
+                        <th className="c-table__col-label">Vaqt</th>
                       </tr>
                     </thead>
                     <tbody className="c-table__body">
@@ -68,34 +78,34 @@ const Lastdata = () => {
                             <tr className="fs-6" key={index}>
                               <td className="c-table__cell">{element.name}</td>
                               <td className="c-table__cell">
-                                {element.windDirection}
+                                {element.windDirection}°C
                               </td>
                               <td className="c-table__cell">
-                                {element.rainHeight}
+                                {element.windSpeed} m/s
                               </td>
                               <td className="c-table__cell">
-                                {element.windSpeed}
+                                {element.soilTemp}°C
                               </td>
                               <td className="c-table__cell">
-                                {element.airHumidity}
+                                {element.soilHumidity} %
                               </td>
                               <td className="c-table__cell">
-                                {element.airTemp}
+                                {element.airTemp}°C
                               </td>
                               <td className="c-table__cell">
-                                {element.airPressure}
+                                {element.airHumidity}%
                               </td>
                               <td className="c-table__cell">
-                                {element.soilHumidity}
+                                {element.airPressure} kPa
                               </td>
                               <td className="c-table__cell">
-                                {element.soilTemp}
+                                {element.leafTemp}°C
                               </td>
                               <td className="c-table__cell">
-                                {element.leafHumidity}
+                                {element.leafHumidity}%
                               </td>
                               <td className="c-table__cell">
-                                {element.leafTemp}
+                                {element.rainHeight} mm
                               </td>
                               <td className="c-table__cell">
                                 {element.typeSensor}

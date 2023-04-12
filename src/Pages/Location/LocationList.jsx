@@ -31,7 +31,7 @@ const LocationList = () => {
         }
       });
   }, []);
-  console.log(info);
+
   return (
     <main id="main" className="main">
       <div className="pagetitle">

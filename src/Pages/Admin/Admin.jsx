@@ -22,6 +22,7 @@ import ErrorPage from "../Error/ErrorPage";
 const Admin = () => {
   const token = window.localStorage.getItem("token");
   const [dataProfile, setDataProfile] = useState([]);
+  const [loader, setLoader] = useState(true);
 
   if (!token) {
     window.location.href = "/login";
@@ -45,6 +46,7 @@ const Admin = () => {
       .then((data) => {
         if (data) {
           setDataProfile(data);
+          setLoader(false);
         }
       });
   }, []);
@@ -52,7 +54,13 @@ const Admin = () => {
   return (
     <HelmetProvider>
       <>
-        {dataProfile.role != "admin" ? (
+        {loader ? (
+          <div className="loader">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        ) : dataProfile.role != "admin" ? (
           <ErrorPage />
         ) : (
           <div>
@@ -75,35 +83,8 @@ const Admin = () => {
                 </button>
               </div>
 
-              <div className="search-bar">
-                <form
-                  className="search-form d-flex align-items-center"
-                  method="POST"
-                  action="#"
-                >
-                  <input
-                    type="text"
-                    name="query"
-                    placeholder="Search"
-                    title="Enter search keyword"
-                  />
-                  <button type="submit" title="Search">
-                    <i className="bi bi-search"></i>
-                  </button>
-                </form>
-              </div>
-
               <nav className="header-nav ms-auto">
                 <ul className="d-flex align-items-center">
-                  <li className="nav-item d-block d-lg-none">
-                    <a
-                      className="nav-link nav-icon search-bar-toggle "
-                      href="#"
-                    >
-                      <i className="bi bi-search"></i>
-                    </a>
-                  </li>
-
                   <li className="nav-item dropdown">
                     <a className="nav-link nav-icon" href="#">
                       <i className="bi bi-bell"></i>
@@ -341,6 +322,7 @@ const Admin = () => {
             </Routes>
           </div>
         )}
+        {}
       </>
     </HelmetProvider>
   );

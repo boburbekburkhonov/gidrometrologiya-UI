@@ -148,20 +148,30 @@ const HistoryAdmin = () => {
                     <table className="c-table mt-4 table-scroll">
                       <thead className="c-table__header">
                         <tr>
-                          <th className="c-table__col-label">Name</th>
-                          <th className="c-table__col-label">WindDirection</th>
-                          <th className="c-table__col-label">RainHeight</th>
-                          <th className="c-table__col-label">WindSpeed</th>
-                          <th className="c-table__col-label">AirHumidity</th>
-                          <th className="c-table__col-label">AirTemp</th>
-                          <th className="c-table__col-label">AirPressure</th>
-                          <th className="c-table__col-label">SoilHumidity</th>
-                          <th className="c-table__col-label">SoilTemp</th>
-                          <th className="c-table__col-label">LeafHumidity</th>
-                          <th className="c-table__col-label">LeafTemp</th>
-                          <th className="c-table__col-label">TypeSensor</th>
+                          <th className="c-table__col-label">Qurilma nomi</th>
+                          <th className="c-table__col-label">
+                            Shamol yo'nalishi
+                          </th>
+                          <th className="c-table__col-label">Shamol tezligi</th>
+                          <th className="c-table__col-label">
+                            Tuproq temperaturasi
+                          </th>
+                          <th className="c-table__col-label">Tuproq namligi</th>
+                          <th className="c-table__col-label">
+                            Havo temperaturasi
+                          </th>
+                          <th className="c-table__col-label">Havo namligi</th>
+                          <th className="c-table__col-label">Havo bosimi</th>
+                          <th className="c-table__col-label">
+                            Barg temperaturasi
+                          </th>
+                          <th className="c-table__col-label">Barg namligi</th>
+                          <th className="c-table__col-label">
+                            Yomg'ir qalingligi
+                          </th>
+                          <th className="c-table__col-label">Sensor turi</th>
                           <th className="c-table__col-label">Imei</th>
-                          <th className="c-table__col-label">Time</th>
+                          <th className="c-table__col-label">Vaqt</th>
                         </tr>
                       </thead>
                       <tbody className="c-table__body">
@@ -172,74 +182,49 @@ const HistoryAdmin = () => {
                             return (
                               <tr className="fs-6" key={index}>
                                 <td className="c-table__cell">
-                                  <a href="#" className="text-dark">
-                                    {element.name}
-                                  </a>
+                                  {element.name}
                                 </td>
                                 <td className="c-table__cell">
-                                  <a href="#" className="text-dark">
-                                    {element.windDirection}
-                                  </a>
+                                  {element.windDirection}°C
                                 </td>
                                 <td className="c-table__cell">
-                                  <a href="#" className="text-dark">
-                                    {element.rainHeight}
-                                  </a>
+                                  {element.windSpeed} m/s
                                 </td>
                                 <td className="c-table__cell">
-                                  <a href="#" className="text-dark">
-                                    {element.windSpeed}
-                                  </a>
+                                  {element.soilTemp}°C
                                 </td>
                                 <td className="c-table__cell">
-                                  <a href="#" className="text-dark">
-                                    {element.airHumidity}
-                                  </a>
+                                  {element.soilHumidity} %
                                 </td>
                                 <td className="c-table__cell">
-                                  <a href="#" className="text-dark">
-                                    {element.airTemp}
-                                  </a>
+                                  {element.airTemp}°C
                                 </td>
                                 <td className="c-table__cell">
-                                  <a href="#" className="text-dark">
-                                    {element.airPressure}
-                                  </a>
+                                  {element.airHumidity}%
                                 </td>
                                 <td className="c-table__cell">
-                                  <a href="#" className="text-dark">
-                                    {element.soilHumidity}
-                                  </a>
+                                  {element.airPressure} kPa
                                 </td>
                                 <td className="c-table__cell">
-                                  <a href="#" className="text-dark">
-                                    {element.soilTemp}
-                                  </a>
+                                  {element.leafTemp}°C
                                 </td>
                                 <td className="c-table__cell">
-                                  <a href="#" className="text-dark">
-                                    {element.leafHumidity}
-                                  </a>
+                                  {element.leafHumidity}%
                                 </td>
                                 <td className="c-table__cell">
-                                  <a href="#" className="text-dark">
-                                    {element.leafTemp}
-                                  </a>
+                                  {element.rainHeight} mm
                                 </td>
                                 <td className="c-table__cell">
-                                  <a href="#" className="text-dark">
-                                    {element.typeSensor}
-                                  </a>
+                                  {element.typeSensor}
                                 </td>
                                 <td className="c-table__cell">
-                                  <a href="#" className="text-dark">
-                                    {element.imei}
-                                  </a>
+                                  {element.imei}
                                 </td>
                                 <td className="c-table__cell">
-                                  <a href="#" className="text-dark">
-                                    {moment(time).format("LLLL")}
-                                  </a>
+                                  {new Date().getDate() ==
+                                  new Date(element.time).getDate()
+                                    ? moment(time).format("LTS")
+                                    : moment(time).format("LLLL")}
                                 </td>
                               </tr>
                             );

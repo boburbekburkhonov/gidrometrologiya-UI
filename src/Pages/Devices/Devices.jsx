@@ -174,7 +174,7 @@ const Devices = () => {
                     htmlFor="name"
                     className="col-md-4 col-lg-3 col-form-label modal-label"
                   >
-                    Name
+                    Qurilma nomi
                   </label>
                   <div className="col-md-8 col-lg-9">
                     <input
@@ -188,27 +188,10 @@ const Devices = () => {
 
                 <div className="row mb-3">
                   <label
-                    htmlFor="district"
-                    className="col-md-4 col-lg-3 col-form-label modal-label"
-                  >
-                    District
-                  </label>
-                  <div className="col-md-8 col-lg-9">
-                    <input
-                      name="district"
-                      type="text"
-                      className="form-control"
-                      id="district"
-                    />
-                  </div>
-                </div>
-
-                <div className="row mb-3">
-                  <label
                     htmlFor="region"
                     className="col-md-4 col-lg-3 col-form-label modal-label"
                   >
-                    Region
+                    Viloyat
                   </label>
                   <div className="col-md-8 col-lg-9">
                     <input
@@ -216,6 +199,23 @@ const Devices = () => {
                       type="text"
                       className="form-control"
                       id="region"
+                    />
+                  </div>
+                </div>
+
+                <div className="row mb-3">
+                  <label
+                    htmlFor="district"
+                    className="col-md-4 col-lg-3 col-form-label modal-label"
+                  >
+                    Tuman
+                  </label>
+                  <div className="col-md-8 col-lg-9">
+                    <input
+                      name="district"
+                      type="text"
+                      className="form-control"
+                      id="district"
                     />
                   </div>
                 </div>
@@ -276,7 +276,7 @@ const Devices = () => {
                     htmlFor="phone-number"
                     className="col-md-4 col-lg-3 col-form-label modal-label"
                   >
-                    Phone Number
+                    Telefon raqam
                   </label>
                   <div className="col-md-8 col-lg-9">
                     <input
@@ -345,7 +345,7 @@ const Devices = () => {
                     htmlFor="name"
                     className="col-md-4 col-lg-3 col-form-label modal-label"
                   >
-                    Name
+                    Qurilma nomi
                   </label>
                   <div className="col-md-8 col-lg-9">
                     <input
@@ -360,28 +360,10 @@ const Devices = () => {
 
                 <div className="row mb-3">
                   <label
-                    htmlFor="district"
-                    className="col-md-4 col-lg-3 col-form-label modal-label"
-                  >
-                    District
-                  </label>
-                  <div className="col-md-8 col-lg-9">
-                    <input
-                      name="district"
-                      type="text"
-                      className="form-control"
-                      id="district"
-                      required
-                    />
-                  </div>
-                </div>
-
-                <div className="row mb-3">
-                  <label
                     htmlFor="region"
                     className="col-md-4 col-lg-3 col-form-label modal-label"
                   >
-                    Region
+                    Viloyat
                   </label>
                   <div className="col-md-8 col-lg-9">
                     <input
@@ -389,6 +371,24 @@ const Devices = () => {
                       type="text"
                       className="form-control"
                       id="region"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div className="row mb-3">
+                  <label
+                    htmlFor="district"
+                    className="col-md-4 col-lg-3 col-form-label modal-label"
+                  >
+                    Tuman
+                  </label>
+                  <div className="col-md-8 col-lg-9">
+                    <input
+                      name="district"
+                      type="text"
+                      className="form-control"
+                      id="district"
                       required
                     />
                   </div>
@@ -453,7 +453,7 @@ const Devices = () => {
                     htmlFor="phone-number"
                     className="col-md-4 col-lg-3 col-form-label modal-label"
                   >
-                    Phone Number
+                    Telefon raqam
                   </label>
                   <div className="col-md-8 col-lg-9">
                     <input
@@ -531,13 +531,13 @@ const Devices = () => {
               <table className="c-table mt-4">
                 <thead className="c-table__header">
                   <tr>
-                    <th className="c-table__col-label">Name</th>
-                    <th className="c-table__col-label">District</th>
-                    <th className="c-table__col-label">Region</th>
+                    <th className="c-table__col-label">Qurilma nomi</th>
+                    <th className="c-table__col-label">Viloyat</th>
+                    <th className="c-table__col-label">Tuman</th>
                     <th className="c-table__col-label">Latitude</th>
                     <th className="c-table__col-label">Longitude</th>
                     <th className="c-table__col-label">Reservoir Id</th>
-                    <th className="c-table__col-label">Phone Number</th>
+                    <th className="c-table__col-label">Telefon raqam</th>
                     <th className="c-table__col-label">Imei</th>
                     <th className="c-table__col-label">Edit</th>
                     <th className="c-table__col-label">Delete</th>
@@ -549,8 +549,8 @@ const Devices = () => {
                       return (
                         <tr className="fs-6" key={index}>
                           <td className="c-table__cell">{element.name}</td>
-                          <td className="c-table__cell">{element.district}</td>
                           <td className="c-table__cell">{element.region}</td>
+                          <td className="c-table__cell">{element.district}</td>
                           <td className="c-table__cell">{element.lat}</td>
                           <td className="c-table__cell">{element.lon}</td>
                           <td className="c-table__cell">

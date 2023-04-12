@@ -45,13 +45,13 @@ const WorkingDevices = () => {
                 <table className="c-table mt-4">
                   <thead className="c-table__header">
                     <tr>
-                      <th className="c-table__col-label">Name</th>
-                      <th className="c-table__col-label">District</th>
-                      <th className="c-table__col-label">Region</th>
+                      <th className="c-table__col-label">Qurilma nomi</th>
+                      <th className="c-table__col-label">Viloyat</th>
+                      <th className="c-table__col-label">Tuman</th>
                       <th className="c-table__col-label">Latitude</th>
                       <th className="c-table__col-label">Longitude</th>
                       <th className="c-table__col-label">Reservoir Id</th>
-                      <th className="c-table__col-label">Phone Number</th>
+                      <th className="c-table__col-label">Telefon raqam</th>
                       <th className="c-table__col-label">Imei</th>
                     </tr>
                   </thead>
@@ -61,10 +61,10 @@ const WorkingDevices = () => {
                         return (
                           <tr className="fs-6" key={index}>
                             <td className="c-table__cell">{element.name}</td>
+                            <td className="c-table__cell">{element.region}</td>
                             <td className="c-table__cell">
                               {element.district}
                             </td>
-                            <td className="c-table__cell">{element.region}</td>
                             <td className="c-table__cell">{element.lat}</td>
                             <td className="c-table__cell">{element.lon}</td>
                             <td className="c-table__cell">
