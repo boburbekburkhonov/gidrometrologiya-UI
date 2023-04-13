@@ -1627,3 +1627,41 @@ th {
   color: #ffffff;
   border: transparent;
 }
+
+/* !DATA PRESENT */
+
+.present-day-data-heading {
+  margin: 0;
+  font-weight: 600;
+  color: #000000c1;
+}
+
+.present-day-data-desc {
+  margin: 0;
+  font-size: 17px;
+  margin-left: 20px;
+  font-weight: 600;
+  color: #ff0000;
+}
+
+.button-location-wrapper {
+  display: flex;
+  justify-content: end;
+}
+
+.button-location {
+  text-align: end;
+  border: transparent;
+  background: transparent;
+  color: #0095ff;
+}
+
+.table-location-width {
+  max-width: 800px !important;
+  max-height: 90vh !important;
+}
+
+.table-location-scrol {
+  overflow: auto;
+  max-height: 90vh !important;
+}

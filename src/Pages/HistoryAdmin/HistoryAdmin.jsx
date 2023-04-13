@@ -36,7 +36,7 @@ const HistoryAdmin = () => {
   }
 
   useEffect(() => {
-    fetch("http://localhost:3000/mqtt/admin/data", {
+    fetch("http://localhost:3000/mqtt/admin/data/present", {
       method: "GET",
       headers: {
         "content-type": "application/json",
@@ -65,6 +65,7 @@ const HistoryAdmin = () => {
 
     XLSX.writeFile(workBook, "History.xlsx");
   };
+  const time = new Date();
 
   return (
     <>
@@ -145,6 +146,20 @@ const HistoryAdmin = () => {
                   </div>
 
                   <div className="table-scrol m-auto">
+                    {data.every(
+                      (e) => new Date(e.time).getDate() == time.getDate()
+                    ) ? (
+                      <div className="d-flex align-items-center mt-3">
+                        <h3 className="fs-4 mb-0 present-day-data-heading">
+                          Bugungi ma'lumotlar
+                        </h3>
+                        <p className="present-day-data-desc">
+                          {moment(time).format("L") +
+                            " " +
+                            moment(time).format("LTS")}
+                        </p>
+                      </div>
+                    ) : null}
                     <table className="c-table mt-4 table-scroll">
                       <thead className="c-table__header">
                         <tr>

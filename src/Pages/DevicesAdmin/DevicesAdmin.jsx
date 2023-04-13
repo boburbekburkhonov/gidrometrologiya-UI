@@ -539,8 +539,8 @@ const DevicesAdmin = () => {
                     <th className="c-table__col-label">Telefon raqam</th>
                     <th className="c-table__col-label">Imei</th>
                     <th className="c-table__col-label">Foydalanuvchi</th>
-                    <th className="c-table__col-label">Edit</th>
-                    <th className="c-table__col-label">Delete</th>
+                    <th className="c-table__col-label">O'zgartirish</th>
+                    <th className="c-table__col-label">O'chirish</th>
                   </tr>
                 </thead>
                 <tbody className="c-table__body">
