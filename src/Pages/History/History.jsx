@@ -135,6 +135,11 @@ const History = () => {
                     </form>
 
                     <div className="ms-auto">
+                      <button className="custom-btn btn-12 ms-3">
+                        <span>Click!</span>
+                        <span>Yesterday data</span>
+                      </button>
+
                       <button
                         className="btn btn-info btn-save-data"
                         onClick={exportDataToExcel}
