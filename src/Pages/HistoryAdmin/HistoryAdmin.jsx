@@ -5,6 +5,7 @@ import * as XLSX from "xlsx";
 
 const HistoryAdmin = () => {
   const [data, setData] = useState([]);
+  const [dataStatistic, setDataStatistic] = useState([]);
   const [loader, setLoader] = useState(true);
   const [dataName, setDataName] = useState([]);
 
@@ -55,6 +56,20 @@ const HistoryAdmin = () => {
           setLoader(false);
         }
       });
+
+    fetch("http://localhost:3000/mqtt/admin/yesterday/data/statistics", {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+        Authorization: "Bearer " + window.localStorage.getItem("token"),
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data) {
+          setDataStatistic(data);
+        }
+      });
   }, []);
 
   const exportDataToExcel = () => {
@@ -66,6 +81,41 @@ const HistoryAdmin = () => {
     XLSX.writeFile(workBook, "History.xlsx");
   };
   const time = new Date();
+
+  const yesterdayData = () => {
+    fetch("http://localhost:3000/mqtt/admin/yesterday/data", {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+        Authorization: "Bearer " + window.localStorage.getItem("token"),
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data) {
+          setData(data);
+        }
+      });
+  };
+
+  const yesterdayDataStatistic = (time) => {
+    fetch(
+      `http://localhost:3000/mqtt/admin/yesterday/data/statistics/devices/${time}`,
+      {
+        method: "GET",
+        headers: {
+          "content-type": "application/json",
+          Authorization: "Bearer " + window.localStorage.getItem("token"),
+        },
+      }
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        if (data) {
+          setData(data);
+        }
+      });
+  };
 
   return (
     <>
@@ -135,7 +185,14 @@ const HistoryAdmin = () => {
                       </div>
                     </form>
 
-                    <div className="ms-auto">
+                    <div className="ms-auto history-btn-wrapper">
+                      <button
+                        className="custom-btn btn-1 ms-3"
+                        onClick={yesterdayData}
+                      >
+                        Yesterday data
+                      </button>
+
                       <button
                         className="btn btn-info btn-save-data"
                         onClick={exportDataToExcel}
@@ -143,6 +200,22 @@ const HistoryAdmin = () => {
                         Ma'lumotlarni saqlash
                       </button>
                     </div>
+                  </div>
+
+                  <div className="mt-3 deveices-statistics-wrapper">
+                    <ul className="list-unstyled m-0 p-0 d-flex align-items-center">
+                      {dataStatistic.map((item, index) => {
+                        return (
+                          <li
+                            key={index}
+                            className="data-statistic-item"
+                            onClick={() => yesterdayDataStatistic(item.time)}
+                          >
+                            {moment(item.time).format("L")}
+                          </li>
+                        );
+                      })}
+                    </ul>
                   </div>
 
                   <div className="table-scrol m-auto">

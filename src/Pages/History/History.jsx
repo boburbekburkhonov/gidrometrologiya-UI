@@ -5,6 +5,7 @@ import * as XLSX from "xlsx";
 
 const History = () => {
   const [data, setData] = useState([]);
+  const [dataStatistic, setDataStatistic] = useState([]);
   const [loader, setLoader] = useState(true);
   const [dataName, setDataName] = useState([]);
 
@@ -55,6 +56,20 @@ const History = () => {
           setLoader(false);
         }
       });
+
+    fetch("http://localhost:3000/mqtt/yesterday/data/statistics", {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+        Authorization: "Bearer " + window.localStorage.getItem("token"),
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data) {
+          setDataStatistic(data);
+        }
+      });
   }, []);
 
   const exportDataToExcel = () => {
@@ -64,6 +79,41 @@ const History = () => {
     XLSX.utils.book_append_sheet(workBook, workSheet, "MySheet1");
 
     XLSX.writeFile(workBook, "History.xlsx");
+  };
+
+  const yesterdayData = () => {
+    fetch("http://localhost:3000/mqtt/yesterday/data", {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+        Authorization: "Bearer " + window.localStorage.getItem("token"),
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data) {
+          setData(data);
+        }
+      });
+  };
+
+  const yesterdayDataStatistic = (time) => {
+    fetch(
+      `http://localhost:3000/mqtt/yesterday/data/statistics/devices/${time}`,
+      {
+        method: "GET",
+        headers: {
+          "content-type": "application/json",
+          Authorization: "Bearer " + window.localStorage.getItem("token"),
+        },
+      }
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        if (data) {
+          setData(data);
+        }
+      });
   };
 
   const time = new Date();
@@ -134,10 +184,12 @@ const History = () => {
                       </div>
                     </form>
 
-                    <div className="ms-auto">
-                      <button className="custom-btn btn-12 ms-3">
-                        <span>Click!</span>
-                        <span>Yesterday data</span>
+                    <div className="ms-auto history-btn-wrapper">
+                      <button
+                        className="custom-btn btn-1 ms-3"
+                        onClick={yesterdayData}
+                      >
+                        Yesterday data
                       </button>
 
                       <button
@@ -147,6 +199,23 @@ const History = () => {
                         Ma'lumotlarni saqlash
                       </button>
                     </div>
+                  </div>
+
+                  <div className="mt-3 deveices-statistics-wrapper">
+                    <ul className="list-unstyled m-0 p-0 d-flex align-items-center">
+                      {dataStatistic.map((item, index) => {
+                        return (
+                          <li
+                            key={index}
+                            className="data-statistic-item"
+                            onClick={() => yesterdayDataStatistic(item.time)}
+                          >
+                            {moment(item.time).format("L")}
+                          </li>
+
+                        );
+                      })}
+                    </ul>
                   </div>
 
                   <div className="table-scrol m-auto">
