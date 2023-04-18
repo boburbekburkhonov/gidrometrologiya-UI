@@ -4,13 +4,13 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "start": "vite --port 5173",
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview"
   },
   "dependencies": {
     "@pbe/react-yandex-maps": "^1.2.3",
+    "express": "^4.18.2",
     "moment": "^2.29.4",
     "react": "^18.2.0",
     "react-alice-carousel": "^2.7.1",

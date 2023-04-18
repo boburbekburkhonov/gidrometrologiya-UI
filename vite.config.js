@@ -7,4 +7,7 @@ export default defineConfig({
   optimizeDeps: {
     exclude: ["react-responsive-carousel"],
   },
+  server: {
+    host: true,
+  },
 });
