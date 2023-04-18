@@ -16,7 +16,7 @@ const Login = () => {
     e.preventDefault();
     const { username, password } = e.target;
 
-    fetch("95.130.227.80:3000/users/login", {
+    fetch("http://localhost:3000/users/login", {
       method: "POST",
       headers: {
         "content-type": "application/json",
