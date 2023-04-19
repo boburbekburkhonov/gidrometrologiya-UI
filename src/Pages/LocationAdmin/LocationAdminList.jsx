@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from "react";
 import {
   YMaps,
   Map,
@@ -5,8 +6,8 @@ import {
   GeolocationControl,
   TypeSelector,
 } from "@pbe/react-yandex-maps";
+import { apiGlobal } from "../Api/ApiGlobal";
 import moment from "moment";
-import React, { useEffect, useState } from "react";
 
 const LocationAdminList = () => {
   const [info, setInfo] = useState([]);
@@ -19,7 +20,7 @@ const LocationAdminList = () => {
   };
 
   useEffect(() => {
-    fetch(`http://localhost:3000/info/list`, {
+    fetch(`${apiGlobal}/info/list`, {
       method: "GET",
       headers: {
         "content-type": "application/json",
@@ -35,7 +36,7 @@ const LocationAdminList = () => {
   }, []);
 
   function getDataImei(imei) {
-    fetch(`http://localhost:3000/mqtt/admin/data/imei/${imei}`, {
+    fetch(`${apiGlobal}/mqtt/admin/data/imei/${imei}`, {
       method: "GET",
       headers: {
         "content-type": "application/json",

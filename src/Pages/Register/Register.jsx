@@ -1,4 +1,5 @@
 import React from "react";
+import { apiGlobal } from "../Api/ApiGlobal";
 import "../../assets/vendor/bootstrap/css/bootstrap.min.css";
 import "../../assets/vendor/bootstrap-icons/bootstrap-icons.css";
 import "../../assets/vendor/boxicons/css/boxicons.min.css";
@@ -14,7 +15,7 @@ const Register = () => {
     e.preventDefault();
     const { name, username, email, password } = e.target;
 
-    fetch("http://localhost:3000/users/register", {
+    fetch(`${apiGlobal}/users/register`, {
       method: "POST",
       headers: {
         "content-type": "application/json",

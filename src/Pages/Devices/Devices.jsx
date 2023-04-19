@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
+import { apiGlobal } from "../Api/ApiGlobal";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -23,7 +24,7 @@ const Devices = () => {
       imei,
     } = e.target;
 
-    fetch(`http://localhost:3000/info/create`, {
+    fetch(`${apiGlobal}/info/create`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -59,6 +60,7 @@ const Devices = () => {
     phoneNumber.value = "";
     imei.value = "";
   }
+
   function updateDevice(e) {
     e.preventDefault();
 
@@ -73,7 +75,7 @@ const Devices = () => {
       imei,
     } = e.target;
 
-    fetch(`http://localhost:3000/info/update/${infoId}`, {
+    fetch(`${apiGlobal}/info/update/${infoId}`, {
       method: "PATCH",
       headers: {
         "content-type": "application/json",
@@ -111,7 +113,7 @@ const Devices = () => {
   }
 
   function deleteDevice(id) {
-    fetch(`http://localhost:3000/info/delete/${id}`, {
+    fetch(`${apiGlobal}/info/delete/${id}`, {
       method: "DELETE",
       headers: {
         "content-type": "application/json",
@@ -128,7 +130,7 @@ const Devices = () => {
   }
 
   useEffect(() => {
-    fetch(`http://localhost:3000/info/user`, {
+    fetch(`${apiGlobal}/info/user`, {
       method: "GET",
       headers: {
         "content-type": "application/json",

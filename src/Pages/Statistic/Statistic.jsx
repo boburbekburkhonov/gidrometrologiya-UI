@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { apiGlobal } from "../Api/ApiGlobal";
 import { useNavigate } from "react-router-dom";
 import CharInformation from "../CharInformation/CharInformation";
 import moment from "moment";
@@ -13,7 +14,7 @@ const Statistic = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:3000/mqtt/data/statistics/devices", {
+    fetch(`${apiGlobal}/mqtt/data/statistics/devices`, {
       method: "GET",
       headers: {
         "content-type": "application/json",
@@ -23,7 +24,7 @@ const Statistic = () => {
       .then((res) => res.json())
       .then((data) => setDataDevicesStatistics(data));
 
-    fetch("http://localhost:3000/mqtt/data/statistics", {
+    fetch(`${apiGlobal}/mqtt/data/statistics`, {
       method: "GET",
       headers: {
         "content-type": "application/json",
@@ -33,7 +34,7 @@ const Statistic = () => {
       .then((res) => res.json())
       .then((data) => setDataInformation(data));
 
-    fetch("http://localhost:3000/mqtt/lastdata", {
+    fetch(`${apiGlobal}/mqtt/lastdata`, {
       method: "GET",
       headers: {
         "content-type": "application/json",

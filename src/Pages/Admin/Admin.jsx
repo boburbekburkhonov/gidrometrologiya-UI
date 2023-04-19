@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import { Helmet, HelmetProvider } from "react-helmet-async";
+import { apiGlobal } from "../Api/ApiGlobal";
 import "../../assets/vendor/bootstrap/css/bootstrap.min.css";
 import "../../assets/vendor/bootstrap-icons/bootstrap-icons.css";
 import "../../assets/vendor/boxicons/css/boxicons.min.css";
@@ -35,7 +36,7 @@ const Admin = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`http://localhost:3000/users/profile`, {
+    fetch(`${apiGlobal}/users/profile`, {
       method: "GET",
       headers: {
         "content-type": "application/json",

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { apiGlobal } from "../Api/ApiGlobal";
 import { Helmet } from "react-helmet-async";
 import { useParams } from "react-router-dom";
 
@@ -8,7 +9,7 @@ const WorkingDevicesAdmin = () => {
   const { term } = useParams();
 
   useEffect(() => {
-    fetch(`http://localhost:3000/mqtt/admin/data/devices/working/${term}`, {
+    fetch(`${apiGlobal}/mqtt/admin/data/devices/working/${term}`, {
       method: "GET",
       headers: {
         "content-type": "application/json",

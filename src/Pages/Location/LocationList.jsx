@@ -7,6 +7,7 @@ import {
   TypeSelector,
 } from "@pbe/react-yandex-maps";
 import { Helmet } from "react-helmet-async";
+import { apiGlobal } from "../Api/ApiGlobal";
 import moment from "moment";
 
 const LocationList = () => {
@@ -20,7 +21,7 @@ const LocationList = () => {
   };
 
   useEffect(() => {
-    fetch(`http://localhost:3000/info/user`, {
+    fetch(`${apiGlobal}/info/user`, {
       method: "GET",
       headers: {
         "content-type": "application/json",
@@ -36,7 +37,7 @@ const LocationList = () => {
   }, []);
 
   function getDataImei(imei) {
-    fetch(`http://localhost:3000/mqtt/data/imei/${imei}`, {
+    fetch(`${apiGlobal}/mqtt/data/imei/${imei}`, {
       method: "GET",
       headers: {
         "content-type": "application/json",

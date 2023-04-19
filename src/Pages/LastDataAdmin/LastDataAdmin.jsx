@@ -1,6 +1,7 @@
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
+import { apiGlobal } from "../Api/ApiGlobal";
 import { useParams } from "react-router-dom";
 
 const LastDataAdmin = () => {
@@ -9,7 +10,7 @@ const LastDataAdmin = () => {
   const { term } = useParams();
 
   useEffect(() => {
-    fetch(`http://localhost:3000/mqtt/admin/lastdata/${term}`, {
+    fetch(`${apiGlobal}/mqtt/admin/lastdata/${term}`, {
       method: "GET",
       headers: {
         "content-type": "application/json",

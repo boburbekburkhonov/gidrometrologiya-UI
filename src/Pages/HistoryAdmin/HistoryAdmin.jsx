@@ -1,6 +1,7 @@
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
+import { apiGlobal } from "../Api/ApiGlobal";
 import * as XLSX from "xlsx";
 
 const HistoryAdmin = () => {
@@ -37,7 +38,7 @@ const HistoryAdmin = () => {
   }
 
   useEffect(() => {
-    fetch("http://localhost:3000/mqtt/admin/data/present", {
+    fetch(`${apiGlobal}/mqtt/admin/data/present`, {
       method: "GET",
       headers: {
         "content-type": "application/json",
@@ -57,7 +58,7 @@ const HistoryAdmin = () => {
         }
       });
 
-    fetch("http://localhost:3000/mqtt/admin/yesterday/data/statistics", {
+    fetch(`${apiGlobal}/mqtt/admin/yesterday/data/statistics`, {
       method: "GET",
       headers: {
         "content-type": "application/json",
@@ -83,7 +84,7 @@ const HistoryAdmin = () => {
   const time = new Date();
 
   const yesterdayData = () => {
-    fetch("http://localhost:3000/mqtt/admin/yesterday/data", {
+    fetch(`${apiGlobal}/mqtt/admin/yesterday/data`, {
       method: "GET",
       headers: {
         "content-type": "application/json",
@@ -99,16 +100,13 @@ const HistoryAdmin = () => {
   };
 
   const yesterdayDataStatistic = (time) => {
-    fetch(
-      `http://localhost:3000/mqtt/admin/yesterday/data/statistics/devices/${time}`,
-      {
-        method: "GET",
-        headers: {
-          "content-type": "application/json",
-          Authorization: "Bearer " + window.localStorage.getItem("token"),
-        },
-      }
-    )
+    fetch(`${apiGlobal}/mqtt/admin/yesterday/data/statistics/devices/${time}`, {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+        Authorization: "Bearer " + window.localStorage.getItem("token"),
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
         if (data) {

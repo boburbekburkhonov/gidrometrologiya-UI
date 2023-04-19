@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { apiGlobal } from "../Api/ApiGlobal";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -12,7 +13,7 @@ const Profile = () => {
 
     const { name, fullUserName, email, password } = e.target;
 
-    fetch(`http://localhost:3000/users/update/profile`, {
+    fetch(`${apiGlobal}/users/update/profile`, {
       method: "PATCH",
       headers: {
         "content-type": "application/json",
@@ -44,7 +45,7 @@ const Profile = () => {
   }
 
   useEffect(() => {
-    fetch(`http://localhost:3000/users/profile`, {
+    fetch(`${apiGlobal}/users/profile`, {
       method: "GET",
       headers: {
         "content-type": "application/json",

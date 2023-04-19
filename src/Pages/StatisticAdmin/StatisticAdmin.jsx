@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { apiGlobal } from "../Api/ApiGlobal";
 import { useNavigate } from "react-router-dom";
 import CharInformation from "../CharInformation/CharInformation";
 import AliceCarousel from "react-alice-carousel";
@@ -12,7 +13,7 @@ const StatisticAdmin = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:3000/mqtt/admin/data/statistics/devices", {
+    fetch(`${apiGlobal}/mqtt/admin/data/statistics/devices`, {
       method: "GET",
       headers: {
         "content-type": "application/json",
@@ -22,7 +23,7 @@ const StatisticAdmin = () => {
       .then((res) => res.json())
       .then((data) => setDataDevicesStatistics(data));
 
-    fetch("http://localhost:3000/mqtt/admin/data/statistics", {
+    fetch(`${apiGlobal}/mqtt/admin/data/statistics`, {
       method: "GET",
       headers: {
         "content-type": "application/json",
@@ -32,7 +33,7 @@ const StatisticAdmin = () => {
       .then((res) => res.json())
       .then((data) => setDataInformation(data));
 
-    fetch("http://localhost:3000/mqtt/admin/lastdata", {
+    fetch(`${apiGlobal}/mqtt/admin/lastdata`, {
       method: "GET",
       headers: {
         "content-type": "application/json",

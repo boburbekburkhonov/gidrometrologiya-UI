@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { apiGlobal } from "../Api/ApiGlobal";
 import "../../assets/vendor/bootstrap/css/bootstrap.min.css";
 import "../../assets/vendor/bootstrap-icons/bootstrap-icons.css";
 import "../../assets/vendor/boxicons/css/boxicons.min.css";
@@ -16,7 +17,7 @@ const Login = () => {
     e.preventDefault();
     const { username, password } = e.target;
 
-    fetch(":3000/users/login", {
+    fetch(`${apiGlobal}/users/login`, {
       method: "POST",
       headers: {
         "content-type": "application/json",

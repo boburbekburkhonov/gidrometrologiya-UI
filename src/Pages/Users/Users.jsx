@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { apiGlobal } from "../Api/ApiGlobal";
 import { ToastContainer, toast } from "react-toastify";
 
 const Users = () => {
@@ -18,7 +19,7 @@ const Users = () => {
       email.value,
       role.value
     );
-    fetch(`http://localhost:3000/users/update/${userId}`, {
+    fetch(`${apiGlobal}/users/update/${userId}`, {
       method: "PATCH",
       headers: {
         "content-type": "application/json",
@@ -48,7 +49,7 @@ const Users = () => {
   }
 
   function deleteDevice(id) {
-    fetch(`http://localhost:3000/users/delete/${id}`, {
+    fetch(`${apiGlobal}/users/delete/${id}`, {
       method: "DELETE",
       headers: {
         "content-type": "application/json",
@@ -65,7 +66,7 @@ const Users = () => {
   }
 
   useEffect(() => {
-    fetch("http://localhost:3000/users/list", {
+    fetch(`${apiGlobal}/users/list`, {
       method: "GET",
       headers: {
         "content-type": "application/json",

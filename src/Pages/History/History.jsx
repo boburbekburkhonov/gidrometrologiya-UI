@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import moment from "moment";
 import { Helmet } from "react-helmet-async";
+import { apiGlobal } from "../Api/ApiGlobal";
 import * as XLSX from "xlsx";
 
 const History = () => {
@@ -15,7 +16,7 @@ const History = () => {
     const { startDate, endDate, deviceName } = e.target;
 
     if (startDate.value.length > 0 && endDate.value.length > 0) {
-      fetch("http://localhost:3000/mqtt/filter/data", {
+      fetch("http://95.130.227.80:3000/mqtt/filter/data", {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -37,7 +38,7 @@ const History = () => {
   }
 
   useEffect(() => {
-    fetch("http://localhost:3000/mqtt/data/present", {
+    fetch(`${apiGlobal}/mqtt/data/present`, {
       method: "GET",
       headers: {
         "content-type": "application/json",
@@ -57,7 +58,7 @@ const History = () => {
         }
       });
 
-    fetch("http://localhost:3000/mqtt/yesterday/data/statistics", {
+    fetch(`${apiGlobal}/mqtt/yesterday/data/statistics`, {
       method: "GET",
       headers: {
         "content-type": "application/json",
@@ -82,7 +83,7 @@ const History = () => {
   };
 
   const yesterdayData = () => {
-    fetch("http://localhost:3000/mqtt/yesterday/data", {
+    fetch(`${apiGlobal}/mqtt/yesterday/data`, {
       method: "GET",
       headers: {
         "content-type": "application/json",
@@ -98,16 +99,13 @@ const History = () => {
   };
 
   const yesterdayDataStatistic = (time) => {
-    fetch(
-      `http://localhost:3000/mqtt/yesterday/data/statistics/devices/${time}`,
-      {
-        method: "GET",
-        headers: {
-          "content-type": "application/json",
-          Authorization: "Bearer " + window.localStorage.getItem("token"),
-        },
-      }
-    )
+    fetch(`${apiGlobal}/mqtt/yesterday/data/statistics/devices/${time}`, {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+        Authorization: "Bearer " + window.localStorage.getItem("token"),
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
         if (data) {
@@ -212,7 +210,6 @@ const History = () => {
                           >
                             {moment(item.time).format("L")}
                           </li>
-
                         );
                       })}
                     </ul>

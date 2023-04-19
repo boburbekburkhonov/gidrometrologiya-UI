@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import { Helmet, HelmetProvider } from "react-helmet-async";
+import { apiGlobal } from "../Api/ApiGlobal";
 import { useNavigate } from "react-router-dom";
 import Statistic from "../Statistic/Statistic";
 import Profile from "../Profile/Profile";
 import Devices from "../Devices/Devices";
 import WorkingDevices from "../WorkingDevices/WorkingDevices";
-import "../../assets/vendor/bootstrap/css/bootstrap.min.css";
-import "../../assets/vendor/bootstrap-icons/bootstrap-icons.css";
-import "../../assets/vendor/boxicons/css/boxicons.min.css";
-import "../../assets/vendor/quill/quill.snow.css";
-import "../../assets/vendor/quill/quill.bubble.css";
-import "../../assets/vendor/remixicon/remixicon.css";
-import "../../assets/vendor/simple-datatables/style.css";
-import "../../assets/css/style.css";
+// import "../../assets/vendor/bootstrap/css/bootstrap.min.css";
+// import "../../assets/vendor/bootstrap-icons/bootstrap-icons.css";
+// import "../../assets/vendor/boxicons/css/boxicons.min.css";
+// import "../../assets/vendor/quill/quill.snow.css";
+// import "../../assets/vendor/quill/quill.bubble.css";
+// import "../../assets/vendor/remixicon/remixicon.css";
+// import "../../assets/vendor/simple-datatables/style.css";
+// import "../../assets/css/style.css";
 import LastData from "../LastData/LastData";
 import LocationList from "../Location/LocationList";
 import History from "../History/History";
@@ -35,7 +36,7 @@ const User = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`http://localhost:3000/users/profile`, {
+    fetch(`${apiGlobal}/users/profile`, {
       method: "GET",
       headers: {
         "content-type": "application/json",
