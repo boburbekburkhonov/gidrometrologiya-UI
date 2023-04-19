@@ -217,6 +217,9 @@ const LocationAdminList = () => {
           </div>
         </section>
       </div>
+      <Helmet>
+        <script src="/src/assets/js/table.js"></script>
+      </Helmet>
     </main>
   );
 };

@@ -326,7 +326,7 @@ const History = () => {
         </div>
 
         <Helmet>
-          <script src="http://localhost:5173/src/assets/js/table.js"></script>
+          <script src="/src/assets/js/table.js"></script>
         </Helmet>
       </main>
     </>
