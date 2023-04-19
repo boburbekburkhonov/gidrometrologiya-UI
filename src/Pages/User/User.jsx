@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { apiGlobal } from "../Api/ApiGlobal";
-import { apiUI } from "";
 import { useNavigate } from "react-router-dom";
 import Statistic from "../Statistic/Statistic";
 import Profile from "../Profile/Profile";
@@ -264,32 +263,16 @@ const User = () => {
               </ul>
             </aside>
             <Helmet>
-              <script
-                src={`${apiUI}/src/assets/vendor/apexcharts/apexcharts.min.js`}
-              ></script>
-              <script
-                src={`${apiUI}/src/assets/vendor/bootstrap/js/bootstrap.bundle.min.js`}
-              ></script>
-              <script
-                src={`${apiUI}/src/assets/vendor/chart.js/chart.umd.js`}
-              ></script>
-              <script
-                src={`${apiUI}/src/assets/vendor/echarts/echarts.min.js`}
-              ></script>
-              <script
-                src={`${apiUI}/src/assets/vendor/quill/quill.min.js`}
-              ></script>
-              <script
-                src={`${apiUI}/src/assets/vendor/simple-datatables/simple-datatables.js`}
-              ></script>
-              <script
-                src={`${apiUI}/src/assets/vendor/php-email-form/validate.js`}
-              ></script>
-              <script
-                src={`${apiUI}/src/assets/vendor/tinymce/tinymce.min.js`}
-              ></script>
+              <script src="/src/assets/vendor/apexcharts/apexcharts.min.js"></script>
+              <script src="/src/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+              <script src="/src/assets/vendor/chart.js/chart.umd.js"></script>
+              <script src="/src/assets/vendor/echarts/echarts.min.js"></script>
+              <script src="/src/assets/vendor/quill/quill.min.js"></script>
+              <script src="/src/assets/vendor/simple-datatables/simple-datatables.js"></script>
+              <script src="/src/assets/vendor/php-email-form/validate.js"></script>
+              <script src="/src/assets/vendor/tinymce/tinymce.min.js"></script>
 
-              <script src={`${apiUI}/src/assets/js/main.js`}></script>
+              <script src="/src/assets/js/main.js"></script>
             </Helmet>
             <Routes>
               <Route path="/" element={<Statistic />} />
