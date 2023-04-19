@@ -2,19 +2,20 @@ import React, { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { apiGlobal } from "../Api/ApiGlobal";
+import { apiUI } from "../Api/ApiGlobal";
 import { useNavigate } from "react-router-dom";
 import Statistic from "../Statistic/Statistic";
 import Profile from "../Profile/Profile";
 import Devices from "../Devices/Devices";
 import WorkingDevices from "../WorkingDevices/WorkingDevices";
-// import "../../assets/vendor/bootstrap/css/bootstrap.min.css";
-// import "../../assets/vendor/bootstrap-icons/bootstrap-icons.css";
-// import "../../assets/vendor/boxicons/css/boxicons.min.css";
-// import "../../assets/vendor/quill/quill.snow.css";
-// import "../../assets/vendor/quill/quill.bubble.css";
-// import "../../assets/vendor/remixicon/remixicon.css";
-// import "../../assets/vendor/simple-datatables/style.css";
-// import "../../assets/css/style.css";
+import "../../assets/vendor/bootstrap/css/bootstrap.min.css";
+import "../../assets/vendor/bootstrap-icons/bootstrap-icons.css";
+import "../../assets/vendor/boxicons/css/boxicons.min.css";
+import "../../assets/vendor/quill/quill.snow.css";
+import "../../assets/vendor/quill/quill.bubble.css";
+import "../../assets/vendor/remixicon/remixicon.css";
+import "../../assets/vendor/simple-datatables/style.css";
+import "../../assets/css/style.css";
 import LastData from "../LastData/LastData";
 import LocationList from "../Location/LocationList";
 import History from "../History/History";
@@ -263,16 +264,32 @@ const User = () => {
               </ul>
             </aside>
             <Helmet>
-              <script src="http://localhost:5173/src/assets/vendor/apexcharts/apexcharts.min.js"></script>
-              <script src="http://localhost:5173/src/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-              <script src="http://localhost:5173/src/assets/vendor/chart.js/chart.umd.js"></script>
-              <script src="http://localhost:5173/src/assets/vendor/echarts/echarts.min.js"></script>
-              <script src="http://localhost:5173/src/assets/vendor/quill/quill.min.js"></script>
-              <script src="http://localhost:5173/src/assets/vendor/simple-datatables/simple-datatables.js"></script>
-              <script src="http://localhost:5173/src/assets/vendor/php-email-form/validate.js"></script>
-              <script src="http://localhost:5173/src/assets/vendor/tinymce/tinymce.min.js"></script>
+              <script
+                src={`${apiUI}/src/assets/vendor/apexcharts/apexcharts.min.js`}
+              ></script>
+              <script
+                src={`${apiUI}/src/assets/vendor/bootstrap/js/bootstrap.bundle.min.js`}
+              ></script>
+              <script
+                src={`${apiUI}/src/assets/vendor/chart.js/chart.umd.js`}
+              ></script>
+              <script
+                src={`${apiUI}/src/assets/vendor/echarts/echarts.min.js`}
+              ></script>
+              <script
+                src={`${apiUI}/src/assets/vendor/quill/quill.min.js`}
+              ></script>
+              <script
+                src={`${apiUI}/src/assets/vendor/simple-datatables/simple-datatables.js`}
+              ></script>
+              <script
+                src={`${apiUI}/src/assets/vendor/php-email-form/validate.js`}
+              ></script>
+              <script
+                src={`${apiUI}/src/assets/vendor/tinymce/tinymce.min.js`}
+              ></script>
 
-              <script src="http://localhost:5173/src/assets/js/main.js"></script>
+              <script src={`${apiUI}/src/assets/js/main.js`}></script>
             </Helmet>
             <Routes>
               <Route path="/" element={<Statistic />} />

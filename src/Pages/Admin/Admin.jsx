@@ -297,16 +297,32 @@ const Admin = () => {
               </ul>
             </aside>
             <Helmet>
-              <script src="http://localhost:5173/src/assets/vendor/apexcharts/apexcharts.min.js"></script>
-              <script src="http://localhost:5173/src/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-              <script src="http://localhost:5173/src/assets/vendor/chart.js/chart.umd.js"></script>
-              <script src="http://localhost:5173/src/assets/vendor/echarts/echarts.min.js"></script>
-              <script src="http://localhost:5173/src/assets/vendor/quill/quill.min.js"></script>
-              <script src="http://localhost:5173/src/assets/vendor/simple-datatables/simple-datatables.js"></script>
-              <script src="http://localhost:5173/src/assets/vendor/php-email-form/validate.js"></script>
-              <script src="http://localhost:5173/src/assets/vendor/tinymce/tinymce.min.js"></script>
+              <script
+                src={`${apiUI}/src/assets/vendor/apexcharts/apexcharts.min.js`}
+              ></script>
+              <script
+                src={`${apiUI}/src/assets/vendor/bootstrap/js/bootstrap.bundle.min.js`}
+              ></script>
+              <script
+                src={`${apiUI}/src/assets/vendor/chart.js/chart.umd.js`}
+              ></script>
+              <script
+                src={`${apiUI}/src/assets/vendor/echarts/echarts.min.js`}
+              ></script>
+              <script
+                src={`${apiUI}/src/assets/vendor/quill/quill.min.js`}
+              ></script>
+              <script
+                src={`${apiUI}/src/assets/vendor/simple-datatables/simple-datatables.js`}
+              ></script>
+              <script
+                src={`${apiUI}/src/assets/vendor/php-email-form/validate.js`}
+              ></script>
+              <script
+                src={`${apiUI}/src/assets/vendor/tinymce/tinymce.min.js`}
+              ></script>
 
-              <script src="http://localhost:5173/src/assets/js/main.js"></script>
+              <script src={`${apiUI}/src/assets/js/main.js`}></script>
             </Helmet>
             <Routes>
               <Route path="/" element={<StatisticAdmin />} />
