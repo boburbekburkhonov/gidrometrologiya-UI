@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { apiGlobal } from "../Api/ApiGlobal";
-import { apiUI } from "../Api/ApiGlobal";
+import { apiUI } from "";
 import { useNavigate } from "react-router-dom";
 import Statistic from "../Statistic/Statistic";
 import Profile from "../Profile/Profile";
