@@ -9,6 +9,7 @@ const HistoryAdmin = () => {
   const [dataStatistic, setDataStatistic] = useState([]);
   const [loader, setLoader] = useState(true);
   const [dataName, setDataName] = useState([]);
+  const [yesterday, setYesterday] = useState(true);
 
   function filterDate(e) {
     e.preventDefault();
@@ -94,6 +95,7 @@ const HistoryAdmin = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data) {
+          setYesterday(false);
           setData(data);
         }
       });
@@ -188,12 +190,12 @@ const HistoryAdmin = () => {
                         className="custom-btn btn-1 ms-3"
                         onClick={yesterdayData}
                       >
-                        Yesterday data
+                        Kecha kelgan ma'lumotlar
                       </button>
 
                       <button
                         className="btn btn-info btn-save-data"
-                        onClick={exportDataToExcel}
+                        onClick={data.length != 0 ? exportDataToExcel : null}
                       >
                         Ma'lumotlarni saqlash
                       </button>
@@ -217,7 +219,7 @@ const HistoryAdmin = () => {
                   </div>
 
                   <div className="table-scrol m-auto">
-                    {data.every(
+                    {yesterday && data.every(
                       (e) => new Date(e.time).getDate() == time.getDate()
                     ) ? (
                       <div className="d-flex align-items-center mt-3">

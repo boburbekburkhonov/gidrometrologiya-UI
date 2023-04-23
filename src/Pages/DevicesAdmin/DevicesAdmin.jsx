@@ -444,7 +444,6 @@ const DevicesAdmin = () => {
                       type="text"
                       className="form-control"
                       id="reservoir-id"
-                      required
                     />
                   </div>
                 </div>

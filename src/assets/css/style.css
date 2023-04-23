@@ -1671,8 +1671,8 @@ th {
 /*! BUTTONS  */
 
 .custom-btn {
-  max-width: 160px;
-  height: 40px;
+  max-width: 234px;
+  max-height: 70px;
   color: #fff;
   border-radius: 5px;
   padding: 10px 25px;
@@ -1687,6 +1687,16 @@ th {
    7px 7px 20px 0px rgba(0,0,0,.1),
    4px 4px 5px 0px rgba(0,0,0,.1);
   outline: none;
+}
+
+@media (max-width: 518px) {
+  .custom-btn {
+    margin-bottom: 10px;
+  }
+
+  .history-btn-wrapper {
+    text-align: center;
+  }
 }
 
 /* 1 */
@@ -1716,4 +1726,8 @@ th {
 
 .data-statistic-item + .data-statistic-item {
   margin-left: 30px;
+}
+
+.profile-heading {
+  color: #44A4EC;
 }

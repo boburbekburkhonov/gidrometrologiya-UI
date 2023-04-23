@@ -216,7 +216,7 @@ const Admin = () => {
                           onClick={logout}
                         >
                           <i className="bi bi-box-arrow-right"></i>
-                          <span>Sign Out</span>
+                          <span>Chiqish</span>
                         </button>
                       </li>
                     </ul>
@@ -291,7 +291,7 @@ const Admin = () => {
                 <li className="nav-item">
                   <button className="nav-link collapsed w-100" onClick={logout}>
                     <i className="bi bi-box-arrow-right"></i>
-                    <span>Sign Out</span>
+                    <span>Chiqish</span>
                   </button>
                 </li>
               </ul>

@@ -132,14 +132,16 @@ const Profile = () => {
                           <h5 className="card-title">Profil tafsilotlari</h5>
 
                           <div className="row">
-                            <div className="col-lg-3 col-md-4 label ">Name</div>
+                            <div className="col-lg-3 col-md-4 label fw-bold profile-heading">
+                              Name
+                            </div>
                             <div className="col-lg-9 col-md-8">
                               {dataProfile.name}
                             </div>
                           </div>
 
                           <div className="row">
-                            <div className="col-lg-3 col-md-4 label">
+                            <div className="col-lg-3 col-md-4 label fw-bold profile-heading">
                               Username
                             </div>
                             <div className="col-lg-9 col-md-8">
@@ -148,14 +150,16 @@ const Profile = () => {
                           </div>
 
                           <div className="row">
-                            <div className="col-lg-3 col-md-4 label">Email</div>
+                            <div className="col-lg-3 col-md-4 label fw-bold profile-heading">
+                              Email
+                            </div>
                             <div className="col-lg-9 col-md-8">
                               {dataProfile.email}
                             </div>
                           </div>
 
                           <div className="row">
-                            <div className="col-lg-3 col-md-4 label">
+                            <div className="col-lg-3 col-md-4 label fw-bold profile-heading">
                               Password
                             </div>
                             <div className="col-lg-9 col-md-8">
@@ -170,7 +174,7 @@ const Profile = () => {
                         >
                           <form onSubmit={updateUserInformation}>
                             <div className="row mb-3">
-                              <label className="col-md-4 col-lg-3 col-form-label">
+                              <label className="col-md-4 col-lg-3 col-form-label profile-heading fw-bold">
                                 Name
                               </label>
                               <div className="col-md-8 col-lg-9">
@@ -184,7 +188,7 @@ const Profile = () => {
                             </div>
 
                             <div className="row mb-3">
-                              <label className="col-md-4 col-lg-3 col-form-label">
+                              <label className="col-md-4 col-lg-3 col-form-label profile-heading fw-bold">
                                 Username
                               </label>
                               <div className="col-md-8 col-lg-9">
@@ -198,7 +202,7 @@ const Profile = () => {
                             </div>
 
                             <div className="row mb-3">
-                              <label className="col-md-4 col-lg-3 col-form-label">
+                              <label className="col-md-4 col-lg-3 col-form-label profile-heading fw-bold">
                                 Email
                               </label>
                               <div className="col-md-8 col-lg-9">
@@ -212,7 +216,7 @@ const Profile = () => {
                             </div>
 
                             <div className="row mb-3">
-                              <label className="col-md-4 col-lg-3 col-form-label">
+                              <label className="col-md-4 col-lg-3 col-form-label profile-heading fw-bold">
                                 Password
                               </label>
                               <div className="col-md-8 col-lg-9">
