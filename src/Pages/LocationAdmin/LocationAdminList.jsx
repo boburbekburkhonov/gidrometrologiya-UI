@@ -8,6 +8,7 @@ import {
 } from "@pbe/react-yandex-maps";
 import { apiGlobal } from "../Api/ApiGlobal";
 import moment from "moment";
+import { Helmet } from "react-helmet-async";
 
 const LocationAdminList = () => {
   const [info, setInfo] = useState([]);

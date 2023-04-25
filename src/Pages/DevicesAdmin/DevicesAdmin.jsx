@@ -561,7 +561,11 @@ const DevicesAdmin = () => {
                             {element.phoneNumber}
                           </td>
                           <td className="c-table__cell">{element.imei}</td>
-                          <td className="c-table__cell">{element.user.name}</td>
+                          <td className={element.user ? 'c-table__cell' : 'c-table__cell text-danger'}>
+                            {element.user
+                              ? element.user.name
+                              : "Foydalanuvchi o'chirilgan"}
+                          </td>
                           <td className="c-table__cell">
                             <button
                               className="btn-devices-edit"
