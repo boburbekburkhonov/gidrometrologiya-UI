@@ -17,7 +17,7 @@ const History = () => {
     const { startDate, endDate, deviceName } = e.target;
 
     if (startDate.value.length > 0 && endDate.value.length > 0) {
-      fetch("http://95.130.227.80:3000/mqtt/filter/data", {
+      fetch(`${apiGlobal}/mqtt/filter/data`, {
         method: "POST",
         headers: {
           "content-type": "application/json",

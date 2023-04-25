@@ -17,7 +17,7 @@ const HistoryAdmin = () => {
     const { startDate, endDate, deviceName } = e.target;
 
     if (startDate.value.length > 0 && endDate.value.length > 0) {
-      fetch("http://localhost:3000/mqtt/admin/filter/data", {
+      fetch(`${apiGlobal}/mqtt/admin/filter/data`, {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -174,7 +174,6 @@ const HistoryAdmin = () => {
                               </option>
                             );
                           })}
-                          <option value="Mydored">Mydored</option>
                         </select>
                       </div>
 
@@ -219,7 +218,8 @@ const HistoryAdmin = () => {
                   </div>
 
                   <div className="table-scrol m-auto">
-                    {yesterday && data.every(
+                    {yesterday &&
+                    data.every(
                       (e) => new Date(e.time).getDate() == time.getDate()
                     ) ? (
                       <div className="d-flex align-items-center mt-3">
