@@ -1,1 +1,1 @@
-export const apiGlobal = "http://95.130.227.80:3000";
+export const apiGlobal = "https://gidrometroliya.uz:4000";
