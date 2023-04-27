@@ -1,66 +1,62 @@
 import React from "react";
 import {
-  BarChart,
-  Bar,
-  Cell,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  ResponsiveContainer,
-} from "recharts";
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Filler,
+  Legend,
+} from "chart.js";
+import { Line } from "react-chartjs-2";
+import * as faker from "@faker-js/faker";
 import "../../assets/css/style.css";
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Filler,
+  Legend
+);
 
 const CharInformation = (props) => {
   const { data } = props;
-  const colors = ["#FF8042", "#0088FE", "red", "#00C49F", "#FFBB28"];
 
-  const getPath = (x, y, width, height) => {
-    return `M${x},${y + height}C${x + width / 3},${y + height} ${
-      x + width / 2
-    },${y + height / 3}
-      ${x + width / 2}, ${y}
-      C${x + width / 2},${y + height / 3} ${x + (2 * width) / 3},${
-      y + height
-    } ${x + width}, ${y + height}
-      Z`;
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: "top",
+      },
+      title: {
+        display: true,
+        text: "Ma'lumotlar statistikasi",
+      },
+    },
   };
 
-  const TriangleBar = (props) => {
-    const { fill, x, y, width, height } = props;
+  const labels = [...data.map((e) => e.name)];
 
-    return <path d={getPath(x, y, width, height)} stroke="none" fill={fill} />;
+  const dataAll = {
+    labels,
+    datasets: [
+      {
+        fill: true,
+        label: "Ma'lumotlar",
+        data: data.map((e) => e.length),
+        borderColor: "rgb(53, 162, 235)",
+        backgroundColor: "rgba(53, 162, 235, 0.5)",
+      },
+    ],
   };
 
-  return (
-    <>
-      <h2 className="statis-heading">Qurilmalardan olingan ma'lumotlar</h2>
-      <ResponsiveContainer maxWidth={1000} height={400}>
-        <BarChart
-          data={data}
-          margin={{
-            top: 20,
-            right: 30,
-            left: 20,
-            bottom: 5,
-          }}
-        >
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
-          <YAxis />
-          <Bar
-            dataKey="length"
-            fill="#8884d8"
-            shape={<TriangleBar />}
-            label={{ position: "top" }}
-          >
-            {data.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill={colors[index % 20]} />
-            ))}
-          </Bar>
-        </BarChart>
-      </ResponsiveContainer>
-    </>
-  );
+  return <Line options={options} className="char" data={dataAll} />;
 };
 
 export default CharInformation;

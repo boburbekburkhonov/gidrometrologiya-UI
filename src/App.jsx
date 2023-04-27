@@ -10,8 +10,8 @@ function App() {
     <>
       <Routes>
         <Route path="*" element={<ErrorPage />} />
-        <Route path="/" element={<Register />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Login />} />
+        <Route path="/register" element={<Register />} />
         <Route path="/admin/*" element={<Admin />} />
         <Route path="/user/*" element={<User />} />
       </Routes>

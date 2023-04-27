@@ -116,8 +116,6 @@ const Statistic = () => {
                 ) : (
                   lastData.length > 0 && (
                     <AliceCarousel
-                      autoPlay={true}
-                      infinite={true}
                       autoPlayStrategy="all"
                       animationDuration="2000"
                       mouseTracking

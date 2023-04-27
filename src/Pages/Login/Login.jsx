@@ -74,10 +74,11 @@ const Login = () => {
                     <div className="card-body">
                       <div className="pt-4 pb-2">
                         <h5 className="card-title text-center pb-0 fs-4">
-                          Login to Your Account
+                          Shaxsiy kabinetga kirish
                         </h5>
                         <p className="text-center small">
-                          Enter your username & password to login
+                          Kirish uchun foydalanuvchi nomingiz va parolingizni
+                          kiriting
                         </p>
                       </div>
 
@@ -86,7 +87,9 @@ const Login = () => {
                         onSubmit={login}
                       >
                         <div className="col-12">
-                          <label className="form-label">Username</label>
+                          <label className="form-label">
+                            Foydalanuvchi nomi
+                          </label>
                           <div className="input-group has-validation">
                             <input
                               type="text"
@@ -99,7 +102,7 @@ const Login = () => {
                         </div>
 
                         <div className="col-12">
-                          <label className="form-label">Password</label>
+                          <label className="form-label">Parol</label>
                           <input
                             type="password"
                             name="password"
@@ -107,7 +110,7 @@ const Login = () => {
                             id="yourPassword"
                             required
                           />
-                          <div className="error mt-3 text-danger fs-5 fw-semibold d-flex align-items-center justify-content-center">
+                          <div className="error mt-3 text-danger fs-6 fw-semibold d-flex align-items-center justify-content-center text-center">
                             {error ? errorMessage : ""}
                           </div>
                         </div>
@@ -117,13 +120,13 @@ const Login = () => {
                             className="btn btn-primary w-100"
                             type="submit"
                           >
-                            Login
+                            Kirish
                           </button>
                         </div>
                         <div className="col-12">
                           <p className="small mb-0">
-                            Don't have account?{" "}
-                            <a href="/">Create an account</a>
+                            Shaxsiy kabinetingiz yo'qmi?{" "}
+                            <a href="/register">Ro'yxatdan o'tish</a>
                           </p>
                         </div>
                       </form>

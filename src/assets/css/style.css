@@ -1731,3 +1731,13 @@ th {
 .profile-heading {
   color: #44A4EC;
 }
+
+.char {
+  max-height: 450px !important;
+}
+
+@media (max-width: 600px) {
+  .char {
+    height: 350px !important;
+  }
+}

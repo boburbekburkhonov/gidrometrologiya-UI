@@ -26,12 +26,13 @@ const Admin = () => {
   const [loader, setLoader] = useState(true);
 
   if (!token) {
-    window.location.href = "/login";
+    window.location.href = "/";
   }
 
   function logout() {
     window.localStorage.removeItem("token");
-    window.location.href = "/login";
+    window.localStorage.removeItem("role");
+    window.location.href = "/";
   }
   const navigate = useNavigate();
 

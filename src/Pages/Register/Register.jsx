@@ -70,10 +70,11 @@ const Register = () => {
                     <div className="card-body">
                       <div className="pt-4 pb-2">
                         <h5 className="card-title text-center pb-0 fs-4">
-                          Create an Account
+                          Shaxsiy kabinet yaratish
                         </h5>
                         <p className="text-center small">
-                          Enter your personal details to create account
+                          Shaxsiy kabinet yaratish uchun shaxsiy
+                          ma'lumotlaringizni kiriting
                         </p>
                       </div>
 
@@ -82,7 +83,7 @@ const Register = () => {
                         onSubmit={registerUser}
                       >
                         <div className="col-12">
-                          <label className="form-label">Your Name</label>
+                          <label className="form-label">Ismingiz</label>
                           <input
                             type="text"
                             name="name"
@@ -93,7 +94,9 @@ const Register = () => {
                         </div>
 
                         <div className="col-12">
-                          <label className="form-label">Username</label>
+                          <label className="form-label">
+                            Foydalanuvchi nomi
+                          </label>
                           <div className="input-group has-validation">
                             <input
                               type="text"
@@ -106,7 +109,7 @@ const Register = () => {
                         </div>
 
                         <div className="col-12">
-                          <label className="form-label">Your Email</label>
+                          <label className="form-label">Email</label>
                           <input
                             type="email"
                             name="email"
@@ -117,7 +120,7 @@ const Register = () => {
                         </div>
 
                         <div className="col-12">
-                          <label className="form-label">Password</label>
+                          <label className="form-label">Parol</label>
                           <input
                             type="password"
                             name="password"
@@ -129,12 +132,12 @@ const Register = () => {
 
                         <div className="col-12">
                           <button className="btn btn-primary w-100">
-                            Create Account
+                            Ro'yxatdan o'tish
                           </button>
                         </div>
                         <div className="col-12">
                           <p className="small mb-0">
-                            Already have an account? <a href="login">Log in</a>
+                            Men ro'yxatdan o'tganman <a href="/">Kirish</a>
                           </p>
                         </div>
                       </form>
