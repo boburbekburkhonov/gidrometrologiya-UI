@@ -6,10 +6,12 @@ import * as XLSX from "xlsx";
 
 const History = () => {
   const [data, setData] = useState([]);
-  const [dataStatistic, setDataStatistic] = useState([]);
   const [loader, setLoader] = useState(true);
   const [dataName, setDataName] = useState([]);
-  const [yesterday, setYesterday] = useState(true);
+  const [dataNameSearch, setDataNameSearch] = useState([]);
+  const [yesterday, setYesterday] = useState(false);
+  const [present, setPresent] = useState(true);
+  const [month, setMonth] = useState(false);
 
   function filterDate(e) {
     e.preventDefault();
@@ -32,6 +34,7 @@ const History = () => {
         .then((res) => res.json())
         .then((data) => {
           if (data) {
+            setYesterday(true);
             setData(data);
           }
         });
@@ -39,6 +42,34 @@ const History = () => {
   }
 
   useEffect(() => {
+    fetch(`${apiGlobal}/mqtt/data/device/name/present`, {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+        Authorization: "Bearer " + window.localStorage.getItem("token"),
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data) {
+          setDataNameSearch(data);
+        }
+      });
+
+    fetch(`${apiGlobal}/mqtt/data/device/name`, {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+        Authorization: "Bearer " + window.localStorage.getItem("token"),
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data) {
+          setDataName(data);
+        }
+      });
+
     fetch(`${apiGlobal}/mqtt/data/present`, {
       method: "GET",
       headers: {
@@ -49,27 +80,8 @@ const History = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data) {
-          const mySet = new Set();
-          data.filter((e) => {
-            mySet.add(e.typeSensor);
-          });
-          setData(data);
-          setDataName([...mySet]);
+          setData(data.filter((e) => e.name == "Toshkent"));
           setLoader(false);
-        }
-      });
-
-    fetch(`${apiGlobal}/mqtt/yesterday/data/statistics`, {
-      method: "GET",
-      headers: {
-        "content-type": "application/json",
-        Authorization: "Bearer " + window.localStorage.getItem("token"),
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data) {
-          setDataStatistic(data);
         }
       });
   }, []);
@@ -94,14 +106,21 @@ const History = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data) {
-          setYesterday(false);
-          setData(data);
+          const devicesName = new Set();
+          data.filter((e) => {
+            devicesName.add(e.name);
+          });
+          setYesterday(true);
+          setPresent(false);
+          setMonth(false);
+          setDataNameSearch([...devicesName]);
+          setData(data.filter((e) => e.name == [...devicesName][0]));
         }
       });
   };
 
-  const yesterdayDataStatistic = (time) => {
-    fetch(`${apiGlobal}/mqtt/yesterday/data/statistics/devices/${time}`, {
+  const presentData = () => {
+    fetch(`${apiGlobal}/mqtt/data/present`, {
       method: "GET",
       headers: {
         "content-type": "application/json",
@@ -111,9 +130,100 @@ const History = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data) {
-          setData(data);
+          const devicesName = new Set();
+          data.filter((e) => {
+            devicesName.add(e.name);
+          });
+          setYesterday(false);
+          setPresent(true);
+          setMonth(false);
+          setDataNameSearch([...devicesName]);
+          setData(data.filter((e) => e.name == [...devicesName][0]));
         }
       });
+  };
+
+  const monthData = () => {
+    fetch(`${apiGlobal}/mqtt/yesterday/data/statistics`, {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+        Authorization: "Bearer " + window.localStorage.getItem("token"),
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data) {
+          const devicesName = new Set();
+          data.filter((e) => {
+            devicesName.add(e.name);
+          });
+          setYesterday(false);
+          setPresent(false);
+          setMonth(true);
+          setDataNameSearch([...devicesName]);
+          setData(data.filter((e) => e.name == [...devicesName][0]));
+        }
+      });
+  };
+
+  const foundDataWithName = (e) => {
+    e.preventDefault();
+
+    const deviceName = e.target.value;
+
+    if (yesterday) {
+      fetch(`${apiGlobal}/mqtt/yesterday/data/found/name`, {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+          Authorization: "Bearer " + window.localStorage.getItem("token"),
+        },
+        body: JSON.stringify({
+          name: deviceName,
+        }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data) {
+            setData(data);
+          }
+        });
+    } else if (present) {
+      fetch(`${apiGlobal}/mqtt/data/present/name`, {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+          Authorization: "Bearer " + window.localStorage.getItem("token"),
+        },
+        body: JSON.stringify({
+          name: deviceName,
+        }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data) {
+            setData(data);
+          }
+        });
+    } else if (month) {
+      fetch(`${apiGlobal}/mqtt/yesterday/data/statistics/found/name`, {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+          Authorization: "Bearer " + window.localStorage.getItem("token"),
+        },
+        body: JSON.stringify({
+          name: deviceName,
+        }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data) {
+            setData(data);
+          }
+        });
+    }
   };
 
   const time = new Date();
@@ -131,7 +241,70 @@ const History = () => {
                 </div>
               ) : (
                 <>
-                  <h2 className="statis-heading">Ma'lumotlar tarixi</h2>
+                  <div className="d-flex flex-wrap mb-3">
+                    {presentData &&
+                    data.every(
+                      (e) => new Date(e.time).getDate() == time.getDate()
+                    ) ? (
+                      <div className="d-flex align-items-center flex-wrap">
+                        <h3 className="mb-0 present-day-data-heading">
+                          Bugungi ma'lumotlar
+                        </h3>
+                        <p className="present-day-data-desc">
+                          {moment(time).format("L") +
+                            " " +
+                            String(time).slice(15, 24)}
+                        </p>
+                      </div>
+                    ) : null}
+
+                    <div className="ms-auto d-flex align-items-center justify-content-center devices-name-present">
+                      <label
+                        className="device-name-label me-3"
+                        htmlFor="start-date"
+                      >
+                        Qurilma nomi
+                      </label>
+                      <select
+                        className="form-select"
+                        name="deviceNameSearch"
+                        onChange={foundDataWithName}
+                      >
+                        {dataNameSearch.map((e, index) => {
+                          return (
+                            <option value={e} key={index}>
+                              {e}
+                            </option>
+                          );
+                        })}
+                      </select>
+                    </div>
+                  </div>
+
+                  <div className="history-btn-wrapper mb-3">
+                    <button
+                      className="custom-btn btn-1 custom-btn-first"
+                      onClick={yesterdayData}
+                    >
+                      Kecha kelgan ma'lumotlar
+                    </button>
+
+                    <button className="custom-btn btn-1" onClick={presentData}>
+                      Bugun kelgan ma'lumotlar
+                    </button>
+
+                    <button className="custom-btn btn-1" onClick={monthData}>
+                      Bir oylik ma'lumotlar
+                    </button>
+
+                    <button
+                      className="custom-btn btn-1"
+                      onClick={data.length != 0 ? exportDataToExcel : null}
+                    >
+                      Ma'lumotlarni saqlash
+                    </button>
+                  </div>
+
                   <div className="d-flex flex-wrap">
                     <form
                       className="d-flex justify-content-center date-wrapper"
@@ -166,7 +339,6 @@ const History = () => {
                           Qurilma nomi
                         </label>
                         <select className="form-select" name="deviceName">
-                          <option value="All">All</option>
                           {dataName.map((e, index) => {
                             return (
                               <option value={e} key={index}>
@@ -183,83 +355,54 @@ const History = () => {
                         </button>
                       </div>
                     </form>
-
-                    <div className="ms-auto history-btn-wrapper">
-                      <button
-                        className="custom-btn btn-1 ms-3"
-                        onClick={yesterdayData}
-                      >
-                        Kecha kelgan ma'lumotlar
-                      </button>
-
-                      <button
-                        className="btn btn-info btn-save-data"
-                        onClick={data.length != 0 ? exportDataToExcel : null}
-                      >
-                        Ma'lumotlarni saqlash
-                      </button>
-                    </div>
                   </div>
 
-                  <div className="mt-3 deveices-statistics-wrapper">
-                    <ul className="list-unstyled m-0 p-0 d-flex align-items-center">
-                      {dataStatistic.map((item, index) => {
-                        return (
-                          <li
-                            key={index}
-                            className="data-statistic-item"
-                            onClick={() => yesterdayDataStatistic(item.time)}
-                          >
-                            {moment(item.time).format("L")}
-                          </li>
-                        );
-                      })}
-                    </ul>
-                  </div>
-
-                  <div className="table-scrol m-auto">
-                    {yesterday &&
-                    data.every(
-                      (e) => new Date(e.time).getDate() == time.getDate()
-                    ) ? (
-                      <div className="d-flex align-items-center mt-3">
-                        <h3 className="fs-4 mb-0 present-day-data-heading">
-                          Bugungi ma'lumotlar
-                        </h3>
-                        <p className="present-day-data-desc">
-                          {moment(time).format("L") +
-                            " " +
-                            moment(time).format("LTS")}
-                        </p>
-                      </div>
-                    ) : null}
+                  <div className="table-scrol m-auto table">
                     <table className="c-table mt-4 table-scroll">
                       <thead className="c-table__header">
                         <tr>
-                          <th className="c-table__col-label">Qurilma nomi</th>
-                          <th className="c-table__col-label">
+                          <th className="c-table__col-label text-center">
+                            Qurilma nomi
+                          </th>
+                          <th className="c-table__col-label text-center">
+                            Vaqt
+                          </th>
+                          <th className="c-table__col-label text-center">
                             Shamol yo'nalishi
                           </th>
-                          <th className="c-table__col-label">Shamol tezligi</th>
-                          <th className="c-table__col-label">
+                          <th className="c-table__col-label text-center">
+                            Shamol tezligi
+                          </th>
+                          <th className="c-table__col-label text-center">
                             Tuproq temperaturasi
                           </th>
-                          <th className="c-table__col-label">Tuproq namligi</th>
-                          <th className="c-table__col-label">
+                          <th className="c-table__col-label text-center">
+                            Tuproq namligi
+                          </th>
+                          <th className="c-table__col-label text-center">
                             Havo temperaturasi
                           </th>
-                          <th className="c-table__col-label">Havo namligi</th>
-                          <th className="c-table__col-label">Havo bosimi</th>
-                          <th className="c-table__col-label">
+                          <th className="c-table__col-label text-center">
+                            Havo namligi
+                          </th>
+                          <th className="c-table__col-label text-center">
+                            Havo bosimi
+                          </th>
+                          <th className="c-table__col-label text-center">
                             Barg temperaturasi
                           </th>
-                          <th className="c-table__col-label">Barg namligi</th>
-                          <th className="c-table__col-label">
+                          <th className="c-table__col-label text-center">
+                            Barg namligi
+                          </th>
+                          <th className="c-table__col-label text-center">
                             Yomg'ir qalingligi
                           </th>
-                          <th className="c-table__col-label">Sensor turi</th>
-                          <th className="c-table__col-label">Imei</th>
-                          <th className="c-table__col-label">Vaqt</th>
+                          <th className="c-table__col-label text-center">
+                            Sensor turi
+                          </th>
+                          <th className="c-table__col-label text-center">
+                            Imei
+                          </th>
                         </tr>
                       </thead>
                       <tbody className="c-table__body">
@@ -269,52 +412,52 @@ const History = () => {
                             time.setHours(time.getHours() - 5);
                             return (
                               <tr className="fs-6" key={index}>
-                                <td className="c-table__cell">
+                                <td className="c-table__cell text-center">
                                   {element.name}
                                 </td>
-                                <td className="c-table__cell">
-                                  {element.windDirection}°C
-                                </td>
-                                <td className="c-table__cell">
-                                  {element.windSpeed} m/s
-                                </td>
-                                <td className="c-table__cell">
-                                  {element.soilTemp}°C
-                                </td>
-                                <td className="c-table__cell">
-                                  {element.soilHumidity} %
-                                </td>
-                                <td className="c-table__cell">
-                                  {element.airTemp}°C
-                                </td>
-                                <td className="c-table__cell">
-                                  {element.airHumidity}%
-                                </td>
-                                <td className="c-table__cell">
-                                  {element.airPressure} kPa
-                                </td>
-                                <td className="c-table__cell">
-                                  {element.leafTemp}°C
-                                </td>
-                                <td className="c-table__cell">
-                                  {element.leafHumidity}%
-                                </td>
-                                <td className="c-table__cell">
-                                  {element.rainHeight} mm
-                                </td>
-                                <td className="c-table__cell">
-                                  {element.typeSensor}
-                                </td>
-                                <td className="c-table__cell">
-                                  {element.imei}
-                                </td>
-                                <td className="c-table__cell">
+                                <td className="c-table__cell text-center">
                                   {new Date().getDate() ==
                                   new Date(element.time).getDate()
-                                    ? moment(time).format("LTS")
+                                    ? String(element.time).slice(11, 19)
                                     : moment(time).format("L") +
                                       " " +
-                                      moment().format("LTS")}
+                                      String(element.time).slice(11, 19)}
+                                </td>
+                                <td className="c-table__cell text-center">
+                                  {element.windDirection}°C
+                                </td>
+                                <td className="c-table__cell text-center">
+                                  {element.windSpeed} m/s
+                                </td>
+                                <td className="c-table__cell text-center">
+                                  {element.soilTemp}°C
+                                </td>
+                                <td className="c-table__cell text-center">
+                                  {element.soilHumidity} %
+                                </td>
+                                <td className="c-table__cell text-center">
+                                  {element.airTemp}°C
+                                </td>
+                                <td className="c-table__cell text-center">
+                                  {element.airHumidity}%
+                                </td>
+                                <td className="c-table__cell text-center">
+                                  {element.airPressure} kPa
+                                </td>
+                                <td className="c-table__cell text-center">
+                                  {element.leafTemp}°C
+                                </td>
+                                <td className="c-table__cell text-center">
+                                  {element.leafHumidity}%
+                                </td>
+                                <td className="c-table__cell text-center">
+                                  {element.rainHeight} mm
+                                </td>
+                                <td className="c-table__cell text-center">
+                                  {element.typeSensor}
+                                </td>
+                                <td className="c-table__cell text-center">
+                                  {element.imei}
                                 </td>
                               </tr>
                             );

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { apiGlobal } from "../Api/ApiGlobal";
 import { ToastContainer, toast } from "react-toastify";
+import { Helmet } from "react-helmet-async";
 
 const Users = () => {
   const [users, setUsers] = useState([]);
@@ -228,13 +229,27 @@ const Users = () => {
                 <table className="c-table mt-4">
                   <thead className="c-table__header">
                     <tr>
-                      <th className="c-table__col-label">Name</th>
-                      <th className="c-table__col-label">UserName</th>
-                      <th className="c-table__col-label">Passpord</th>
-                      <th className="c-table__col-label">Email</th>
-                      <th className="c-table__col-label">Role</th>
-                      <th className="c-table__col-label">Edit</th>
-                      <th className="c-table__col-label">Delete</th>
+                      <th className="c-table__col-label text-center text-center">
+                        Name
+                      </th>
+                      <th className="c-table__col-label text-center text-center">
+                        UserName
+                      </th>
+                      <th className="c-table__col-label text-center text-center">
+                        Passpord
+                      </th>
+                      <th className="c-table__col-label text-center text-center">
+                        Email
+                      </th>
+                      <th className="c-table__col-label text-center text-center">
+                        Role
+                      </th>
+                      <th className="c-table__col-label text-center text-center">
+                        Edit
+                      </th>
+                      <th className="c-table__col-label text-center text-center">
+                        Delete
+                      </th>
                     </tr>
                   </thead>
                   <tbody className="c-table__body">
@@ -242,16 +257,22 @@ const Users = () => {
                       users.map((element, index) => {
                         return (
                           <tr className="fs-6" key={index}>
-                            <td className="c-table__cell">{element.name}</td>
-                            <td className="c-table__cell">
+                            <td className="c-table__cell text-center">
+                              {element.name}
+                            </td>
+                            <td className="c-table__cell text-center">
                               {element.username}
                             </td>
-                            <td className="c-table__cell">
+                            <td className="c-table__cell text-center">
                               {element.password}
                             </td>
-                            <td className="c-table__cell">{element.email}</td>
-                            <td className="c-table__cell">{element.role}</td>
-                            <td className="c-table__cell">
+                            <td className="c-table__cell text-center">
+                              {element.email}
+                            </td>
+                            <td className="c-table__cell text-center">
+                              {element.role}
+                            </td>
+                            <td className="c-table__cell text-center">
                               <button
                                 className="btn-devices-edit"
                                 data-bs-toggle="modal"
@@ -266,7 +287,7 @@ const Users = () => {
                                 />
                               </button>
                             </td>
-                            <td className="c-table__cell">
+                            <td className="c-table__cell text-center">
                               <button
                                 className="btn-devices-edit"
                                 onClick={() => deleteDevice(element._id)}
@@ -288,6 +309,9 @@ const Users = () => {
             </div>
           </section>
         </div>
+        <Helmet>
+          <script src="/src/assets/js/table.js"></script>
+        </Helmet>
       </main>
     </>
   );

@@ -74,30 +74,45 @@ const LocationList = () => {
                   <table className="c-table mt-4 table-scroll">
                     <thead className="c-table__header">
                       <tr>
-                        <th className="c-table__col-label">Qurilma nomi</th>
-                        <th className="c-table__col-label">
+                        <th className="c-table__col-label text-center">
+                          Qurilma nomi
+                        </th>
+                        <th className="c-table__col-label text-center">Vaqt</th>
+
+                        <th className="c-table__col-label text-center">
                           Shamol yo'nalishi
                         </th>
-                        <th className="c-table__col-label">Shamol tezligi</th>
-                        <th className="c-table__col-label">
+                        <th className="c-table__col-label text-center">
+                          Shamol tezligi
+                        </th>
+                        <th className="c-table__col-label text-center">
                           Tuproq temperaturasi
                         </th>
-                        <th className="c-table__col-label">Tuproq namligi</th>
-                        <th className="c-table__col-label">
+                        <th className="c-table__col-label text-center">
+                          Tuproq namligi
+                        </th>
+                        <th className="c-table__col-label text-center">
                           Havo temperaturasi
                         </th>
-                        <th className="c-table__col-label">Havo namligi</th>
-                        <th className="c-table__col-label">Havo bosimi</th>
-                        <th className="c-table__col-label">
+                        <th className="c-table__col-label text-center">
+                          Havo namligi
+                        </th>
+                        <th className="c-table__col-label text-center">
+                          Havo bosimi
+                        </th>
+                        <th className="c-table__col-label text-center">
                           Barg temperaturasi
                         </th>
-                        <th className="c-table__col-label">Barg namligi</th>
-                        <th className="c-table__col-label">
+                        <th className="c-table__col-label text-center">
+                          Barg namligi
+                        </th>
+                        <th className="c-table__col-label text-center">
                           Yomg'ir qalingligi
                         </th>
-                        <th className="c-table__col-label">Sensor turi</th>
-                        <th className="c-table__col-label">Imei</th>
-                        <th className="c-table__col-label">Vaqt</th>
+                        <th className="c-table__col-label text-center">
+                          Sensor turi
+                        </th>
+                        <th className="c-table__col-label text-center">Imei</th>
                       </tr>
                     </thead>
                     <tbody className="c-table__body">
@@ -107,48 +122,52 @@ const LocationList = () => {
                           time.setHours(time.getHours() - 5);
                           return (
                             <tr className="fs-6" key={index}>
-                              <td className="c-table__cell">{element.name}</td>
-                              <td className="c-table__cell">
-                                {element.windDirection}°C
+                              <td className="c-table__cell text-center">
+                                {element.name}
                               </td>
-                              <td className="c-table__cell">
-                                {element.windSpeed} m/s
-                              </td>
-                              <td className="c-table__cell">
-                                {element.soilTemp}°C
-                              </td>
-                              <td className="c-table__cell">
-                                {element.soilHumidity} %
-                              </td>
-                              <td className="c-table__cell">
-                                {element.airTemp}°C
-                              </td>
-                              <td className="c-table__cell">
-                                {element.airHumidity}%
-                              </td>
-                              <td className="c-table__cell">
-                                {element.airPressure} kPa
-                              </td>
-                              <td className="c-table__cell">
-                                {element.leafTemp}°C
-                              </td>
-                              <td className="c-table__cell">
-                                {element.leafHumidity}%
-                              </td>
-                              <td className="c-table__cell">
-                                {element.rainHeight} mm
-                              </td>
-                              <td className="c-table__cell">
-                                {element.typeSensor}
-                              </td>
-                              <td className="c-table__cell">{element.imei}</td>
-                              <td className="c-table__cell">
+                              <td className="c-table__cell text-center">
                                 {new Date().getDate() ==
                                 new Date(element.time).getDate()
-                                  ? moment(time).format("LTS")
+                                  ? String(element.time).slice(11, 19)
                                   : moment(time).format("L") +
                                     " " +
-                                    moment().format("LTS")}
+                                    String(element.time).slice(11, 19)}
+                              </td>
+                              <td className="c-table__cell text-center">
+                                {element.windDirection}°C
+                              </td>
+                              <td className="c-table__cell text-center">
+                                {element.windSpeed} m/s
+                              </td>
+                              <td className="c-table__cell text-center">
+                                {element.soilTemp}°C
+                              </td>
+                              <td className="c-table__cell text-center">
+                                {element.soilHumidity} %
+                              </td>
+                              <td className="c-table__cell text-center">
+                                {element.airTemp}°C
+                              </td>
+                              <td className="c-table__cell text-center">
+                                {element.airHumidity}%
+                              </td>
+                              <td className="c-table__cell text-center">
+                                {element.airPressure} kPa
+                              </td>
+                              <td className="c-table__cell text-center">
+                                {element.leafTemp}°C
+                              </td>
+                              <td className="c-table__cell text-center">
+                                {element.leafHumidity}%
+                              </td>
+                              <td className="c-table__cell text-center">
+                                {element.rainHeight} mm
+                              </td>
+                              <td className="c-table__cell text-center">
+                                {element.typeSensor}
+                              </td>
+                              <td className="c-table__cell text-center">
+                                {element.imei}
                               </td>
                             </tr>
                           );
@@ -206,7 +225,10 @@ const LocationList = () => {
                           "geoObject.addon.balloon",
                         ]}
                         options={{
-                          preset: "islands#redDotIcon",
+                          iconLayout: "default#image",
+                          iconImageHref:
+                            "../../src/assets/images/icon-location.png",
+                          iconImageSize: [32, 32],
                         }}
                       />
                     );

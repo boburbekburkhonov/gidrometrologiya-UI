@@ -1375,12 +1375,6 @@ th {
 
 }
 
-.statis-heading {
-  color: #012a70c1;
-  font-weight: 500;
-  margin-bottom: 15px;
-}
-
 @media (max-width: 1190px){
   .row{
     display: flex;
@@ -1571,7 +1565,7 @@ th {
 }
 
 .date-content {
-  color: #008e80c1;
+  color: #2359b7;
   font-weight: 700;
 }
 
@@ -1606,14 +1600,8 @@ th {
   }
 }
 
-@media only screen and (max-width: 1040px) {
-  .history-btn-wrapper {
-    margin-top: 20px;
-  }
-}
-
 .date-filter-btn {
-  background: #02a090c1 !important;
+  background: #3566bb !important;
   color: #ffffff;
   border: transparent;
 }
@@ -1625,7 +1613,7 @@ th {
 .btn-save-data {
   padding: 10px 25px;
   margin-left: 12px;
-  background: #02a090c1 !important;
+  background: #2359b7 !important;
   color: #ffffff;
   border: transparent;
 }
@@ -1635,7 +1623,8 @@ th {
 .present-day-data-heading {
   margin: 0;
   font-weight: 600;
-  color: #000000c1;
+  color: #012970;
+  font-size: 28ypx;
 }
 
 .present-day-data-desc {
@@ -1671,7 +1660,8 @@ th {
 /*! BUTTONS  */
 
 .custom-btn {
-  max-width: 234px;
+  max-width: 236px;
+  width: 100%;
   max-height: 70px;
   color: #fff;
   border-radius: 5px;
@@ -1699,10 +1689,25 @@ th {
   }
 }
 
+@media (max-width: 1015px) {
+
+.custom-btn-first {
+  margin-left: 10px;
+}
+
+.history-btn-wrapper {
+  text-align: center;
+}
+
+}
+
+.custom-btn + .custom-btn {
+  margin-left: 10px;
+}
+
 /* 1 */
 .btn-1 {
-  background: rgb(6,14,131);
-  background: linear-gradient(0deg, rgb(17, 27, 167) 0%, rgba(12,25,180,1) 100%);
+  background: #2359b7;
   border: none;
 }
 .btn-1:hover {
@@ -1740,4 +1745,22 @@ th {
   .char {
     height: 350px !important;
   }
+}
+
+.device-name-history {
+  font-weight: 600;
+  color: #012970;
+}
+
+.devices-name-present {
+  max-width: 320px;
+  width: 100%;
+}
+
+.device-name-label {
+  max-width: 122px;
+  color: #012970;
+  font-weight: 600;
+  font-size: 18px;
+  width: 100%;
 }

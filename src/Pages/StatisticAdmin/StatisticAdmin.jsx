@@ -71,8 +71,10 @@ const StatisticAdmin = () => {
                 <span className="fs-5 time-lastdata">
                   Vaqti:{" "}
                   {new Date().getDate() == new Date(element.time).getDate()
-                    ? moment(time).format("LTS")
-                    : moment(time).format("L") + " " + moment().format("LTS")}
+                    ? String(element.time).slice(11, 19)
+                    : moment(time).format("L") +
+                      " " +
+                      String(element.time).slice(11, 19)}
                 </span>
               </h2>
 

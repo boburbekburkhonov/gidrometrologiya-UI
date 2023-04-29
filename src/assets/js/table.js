@@ -26,4 +26,4 @@ setTimeout(() => {
       spanMod[a].innerHTML = tableLabels[a % b].innerHTML;
     }
   })();
-}, 500);
+}, 100);

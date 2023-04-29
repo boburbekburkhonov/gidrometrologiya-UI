@@ -532,16 +532,28 @@ const Devices = () => {
               <table className="c-table mt-4">
                 <thead className="c-table__header">
                   <tr>
-                    <th className="c-table__col-label">Qurilma nomi</th>
-                    <th className="c-table__col-label">Viloyat</th>
-                    <th className="c-table__col-label">Tuman</th>
-                    <th className="c-table__col-label">Latitude</th>
-                    <th className="c-table__col-label">Longitude</th>
-                    <th className="c-table__col-label">Reservoir Id</th>
-                    <th className="c-table__col-label">Telefon raqam</th>
-                    <th className="c-table__col-label">Imei</th>
-                    <th className="c-table__col-label">O'zgartirish</th>
-                    <th className="c-table__col-label">O'chirish</th>
+                    <th className="c-table__col-label text-center">
+                      Qurilma nomi
+                    </th>
+                    <th className="c-table__col-label text-center">Viloyat</th>
+                    <th className="c-table__col-label text-center">Tuman</th>
+                    <th className="c-table__col-label text-center">Latitude</th>
+                    <th className="c-table__col-label text-center">
+                      Longitude
+                    </th>
+                    <th className="c-table__col-label text-center">
+                      Reservoir Id
+                    </th>
+                    <th className="c-table__col-label text-center">
+                      Telefon raqam
+                    </th>
+                    <th className="c-table__col-label text-center">Imei</th>
+                    <th className="c-table__col-label text-center">
+                      O'zgartirish
+                    </th>
+                    <th className="c-table__col-label text-center">
+                      O'chirish
+                    </th>
                   </tr>
                 </thead>
                 <tbody className="c-table__body">
@@ -549,19 +561,31 @@ const Devices = () => {
                     info.map((element, index) => {
                       return (
                         <tr className="fs-6" key={index}>
-                          <td className="c-table__cell">{element.name}</td>
-                          <td className="c-table__cell">{element.region}</td>
-                          <td className="c-table__cell">{element.district}</td>
-                          <td className="c-table__cell">{element.lat}</td>
-                          <td className="c-table__cell">{element.lon}</td>
-                          <td className="c-table__cell">
+                          <td className="c-table__cell text-center">
+                            {element.name}
+                          </td>
+                          <td className="c-table__cell text-center">
+                            {element.region}
+                          </td>
+                          <td className="c-table__cell text-center">
+                            {element.district}
+                          </td>
+                          <td className="c-table__cell text-center">
+                            {element.lat}
+                          </td>
+                          <td className="c-table__cell text-center">
+                            {element.lon}
+                          </td>
+                          <td className="c-table__cell text-center">
                             {element.reservoirId}
                           </td>
-                          <td className="c-table__cell">
+                          <td className="c-table__cell text-center">
                             {element.phoneNumber}
                           </td>
-                          <td className="c-table__cell">{element.imei}</td>
-                          <td className="c-table__cell">
+                          <td className="c-table__cell text-center">
+                            {element.imei}
+                          </td>
+                          <td className="c-table__cell text-center">
                             <button
                               className="btn-devices-edit"
                               data-bs-toggle="modal"
@@ -576,7 +600,7 @@ const Devices = () => {
                               />
                             </button>
                           </td>
-                          <td className="c-table__cell">
+                          <td className="c-table__cell text-center">
                             <button
                               className="btn-devices-edit"
                               onClick={() => deleteDevice(element._id)}
