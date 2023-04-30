@@ -80,7 +80,7 @@ const History = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data) {
-          setData(data.filter((e) => e.name == "Toshkent"));
+          setData(data.filter((e) => e.name == data[0].name));
           setLoader(false);
         }
       });
@@ -96,6 +96,8 @@ const History = () => {
   };
 
   const yesterdayData = () => {
+    setDataNameSearch([]);
+
     fetch(`${apiGlobal}/mqtt/yesterday/data`, {
       method: "GET",
       headers: {
@@ -120,6 +122,8 @@ const History = () => {
   };
 
   const presentData = () => {
+    setDataNameSearch([]);
+
     fetch(`${apiGlobal}/mqtt/data/present`, {
       method: "GET",
       headers: {
@@ -144,6 +148,8 @@ const History = () => {
   };
 
   const monthData = () => {
+    setDataNameSearch([]);
+
     fetch(`${apiGlobal}/mqtt/yesterday/data/statistics`, {
       method: "GET",
       headers: {
@@ -242,9 +248,11 @@ const History = () => {
               ) : (
                 <>
                   <div className="d-flex flex-wrap mb-3">
-                    {presentData &&
-                    data.every(
-                      (e) => new Date(e.time).getDate() == time.getDate()
+                    {data.every(
+                      (e) =>
+                        new Date(e.time).getFullYear() == time.getFullYear() &&
+                        new Date(e.time).getMonth() == time.getMonth() &&
+                        new Date(e.time).getDate() == time.getDate()
                     ) ? (
                       <div className="d-flex align-items-center flex-wrap">
                         <h3 className="mb-0 present-day-data-heading">
@@ -362,9 +370,6 @@ const History = () => {
                       <thead className="c-table__header">
                         <tr>
                           <th className="c-table__col-label text-center">
-                            Qurilma nomi
-                          </th>
-                          <th className="c-table__col-label text-center">
                             Vaqt
                           </th>
                           <th className="c-table__col-label text-center">
@@ -400,9 +405,6 @@ const History = () => {
                           <th className="c-table__col-label text-center">
                             Sensor turi
                           </th>
-                          <th className="c-table__col-label text-center">
-                            Imei
-                          </th>
                         </tr>
                       </thead>
                       <tbody className="c-table__body">
@@ -412,9 +414,6 @@ const History = () => {
                             time.setHours(time.getHours() - 5);
                             return (
                               <tr className="fs-6" key={index}>
-                                <td className="c-table__cell text-center">
-                                  {element.name}
-                                </td>
                                 <td className="c-table__cell text-center">
                                   {new Date().getDate() ==
                                   new Date(element.time).getDate()
@@ -455,9 +454,6 @@ const History = () => {
                                 </td>
                                 <td className="c-table__cell text-center">
                                   {element.typeSensor}
-                                </td>
-                                <td className="c-table__cell text-center">
-                                  {element.imei}
                                 </td>
                               </tr>
                             );

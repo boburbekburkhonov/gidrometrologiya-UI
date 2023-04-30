@@ -83,8 +83,7 @@ const HistoryAdmin = () => {
           data.filter((e) => {
             mySet.add(e.name);
           });
-          setData(data);
-          setDataName([...mySet]);
+          setData(data.filter((e) => e.name == data[0].name));
           setLoader(false);
         }
       });
@@ -100,6 +99,8 @@ const HistoryAdmin = () => {
   };
 
   const yesterdayData = () => {
+    setDataNameSearch([]);
+
     fetch(`${apiGlobal}/mqtt/admin/yesterday/data`, {
       method: "GET",
       headers: {
@@ -124,6 +125,8 @@ const HistoryAdmin = () => {
   };
 
   const presentData = () => {
+    setDataNameSearch([]);
+
     fetch(`${apiGlobal}/mqtt/admin/data/present`, {
       method: "GET",
       headers: {
@@ -148,6 +151,8 @@ const HistoryAdmin = () => {
   };
 
   const monthData = () => {
+    setDataNameSearch([]);
+
     fetch(`${apiGlobal}/mqtt/admin/yesterday/data/statistics`, {
       method: "GET",
       headers: {
@@ -165,7 +170,6 @@ const HistoryAdmin = () => {
           setYesterday(false);
           setPresent(false);
           setMonth(true);
-          document.getElementById('select-search-data').innerHTML=null
           setDataNameSearch([...devicesName]);
           setData(data.filter((e) => e.name == [...devicesName][0]));
         }
@@ -248,9 +252,11 @@ const HistoryAdmin = () => {
               ) : (
                 <>
                   <div className="d-flex flex-wrap mb-3">
-                    {present &&
-                    data.every(
-                      (e) => new Date(e.time).getDate() == time.getDate()
+                    {data.every(
+                      (e) =>
+                        new Date(e.time).getFullYear() == time.getFullYear() &&
+                        new Date(e.time).getMonth() == time.getMonth() &&
+                        new Date(e.time).getDate() == time.getDate()
                     ) ? (
                       <div className="d-flex align-items-center flex-wrap">
                         <h3 className="mb-0 present-day-data-heading">
@@ -275,7 +281,7 @@ const HistoryAdmin = () => {
                         className="form-select"
                         name="deviceNameSearch"
                         onChange={foundDataWithName}
-                        id='select-search-data'
+                        id="select-search-data"
                       >
                         {dataNameSearch.map((e, index) => {
                           return (
@@ -369,9 +375,6 @@ const HistoryAdmin = () => {
                       <thead className="c-table__header">
                         <tr>
                           <th className="c-table__col-label text-center">
-                            Qurilma nomi
-                          </th>
-                          <th className="c-table__col-label text-center">
                             Vaqt
                           </th>
                           <th className="c-table__col-label text-center">
@@ -407,9 +410,6 @@ const HistoryAdmin = () => {
                           <th className="c-table__col-label text-center">
                             Sensor turi
                           </th>
-                          <th className="c-table__col-label text-center">
-                            Imei
-                          </th>
                         </tr>
                       </thead>
                       <tbody className="c-table__body">
@@ -419,9 +419,6 @@ const HistoryAdmin = () => {
                             time.setHours(time.getHours() - 5);
                             return (
                               <tr className="fs-6" key={index}>
-                                <td className="c-table__cell text-center">
-                                  {element.name}
-                                </td>
                                 <td className="c-table__cell text-center">
                                   {new Date().getDate() ==
                                   new Date(element.time).getDate()
@@ -462,9 +459,6 @@ const HistoryAdmin = () => {
                                 </td>
                                 <td className="c-table__cell text-center">
                                   {element.typeSensor}
-                                </td>
-                                <td className="c-table__cell text-center">
-                                  {element.imei}
                                 </td>
                               </tr>
                             );
