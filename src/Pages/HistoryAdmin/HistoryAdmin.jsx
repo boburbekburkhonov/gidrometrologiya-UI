@@ -73,7 +73,7 @@ const HistoryAdmin = () => {
           data.filter((e) => {
             mySet.add(e.name);
           });
-          setData(data.filter((e) => e.name == dataNameSearch[0]?.name));
+          setData(data.filter((e) => e.name == "Toshkent"));
           setLoader(false);
         }
       });

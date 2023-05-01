@@ -152,7 +152,7 @@ const Statistic = () => {
     <main id="main" className="main">
       {/* <!-- Modal --> */}
       <div
-        className="modal"
+        className="modal fade"
         id="exampleModal"
         tabIndex="-1"
         aria-labelledby="exampleModalLabel"

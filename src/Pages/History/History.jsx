@@ -70,7 +70,7 @@ const History = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data) {
-          setData(data.filter((e) => e.name == dataNameSearch[0]?.name));
+          setData(data.filter((e) => e.name == "Toshkent"));
           setLoader(false);
         }
       });
