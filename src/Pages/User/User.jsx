@@ -15,10 +15,11 @@ import "../../assets/vendor/quill/quill.bubble.css";
 import "../../assets/vendor/remixicon/remixicon.css";
 import "../../assets/vendor/simple-datatables/style.css";
 import "../../assets/css/style.css";
-import LastData from "../LastData/LastData";
 import LocationList from "../Location/LocationList";
 import History from "../History/History";
 import ErrorPage from "../Error/ErrorPage";
+import LastDataLocation from "../LastDataLocation/LastDataLocation";
+import PresentDataWithLastDataImei from "../PresentDataWithLastDataImei/PresentDataWithLastDataImei";
 
 const User = () => {
   const token = window.localStorage.getItem("token");
@@ -285,7 +286,14 @@ const User = () => {
                 path="/working/devices/:term"
                 element={<WorkingDevices />}
               />
-              <Route path="/mqtt/:term" element={<LastData />} />
+              <Route
+                path="/lastdata/location/:imei"
+                element={<LastDataLocation />}
+              />
+              <Route
+                path="/lastdata/data/:imei"
+                element={<PresentDataWithLastDataImei />}
+              />
             </Routes>
           </div>
         )}

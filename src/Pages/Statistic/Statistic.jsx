@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { apiGlobal } from "../Api/ApiGlobal";
 import { useNavigate } from "react-router-dom";
-import CharInformation from "../CharInformation/CharInformation";
 import moment from "moment";
 import AliceCarousel from "react-alice-carousel";
 import "react-alice-carousel/lib/alice-carousel.css";
 
 const Statistic = () => {
   const [dataDevicesStatistics, setDataDevicesStatistics] = useState([]);
-  const [dataInformation, setDataInformation] = useState([]);
   const [lastData, setLastData] = useState([]);
   const [loader, setLoader] = useState(true);
+  const [oneLastData, setOneLastData] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -23,16 +22,6 @@ const Statistic = () => {
     })
       .then((res) => res.json())
       .then((data) => setDataDevicesStatistics(data));
-
-    fetch(`${apiGlobal}/mqtt/data/statistics`, {
-      method: "GET",
-      headers: {
-        "content-type": "application/json",
-        Authorization: "Bearer " + window.localStorage.getItem("token"),
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => setDataInformation(data));
 
     fetch(`${apiGlobal}/mqtt/lastdata`, {
       method: "GET",
@@ -50,42 +39,107 @@ const Statistic = () => {
       });
   }, []);
 
+  const presentDate = new Date();
+
+  const checkingData = (time) => {
+    if (
+      new Date(time).getFullYear() == presentDate.getFullYear() &&
+      new Date(time).getMonth() == presentDate.getMonth()
+    ) {
+      return presentDate.getDate() - new Date(time).getDate();
+    }
+  };
+
+  const getLastData = (imei) => {
+    fetch(`${apiGlobal}/mqtt/lastdata/${imei}`, {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+        Authorization: "Bearer " + window.localStorage.getItem("token"),
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data) {
+          setOneLastData(data);
+        }
+      });
+  };
+
   const items = [
     lastData.map((element, index) => {
       const time = new Date(element.time);
       time.setHours(time.getHours() - 5);
       return (
         <div className="col-md-4 col-md-4-spinner col-xl-3 w-100" key={index}>
-          <div className="card bg-c-blue order-card">
+          <div className="card bg-c-blue order-card  lastdata-card-border">
             <div className="card-block">
-              <h2 className="m-b-20 fs-5 heading-lastdata time-lastdata">
-                Qurilma nomi: {element.name}
-              </h2>
+              <div className="d-flex align-items-center justify-content-center">
+                <img
+                  src="../../src/assets/images/location.png"
+                  alt="location"
+                  width="25"
+                  height="25"
+                  className="me-auto"
+                  onClick={() => navigate(`lastdata/location/${element.imei}`)}
+                />
+                <h2 className="m-b-20 fs-5 heading-lastdata time-lastdata">
+                  {element.name}
+                </h2>
+                <img
+                  src="../../src/assets/images/data-backup.png"
+                  alt="location"
+                  width="33"
+                  height="33"
+                  className="ms-auto"
+                  onClick={() => navigate(`lastdata/data/${element.imei}`)}
+                />
+              </div>
 
-              <h2 className="text-right">
-                <span className="fs-5 time-lastdata">
-                  Sensor turi: {element.typeSensor}
-                </span>
-              </h2>
+              <span
+                className={
+                  checkingData(element.time) == 0
+                    ? "underline-success"
+                    : checkingData(element.time) <= 3
+                    ? "underline-warning"
+                    : "underline-danger"
+                }
+              ></span>
 
-              <h2 className="text-right">
-                <span className="fs-5 time-lastdata">
-                  Vaqti:{" "}
-                  {new Date().getDate() == new Date(element.time).getDate()
-                    ? String(element.time).slice(11, 19)
-                    : moment(time).format("L") +
-                      " " +
-                      String(element.time).slice(11, 19)}
-                </span>
-              </h2>
+              <div
+                onClick={() => getLastData(element.imei)}
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
+              >
+                <p className="text-right m-1">
+                  <span className="fs-6 time-lastdata lastdata-desc">
+                    Havo temperaturasi : {element.airTemp}°C
+                  </span>
+                </p>
 
-              <div className="d-flex justify-content-end">
-                <button
-                  className="lastdata-learn-more"
-                  onClick={() => navigate(`/user/mqtt/${element.imei}`)}
-                >
-                  Batafsil
-                </button>
+                <p className="text-right m-1">
+                  <span className="fs-6 time-lastdata lastdata-desc">
+                    Tuproq namligi : {element.soilHumidity}%
+                  </span>
+                </p>
+
+                <p className="text-right m-1">
+                  <span className="fs-6 time-lastdata lastdata-desc">
+                    Havo bosimi : {element.airPressure}kPa
+                  </span>
+                </p>
+                <p className="text-right mt-2">
+                  <span className="fs-6 time-lastdata">
+                    {new Date().getDate() == new Date(element.time).getDate() &&
+                    new Date().getFullYear() ==
+                      new Date(element.time).getFullYear() &&
+                    new Date().getMonth() == new Date(element.time).getMonth()
+                      ? String(element.time).slice(11, 19)
+                      : moment(time).format("L") +
+                        " " +
+                        String(element.time).slice(11, 19)}
+                  </span>
+                </p>
               </div>
             </div>
           </div>
@@ -96,6 +150,131 @@ const Statistic = () => {
 
   return (
     <main id="main" className="main">
+      {/* <!-- Modal --> */}
+      <div
+        className="modal"
+        id="exampleModal"
+        tabIndex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog table-location-width modal-dialog-centered">
+          <div className="modal-content ">
+            <div className="modal-header lastdata-close">
+              <button
+                type="button"
+                className="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div className="modal-body">
+              <div className="m-auto">
+                {oneLastData.map((item, index) => {
+                  return (
+                    <div className="one-lastdata-all-wrapper" key={index}>
+                      <h3 className="one-lastdata-heading">{item.name}</h3>
+                      <div className="one-lastdata-wrapper">
+                        <div className="d-flex flex-wrap onelast-data-wrapper">
+                          <p className="m-0 onelast-data-desc">
+                            Shamol yo'nalishi:
+                          </p>
+                          <p className="m-0 onelast-data-desc">
+                            {item.windDirection}°C
+                          </p>
+                        </div>
+
+                        <div className="d-flex onelast-data-wrapper flex-wrap">
+                          <p className="m-0 onelast-data-desc">
+                            Shamol tezligi:
+                          </p>
+                          <p className="m-0 onelast-data-desc">
+                            {item.windSpeed}m/s
+                          </p>
+                        </div>
+
+                        <div className="d-flex onelast-data-wrapper flex-wrap">
+                          <p className="m-0 onelast-data-desc">
+                            Tuproq temperaturasi:
+                          </p>
+                          <p className="m-0 onelast-data-desc">
+                            {item.soilTemp}°C
+                          </p>
+                        </div>
+
+                        <div className="d-flex onelast-data-wrapper flex-wrap">
+                          <p className="m-0 onelast-data-desc">
+                            Tuproq namligi:{" "}
+                          </p>
+                          <p className="m-0 onelast-data-desc">
+                            {item.soilHumidity} %
+                          </p>
+                        </div>
+
+                        <div className="d-flex onelast-data-wrapper flex-wrap">
+                          <p className="m-0 onelast-data-desc">
+                            Havo temperaturasi:
+                          </p>
+                          <p className="m-0 onelast-data-desc">
+                            {item.airTemp}°C
+                          </p>
+                        </div>
+
+                        <div className="d-flex onelast-data-wrapper flex-wrap">
+                          <p className="m-0 onelast-data-desc">Havo namligi:</p>
+                          <p className="m-0 onelast-data-desc">
+                            {item.airHumidity}%
+                          </p>
+                        </div>
+
+                        <div className="d-flex onelast-data-wrapper flex-wrap">
+                          <p className="m-0 onelast-data-desc">Havo bosimi:</p>
+                          <p className="m-0 onelast-data-desc">
+                            {item.airPressure} kPa
+                          </p>
+                        </div>
+
+                        <div className="d-flex onelast-data-wrapper flex-wrap">
+                          <p className="m-0 onelast-data-desc">
+                            Barg temperaturasi:
+                          </p>
+                          <p className="m-0 onelast-data-desc">
+                            {item.leafTemp}°C
+                          </p>
+                        </div>
+
+                        <div className="d-flex onelast-data-wrapper flex-wrap">
+                          <p className="m-0 onelast-data-desc">Barg namligi:</p>
+                          <p className="m-0 onelast-data-desc">
+                            {item.leafHumidity}%
+                          </p>
+                        </div>
+
+                        <div className="d-flex onelast-data-wrapper flex-wrap">
+                          <p className="m-0 onelast-data-desc">
+                            Yomg'ir qalingligi:
+                          </p>
+                          <p className="m-0 onelast-data-desc">
+                            {item.rainHeight} mm
+                          </p>
+                        </div>
+
+                        <div className="d-flex onelast-data-wrapper flex-wrap">
+                          <p className="m-0 onelast-data-desc">Sensor turi:</p>
+                          <p className="m-0 onelast-data-desc">
+                            {item.typeSensor}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div className="pagetitle">
         <section className="section dashboard">
           <div className="row">
@@ -118,15 +297,15 @@ const Statistic = () => {
                 ) : (
                   lastData.length > 0 && (
                     <AliceCarousel
+                      className="alice-carousel"
                       autoPlayStrategy="all"
                       animationDuration="2000"
-                      mouseTracking
                       items={items}
+                      mouseTracking
+                      disableButtonsControls={true}
                     />
                   )
                 )}
-
-                <CharInformation data={dataInformation} />
 
                 <h2 className="statis-heading mt-4">Ishlagan qurilmalar</h2>
                 <div

@@ -12,13 +12,14 @@ import "../../assets/vendor/simple-datatables/style.css";
 import "../../assets/css/style.css";
 import Profile from "../Profile/Profile";
 import StatisticAdmin from "../StatisticAdmin/StatisticAdmin";
-import LastDataAdmin from "../LastDataAdmin/LastDataAdmin";
 import WorkingDevicesAdmin from "../WorkingDevicesAdmin/WorkingDevicesAdmin";
 import HistoryAdmin from "../HistoryAdmin/HistoryAdmin";
 import LocationAdminList from "../LocationAdmin/LocationAdminList";
 import Users from "../Users/Users";
 import DevicesAdmin from "../DevicesAdmin/DevicesAdmin";
 import ErrorPage from "../Error/ErrorPage";
+import LastDataLocation from "../LastDataLocation/LastDataLocation";
+import PresentDataWithLastDataImeiAdmin from "../PresentDataWithLastDataImeiAdmin/PresentDataWithLastDataImeiAdmin";
 
 const Admin = () => {
   const token = window.localStorage.getItem("token");
@@ -319,7 +320,14 @@ const Admin = () => {
                 path="/working/devices/:term"
                 element={<WorkingDevicesAdmin />}
               />
-              <Route path="/mqtt/:term" element={<LastDataAdmin />} />
+              <Route
+                path="/lastdata/location/:imei"
+                element={<LastDataLocation />}
+              />
+              <Route
+                path="/lastdata/data/:imei"
+                element={<PresentDataWithLastDataImeiAdmin />}
+              />
               <Route path="/users" element={<Users />} />
             </Routes>
           </div>

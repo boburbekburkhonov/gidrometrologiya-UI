@@ -3,6 +3,9 @@ import moment from "moment";
 import { Helmet } from "react-helmet-async";
 import { apiGlobal } from "../Api/ApiGlobal";
 import * as XLSX from "xlsx";
+import "moment/dist/locale/uz-latn";
+
+moment.locale("uz-latn");
 
 const History = () => {
   const [data, setData] = useState([]);
@@ -42,20 +45,6 @@ const History = () => {
   }
 
   useEffect(() => {
-    fetch(`${apiGlobal}/mqtt/data/device/name/present`, {
-      method: "GET",
-      headers: {
-        "content-type": "application/json",
-        Authorization: "Bearer " + window.localStorage.getItem("token"),
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data) {
-          setDataNameSearch(data);
-        }
-      });
-
     fetch(`${apiGlobal}/mqtt/data/device/name`, {
       method: "GET",
       headers: {
@@ -67,6 +56,7 @@ const History = () => {
       .then((data) => {
         if (data) {
           setDataName(data);
+          setDataNameSearch(data);
         }
       });
 
@@ -80,7 +70,7 @@ const History = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data) {
-          setData(data.filter((e) => e.name == data[0].name));
+          setData(data.filter((e) => e.name == dataNameSearch[0]?.name));
           setLoader(false);
         }
       });
@@ -108,22 +98,17 @@ const History = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data) {
-          const devicesName = new Set();
-          data.filter((e) => {
-            devicesName.add(e.name);
-          });
           setYesterday(true);
           setPresent(false);
           setMonth(false);
-          setDataNameSearch([...devicesName]);
-          setData(data.filter((e) => e.name == [...devicesName][0]));
+          setData(data.filter((e) => e.name == dataNameSearch[0]));
+          setDataNameSearch(dataName);
         }
       });
   };
 
   const presentData = () => {
     setDataNameSearch([]);
-
     fetch(`${apiGlobal}/mqtt/data/present`, {
       method: "GET",
       headers: {
@@ -134,22 +119,17 @@ const History = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data) {
-          const devicesName = new Set();
-          data.filter((e) => {
-            devicesName.add(e.name);
-          });
           setYesterday(false);
           setPresent(true);
           setMonth(false);
-          setDataNameSearch([...devicesName]);
-          setData(data.filter((e) => e.name == [...devicesName][0]));
+          setData(data.filter((e) => e.name == dataNameSearch[0]));
+          setDataNameSearch(dataName);
         }
       });
   };
 
   const monthData = () => {
     setDataNameSearch([]);
-
     fetch(`${apiGlobal}/mqtt/yesterday/data/statistics`, {
       method: "GET",
       headers: {
@@ -160,15 +140,11 @@ const History = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data) {
-          const devicesName = new Set();
-          data.filter((e) => {
-            devicesName.add(e.name);
-          });
           setYesterday(false);
           setPresent(false);
           setMonth(true);
-          setDataNameSearch([...devicesName]);
-          setData(data.filter((e) => e.name == [...devicesName][0]));
+          setData(data.filter((e) => e.name == dataNameSearch[0]));
+          setDataNameSearch(dataName);
         }
       });
   };
@@ -233,6 +209,11 @@ const History = () => {
   };
 
   const time = new Date();
+  const timeYesterday = new Date();
+  timeYesterday.setDate(timeYesterday.getDate() - 1);
+  const timeMonth = new Date();
+  timeMonth.setMonth(timeMonth.getMonth() - 1);
+
   return (
     <>
       <main id="main" className="main">
@@ -248,23 +229,44 @@ const History = () => {
               ) : (
                 <>
                   <div className="d-flex flex-wrap mb-3">
-                    {data.every(
-                      (e) =>
-                        new Date(e.time).getFullYear() == time.getFullYear() &&
-                        new Date(e.time).getMonth() == time.getMonth() &&
-                        new Date(e.time).getDate() == time.getDate()
-                    ) ? (
-                      <div className="d-flex align-items-center flex-wrap">
-                        <h3 className="mb-0 present-day-data-heading">
-                          Bugungi ma'lumotlar
-                        </h3>
-                        <p className="present-day-data-desc">
-                          {moment(time).format("L") +
+                    <div className="d-flex align-items-center flex-wrap">
+                      <h3 className="mb-0 present-day-data-heading">
+                        {present
+                          ? "Bugungi ma'lumotlar"
+                          : yesterday
+                          ? "Kecha kelgan ma'lumotlar"
+                          : month
+                          ? "Bir oylik ma'lumotlar"
+                          : null}
+                      </h3>
+                      <p className="present-day-data-desc">
+                        {present
+                          ? moment(time).format("LLLL").split(" ")[0] +
                             " " +
-                            String(time).slice(15, 24)}
-                        </p>
-                      </div>
-                    ) : null}
+                            moment(time).format("LLLL").split(" ")[1] +
+                            " " +
+                            moment(time).format("LLLL").split(" ")[2] +
+                            " " +
+                            moment(time).format("LLLL").split(" ")[3]
+                          : yesterday
+                          ? moment(timeYesterday).format("LLLL").split(" ")[0] +
+                            " " +
+                            moment(timeYesterday).format("LLLL").split(" ")[1] +
+                            " " +
+                            moment(timeYesterday).format("LLLL").split(" ")[2] +
+                            " " +
+                            moment(timeYesterday).format("LLLL").split(" ")[3]
+                          : month
+                          ? moment(timeMonth).format("LLLL").split(" ")[0] +
+                            " " +
+                            moment(timeMonth).format("LLLL").split(" ")[1] +
+                            " " +
+                            moment(timeMonth).format("LLLL").split(" ")[2] +
+                            " " +
+                            moment(timeMonth).format("LLLL").split(" ")[3]
+                          : null}
+                      </p>
+                    </div>
 
                     <div className="ms-auto d-flex align-items-center justify-content-center devices-name-present">
                       <label
@@ -290,15 +292,15 @@ const History = () => {
                   </div>
 
                   <div className="history-btn-wrapper mb-3">
+                    <button className="custom-btn btn-1" onClick={presentData}>
+                      Bugun kelgan ma'lumotlar
+                    </button>
+
                     <button
                       className="custom-btn btn-1 custom-btn-first"
                       onClick={yesterdayData}
                     >
                       Kecha kelgan ma'lumotlar
-                    </button>
-
-                    <button className="custom-btn btn-1" onClick={presentData}>
-                      Bugun kelgan ma'lumotlar
                     </button>
 
                     <button className="custom-btn btn-1" onClick={monthData}>
@@ -366,100 +368,107 @@ const History = () => {
                   </div>
 
                   <div className="table-scrol m-auto table">
-                    <table className="c-table mt-4 table-scroll">
-                      <thead className="c-table__header">
-                        <tr>
-                          <th className="c-table__col-label text-center">
-                            Vaqt
-                          </th>
-                          <th className="c-table__col-label text-center">
-                            Shamol yo'nalishi
-                          </th>
-                          <th className="c-table__col-label text-center">
-                            Shamol tezligi
-                          </th>
-                          <th className="c-table__col-label text-center">
-                            Tuproq temperaturasi
-                          </th>
-                          <th className="c-table__col-label text-center">
-                            Tuproq namligi
-                          </th>
-                          <th className="c-table__col-label text-center">
-                            Havo temperaturasi
-                          </th>
-                          <th className="c-table__col-label text-center">
-                            Havo namligi
-                          </th>
-                          <th className="c-table__col-label text-center">
-                            Havo bosimi
-                          </th>
-                          <th className="c-table__col-label text-center">
-                            Barg temperaturasi
-                          </th>
-                          <th className="c-table__col-label text-center">
-                            Barg namligi
-                          </th>
-                          <th className="c-table__col-label text-center">
-                            Yomg'ir qalingligi
-                          </th>
-                          <th className="c-table__col-label text-center">
-                            Sensor turi
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody className="c-table__body">
-                        {data.length > 0 &&
-                          data.map((element, index) => {
-                            const time = new Date(element.time);
-                            time.setHours(time.getHours() - 5);
-                            return (
-                              <tr className="fs-6" key={index}>
-                                <td className="c-table__cell text-center">
-                                  {new Date().getDate() ==
-                                  new Date(element.time).getDate()
-                                    ? String(element.time).slice(11, 19)
-                                    : moment(time).format("L") +
-                                      " " +
-                                      String(element.time).slice(11, 19)}
-                                </td>
-                                <td className="c-table__cell text-center">
-                                  {element.windDirection}°C
-                                </td>
-                                <td className="c-table__cell text-center">
-                                  {element.windSpeed} m/s
-                                </td>
-                                <td className="c-table__cell text-center">
-                                  {element.soilTemp}°C
-                                </td>
-                                <td className="c-table__cell text-center">
-                                  {element.soilHumidity} %
-                                </td>
-                                <td className="c-table__cell text-center">
-                                  {element.airTemp}°C
-                                </td>
-                                <td className="c-table__cell text-center">
-                                  {element.airHumidity}%
-                                </td>
-                                <td className="c-table__cell text-center">
-                                  {element.airPressure} kPa
-                                </td>
-                                <td className="c-table__cell text-center">
-                                  {element.leafTemp}°C
-                                </td>
-                                <td className="c-table__cell text-center">
-                                  {element.leafHumidity}%
-                                </td>
-                                <td className="c-table__cell text-center">
-                                  {element.rainHeight} mm
-                                </td>
-                                <td className="c-table__cell text-center">
-                                  {element.typeSensor}
-                                </td>
-                              </tr>
-                            );
-                          })}
-                      </tbody>
-                    </table>
+                    {data.length == 0 ? (
+                      <div className="alert alert-primary mt-4 fs-4 text-center fw-bold">
+                        Hozircha ma'lumot kelmadi ...
+                      </div>
+                    ) : (
+                      <table className="c-table mt-4 table-scroll">
+                        <thead className="c-table__header">
+                          <tr>
+                            <th className="c-table__col-label text-center">
+                              Vaqt
+                            </th>
+                            <th className="c-table__col-label text-center">
+                              Shamol yo'nalishi
+                            </th>
+                            <th className="c-table__col-label text-center">
+                              Shamol tezligi
+                            </th>
+                            <th className="c-table__col-label text-center">
+                              Tuproq temperaturasi
+                            </th>
+                            <th className="c-table__col-label text-center">
+                              Tuproq namligi
+                            </th>
+                            <th className="c-table__col-label text-center">
+                              Havo temperaturasi
+                            </th>
+                            <th className="c-table__col-label text-center">
+                              Havo namligi
+                            </th>
+                            <th className="c-table__col-label text-center">
+                              Havo bosimi
+                            </th>
+                            <th className="c-table__col-label text-center">
+                              Barg temperaturasi
+                            </th>
+                            <th className="c-table__col-label text-center">
+                              Barg namligi
+                            </th>
+                            <th className="c-table__col-label text-center">
+                              Yomg'ir qalingligi
+                            </th>
+                            <th className="c-table__col-label text-center">
+                              Sensor turi
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody className="c-table__body">
+                          {data.length > 0 &&
+                            data.map((element, index) => {
+                              const time = new Date(element.time);
+                              time.setHours(time.getHours() - 5);
+                              return (
+                                <tr className="fs-6" key={index}>
+                                  <td className="c-table__cell text-center">
+                                    {present
+                                      ? String(element.time).slice(11, 19)
+                                      : yesterday
+                                      ? String(element.time).slice(11, 19)
+                                      : month
+                                      ? moment(time).format("L")
+                                      : null}
+                                  </td>
+                                  <td className="c-table__cell text-center">
+                                    {element.windDirection}°C
+                                  </td>
+                                  <td className="c-table__cell text-center">
+                                    {element.windSpeed} m/s
+                                  </td>
+                                  <td className="c-table__cell text-center">
+                                    {element.soilTemp}°C
+                                  </td>
+                                  <td className="c-table__cell text-center">
+                                    {element.soilHumidity} %
+                                  </td>
+                                  <td className="c-table__cell text-center">
+                                    {element.airTemp}°C
+                                  </td>
+                                  <td className="c-table__cell text-center">
+                                    {element.airHumidity}%
+                                  </td>
+                                  <td className="c-table__cell text-center">
+                                    {element.airPressure} kPa
+                                  </td>
+                                  <td className="c-table__cell text-center">
+                                    {element.leafTemp}°C
+                                  </td>
+                                  <td className="c-table__cell text-center">
+                                    {element.leafHumidity}%
+                                  </td>
+                                  <td className="c-table__cell text-center">
+                                    {element.rainHeight} mm
+                                  </td>
+                                  <td className="c-table__cell text-center">
+                                    {element.typeSensor}
+                                  </td>
+                                </tr>
+                              );
+                            })}
+                        </tbody>
+                      </table>
+                    )}
                   </div>
                 </>
               )}
