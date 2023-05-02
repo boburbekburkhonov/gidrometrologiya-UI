@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { apiGlobal } from "../Api/ApiGlobal";
+import * as XLSX from "xlsx";
 import moment from "moment";
 
 const PresentDataWithLastDataImei = () => {
@@ -23,11 +24,26 @@ const PresentDataWithLastDataImei = () => {
       });
   }, []);
 
+  const exportDataToExcel = () => {
+    const workBook = XLSX.utils.book_new();
+    const workSheet = XLSX.utils.json_to_sheet(data);
+
+    XLSX.utils.book_append_sheet(workBook, workSheet, "MySheet1");
+
+    XLSX.writeFile(workBook, "History.xlsx");
+  };
+
   return (
     <main id="main" className="main">
       <div className="pagetitle">
         <section className="section dashboard">
           <div className="row">
+            <button
+              className="custom-btn btn-1 ms-auto"
+              onClick={data?.length != 0 ? exportDataToExcel : null}
+            >
+              Ma'lumotlarni saqlash
+            </button>
             {data?.length == 0 ? (
               <div className="alert alert-primary mt-4 fs-4 text-center fw-bold">
                 Bugun ma'lumot kelmadi ...

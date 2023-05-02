@@ -47,6 +47,9 @@ const Statistic = () => {
       new Date(time).getMonth() == presentDate.getMonth()
     ) {
       return presentDate.getDate() - new Date(time).getDate();
+    }else if(new Date(time).getFullYear() == presentDate.getFullYear() &&
+    presentDate.getMonth() - new Date(time).getMonth() == 1 && (presentDate.getDate() == 2 && 30<=new Date(time).getDate() && new Date(time).getDate()<=31) || (presentDate.getDate() == 1 && 29<=new Date(time).getDate() && new Date(time).getDate()<=31)){
+      return 1;
     }
   };
 

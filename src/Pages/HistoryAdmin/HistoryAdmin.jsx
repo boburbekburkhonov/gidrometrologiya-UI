@@ -15,6 +15,9 @@ const HistoryAdmin = () => {
   const [yesterday, setYesterday] = useState(false);
   const [present, setPresent] = useState(true);
   const [month, setMonth] = useState(false);
+  const [filter, setFilter] = useState(false);
+  const [checkDataName, setCheckDataName] = useState(false);
+
 
   function filterDate(e) {
     e.preventDefault();
@@ -37,6 +40,10 @@ const HistoryAdmin = () => {
         .then((res) => res.json())
         .then((data) => {
           if (data) {
+            setPresent(false)
+            setYesterday(false)
+            setMonth(false)
+            setFilter(true)
             setData(data);
           }
         });
@@ -56,9 +63,12 @@ const HistoryAdmin = () => {
         if (data) {
           setDataName(data);
           setDataNameSearch(data);
+          setCheckDataName(true)
         }
       });
+  }, []);
 
+  useEffect(() => {
     fetch(`${apiGlobal}/mqtt/admin/data/present`, {
       method: "GET",
       headers: {
@@ -73,11 +83,11 @@ const HistoryAdmin = () => {
           data.filter((e) => {
             mySet.add(e.name);
           });
-          setData(data.filter((e) => e.name == "Toshkent"));
+          setData(data.filter((e) => e.name == dataNameSearch[0]));
           setLoader(false);
         }
       });
-  }, []);
+  }, [checkDataName])
 
   const exportDataToExcel = () => {
     const workBook = XLSX.utils.book_new();
@@ -101,11 +111,12 @@ const HistoryAdmin = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data) {
+          setFilter(false)
           setYesterday(true);
           setPresent(false);
           setMonth(false);
-          setData(data.filter((e) => e.name == dataNameSearch[0]));
           setDataNameSearch(dataName);
+          setData(data.filter((e) => e.name == dataNameSearch[0]));
         }
       });
   };
@@ -123,11 +134,12 @@ const HistoryAdmin = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data) {
+          setFilter(false)
           setYesterday(false);
           setPresent(true);
           setMonth(false);
-          setData(data.filter((e) => e.name == dataNameSearch[0]));
           setDataNameSearch(dataName);
+          setData(data.filter((e) => e.name == dataNameSearch[0]));
         }
       });
   };
@@ -145,11 +157,12 @@ const HistoryAdmin = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data) {
+          setFilter(false)
           setYesterday(false);
           setPresent(false);
           setMonth(true);
-          setData(data.filter((e) => e.name == dataNameSearch[0]));
           setDataNameSearch(dataName);
+          setData(data.filter((e) => e.name == dataNameSearch[0]));
         }
       });
   };
@@ -241,7 +254,9 @@ const HistoryAdmin = () => {
                           ? "Kecha kelgan ma'lumotlar"
                           : month
                           ? "Bir oylik ma'lumotlar"
-                          : null}
+                          : filter
+                          ? "Qidirilgan ma'lumotlar" :
+                           null}
                       </h3>
                       <p className="present-day-data-desc">
                         {present
@@ -433,7 +448,10 @@ const HistoryAdmin = () => {
                                       ? String(element.time).slice(11, 19)
                                       : month
                                       ? moment(time).format("L")
-                                      : null}
+                                      : filter
+                                      ? moment(time).format("L") + ' ' +
+                                      String(element.time).slice(11, 19):
+                                      null}
                                   </td>
                                   <td className="c-table__cell text-center">
                                     {element.windDirection}°C
