@@ -74,9 +74,6 @@ const LocationAdminList = () => {
                   <table className="c-table mt-4 table-scroll">
                     <thead className="c-table__header">
                       <tr>
-                        <th className="c-table__col-label text-center">
-                          Qurilma nomi
-                        </th>
                         <th className="c-table__col-label text-center">Vaqt</th>
                         <th className="c-table__col-label text-center">
                           Shamol yo'nalishi
@@ -111,7 +108,6 @@ const LocationAdminList = () => {
                         <th className="c-table__col-label text-center">
                           Sensor turi
                         </th>
-                        <th className="c-table__col-label text-center">Imei</th>
                       </tr>
                     </thead>
                     <tbody className="c-table__body">
@@ -122,15 +118,7 @@ const LocationAdminList = () => {
                           return (
                             <tr className="fs-6" key={index}>
                               <td className="c-table__cell text-center">
-                                {element.name}
-                              </td>
-                              <td className="c-table__cell text-center">
-                                {new Date().getDate() ==
-                                new Date(element.time).getDate()
-                                  ? String(element.time).slice(11, 19)
-                                  : moment(time).format("L") +
-                                    " " +
-                                    String(element.time).slice(11, 19)}
+                                {String(element.time).slice(11, 19)}
                               </td>
                               <td className="c-table__cell text-center">
                                 {element.windDirection}°C
@@ -164,9 +152,6 @@ const LocationAdminList = () => {
                               </td>
                               <td className="c-table__cell text-center">
                                 {element.typeSensor}
-                              </td>
-                              <td className="c-table__cell text-center">
-                                {element.imei}
                               </td>
                             </tr>
                           );
