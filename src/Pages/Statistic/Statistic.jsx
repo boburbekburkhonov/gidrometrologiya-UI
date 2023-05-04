@@ -213,7 +213,7 @@ const Statistic = () => {
                             Shamol yo'nalishi:
                           </p>
                           <p className="m-0 onelast-data-desc fw-bold">
-                            {item.windDirection}°C
+                            {item.windDirection}
                           </p>
                         </div>
 
