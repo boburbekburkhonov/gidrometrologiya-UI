@@ -160,110 +160,185 @@ const StatisticAdmin = () => {
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
       >
-        <div className="modal-dialog table-location-width modal-dialog-centered">
-          <div className="modal-content ">
+        <div className="modal-dialog modal-one-lastdata modal-dialog-centered">
+          <div className="modal-content">
             <div className="modal-header lastdata-close">
               <button
                 type="button"
-                className="btn-close"
+                className="btn-close btn-close-location"
                 data-bs-dismiss="modal"
                 aria-label="Close"
               ></button>
             </div>
-            <div className="modal-body">
+            <div className="modal-body pt-0">
               <div className="m-auto">
                 {oneLastData.map((item, index) => {
                   return (
                     <div className="one-lastdata-all-wrapper" key={index}>
-                      <h3 className="one-lastdata-heading">{item.name}</h3>
+                      <div className="d-flex align-items-center">
+                        <img
+                          src="../../../src/assets/images/location-black.png"
+                          alt="location"
+                          width="25"
+                          height="25"
+                        />
+                        <h3 className="one-lastdata-heading">{item.name}</h3>
+                      </div>
+                      <div className="one-lastdata-href"></div>
                       <div className="one-lastdata-wrapper">
-                        <div className="d-flex flex-wrap onelast-data-wrapper">
-                          <p className="m-0 onelast-data-desc">
-                            Shamol yo'nalishi:
-                          </p>
-                          <p className="m-0 onelast-data-desc">
-                            {item.windDirection}°C
-                          </p>
-                        </div>
-
-                        <div className="d-flex onelast-data-wrapper flex-wrap">
+                        <div className="d-flex align-items-center justify-content-center onelast-data-wrapper flex-column">
+                          <img
+                            src="../../../src/assets/images/wind-speed.png"
+                            alt="wind-speed"
+                            width="36px"
+                            height="33px"
+                          />
                           <p className="m-0 onelast-data-desc">
                             Shamol tezligi:
                           </p>
-                          <p className="m-0 onelast-data-desc">
+                          <p className="m-0 onelast-data-desc fw-bold">
                             {item.windSpeed}m/s
                           </p>
                         </div>
 
-                        <div className="d-flex onelast-data-wrapper flex-wrap">
+                        <div className="d-flex align-items-center justify-content-center onelast-data-wrapper flex-column">
+                          <img
+                            src="../../../src/assets/images/wind-gust.png"
+                            alt="wind-speed"
+                            width="36px"
+                            height="33px"
+                          />
+                          <p className="m-0 onelast-data-desc">
+                            Shamol yo'nalishi:
+                          </p>
+                          <p className="m-0 onelast-data-desc fw-bold">
+                            {item.windDirection}°C
+                          </p>
+                        </div>
+
+                        <div className="d-flex align-items-center justify-content-center onelast-data-wrapper flex-column">
+                          <img
+                            src="../../../src/assets/images/soil-temperature.png"
+                            alt="wind-speed"
+                            width="36px"
+                            height="33px"
+                          />
                           <p className="m-0 onelast-data-desc">
                             Tuproq temperaturasi:
                           </p>
-                          <p className="m-0 onelast-data-desc">
+                          <p className="m-0 onelast-data-desc fw-bold">
                             {item.soilTemp}°C
                           </p>
                         </div>
 
-                        <div className="d-flex onelast-data-wrapper flex-wrap">
+                        <div className="d-flex align-items-center justify-content-center onelast-data-wrapper flex-column">
+                          <img
+                            src="../../../src/assets/images/soil-humidity.png"
+                            alt="wind-speed"
+                            width="36px"
+                            height="33px"
+                          />
                           <p className="m-0 onelast-data-desc">
                             Tuproq namligi:{" "}
                           </p>
-                          <p className="m-0 onelast-data-desc">
+                          <p className="m-0 onelast-data-desc fw-bold">
                             {item.soilHumidity} %
                           </p>
                         </div>
 
-                        <div className="d-flex onelast-data-wrapper flex-wrap">
+                        <div className="d-flex align-items-center justify-content-center onelast-data-wrapper flex-column">
+                          <img
+                            src="../../../src/assets/images/air-temperature.png"
+                            alt="wind-speed"
+                            width="36px"
+                            height="33px"
+                          />
                           <p className="m-0 onelast-data-desc">
                             Havo temperaturasi:
                           </p>
-                          <p className="m-0 onelast-data-desc">
+                          <p className="m-0 onelast-data-desc fw-bold">
                             {item.airTemp}°C
                           </p>
                         </div>
 
-                        <div className="d-flex onelast-data-wrapper flex-wrap">
+                        <div className="d-flex align-items-center justify-content-center onelast-data-wrapper flex-column">
+                          <img
+                            src="../../../src/assets/images/air-humidity.png"
+                            alt="wind-speed"
+                            width="36px"
+                            height="33px"
+                          />
                           <p className="m-0 onelast-data-desc">Havo namligi:</p>
-                          <p className="m-0 onelast-data-desc">
+                          <p className="m-0 onelast-data-desc fw-bold">
                             {item.airHumidity}%
                           </p>
                         </div>
 
-                        <div className="d-flex onelast-data-wrapper flex-wrap">
+                        <div className="d-flex align-items-center justify-content-center onelast-data-wrapper flex-column">
+                          <img
+                            src="../../../src/assets/images/air-pressure.png"
+                            alt="wind-speed"
+                            width="36px"
+                            height="33px"
+                          />
                           <p className="m-0 onelast-data-desc">Havo bosimi:</p>
-                          <p className="m-0 onelast-data-desc">
+                          <p className="m-0 onelast-data-desc fw-bold">
                             {item.airPressure} kPa
                           </p>
                         </div>
 
-                        <div className="d-flex onelast-data-wrapper flex-wrap">
+                        <div className="d-flex align-items-center justify-content-center onelast-data-wrapper flex-column">
+                          <img
+                            src="../../../src/assets/images/leaf-temperature.png"
+                            alt="wind-speed"
+                            width="36px"
+                            height="33px"
+                          />
                           <p className="m-0 onelast-data-desc">
                             Barg temperaturasi:
                           </p>
-                          <p className="m-0 onelast-data-desc">
+                          <p className="m-0 onelast-data-desc fw-bold">
                             {item.leafTemp}°C
                           </p>
                         </div>
 
-                        <div className="d-flex onelast-data-wrapper flex-wrap">
+                        <div className="d-flex align-items-center justify-content-center onelast-data-wrapper flex-column">
+                          <img
+                            src="../../../src/assets/images/leaf-humidity.png"
+                            alt="wind-speed"
+                            width="36px"
+                            height="33px"
+                          />
                           <p className="m-0 onelast-data-desc">Barg namligi:</p>
-                          <p className="m-0 onelast-data-desc">
+                          <p className="m-0 onelast-data-desc fw-bold">
                             {item.leafHumidity}%
                           </p>
                         </div>
 
-                        <div className="d-flex onelast-data-wrapper flex-wrap">
+                        <div className="d-flex align-items-center justify-content-center onelast-data-wrapper flex-column">
+                          <img
+                            src="../../../src/assets/images/rain-height.png"
+                            alt="wind-speed"
+                            width="36px"
+                            height="33px"
+                          />
                           <p className="m-0 onelast-data-desc">
                             Yomg'ir qalingligi:
                           </p>
-                          <p className="m-0 onelast-data-desc">
+                          <p className="m-0 onelast-data-desc fw-bold">
                             {item.rainHeight} mm
                           </p>
                         </div>
 
-                        <div className="d-flex onelast-data-wrapper flex-wrap">
+                        <div className="d-flex align-items-center justify-content-center onelast-data-wrapper flex-column">
+                          <img
+                            src="../../../src/assets/images/type-sensor.png"
+                            alt="wind-speed"
+                            width="36px"
+                            height="33px"
+                          />
                           <p className="m-0 onelast-data-desc">Sensor turi:</p>
-                          <p className="m-0 onelast-data-desc">
+                          <p className="m-0 onelast-data-desc fw-bold">
                             {item.typeSensor}
                           </p>
                         </div>

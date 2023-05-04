@@ -8,6 +8,8 @@ const DevicesAdmin = () => {
   const [loader, setLoader] = useState(true);
   const [count, setCount] = useState(0);
   const [infoId, setInfoId] = useState("");
+  const [infoIdDelete, setInfoIdDelete] = useState("");
+  const [infoImei, setInfoImei] = useState({});
 
   function createDevice(e) {
     e.preventDefault();
@@ -97,22 +99,13 @@ const DevicesAdmin = () => {
       .then((data) => {
         if (data._id) {
           setCount(count + 1);
-          toast.success("Info updated successfully");
+          window.location.reload();
         }
       });
-
-    nameDevice.value = "";
-    district.value = "";
-    region.value = "";
-    latitude.value = "";
-    longitude.value = "";
-    reservoirId.value = "";
-    phoneNumber.value = "";
-    imei.value = "";
   }
 
-  function deleteDevice(id) {
-    fetch(`${apiGlobal}/info/delete/${id}`, {
+  function deleteDevice() {
+    fetch(`${apiGlobal}/info/delete/${infoIdDelete}`, {
       method: "DELETE",
       headers: {
         "content-type": "application/json",
@@ -127,6 +120,24 @@ const DevicesAdmin = () => {
         }
       });
   }
+
+  const getInfoImei = (imei) => {
+    setInfoImei({});
+
+    fetch(`http://localhost:3000/info/${imei}`, {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+        Authorization: "Bearer " + window.localStorage.getItem("token"),
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data) {
+          setInfoImei(data);
+        }
+      });
+  };
 
   useEffect(() => {
     fetch(`${apiGlobal}/info/list`, {
@@ -155,7 +166,7 @@ const DevicesAdmin = () => {
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
       >
-        <div className="modal-dialog">
+        <div className="modal-dialog modal-dialog-centered">
           <div className="modal-content">
             <div className="modal-header">
               <h1 className="modal-title fs-5" id="exampleModalLabel">
@@ -163,7 +174,7 @@ const DevicesAdmin = () => {
               </h1>
               <button
                 type="button"
-                className="btn-close"
+                className="btn-close btn-close-location"
                 data-bs-dismiss="modal"
                 aria-label="Close"
               ></button>
@@ -183,6 +194,7 @@ const DevicesAdmin = () => {
                       type="text"
                       className="form-control"
                       id="name"
+                      defaultValue={infoImei.name}
                     />
                   </div>
                 </div>
@@ -200,6 +212,7 @@ const DevicesAdmin = () => {
                       type="text"
                       className="form-control"
                       id="region"
+                      defaultValue={infoImei.region}
                     />
                   </div>
                 </div>
@@ -217,6 +230,7 @@ const DevicesAdmin = () => {
                       type="text"
                       className="form-control"
                       id="district"
+                      defaultValue={infoImei.district}
                     />
                   </div>
                 </div>
@@ -233,7 +247,8 @@ const DevicesAdmin = () => {
                       name="latitude"
                       type="text"
                       className="form-control"
-                      id="name"
+                      id="latitude"
+                      defaultValue={infoImei.lat}
                     />
                   </div>
                 </div>
@@ -251,6 +266,7 @@ const DevicesAdmin = () => {
                       type="text"
                       className="form-control"
                       id="longitude"
+                      defaultValue={infoImei.lon}
                     />
                   </div>
                 </div>
@@ -268,6 +284,7 @@ const DevicesAdmin = () => {
                       type="text"
                       className="form-control"
                       id="reservoir-id"
+                      defaultValue={infoImei.reservoirId}
                     />
                   </div>
                 </div>
@@ -285,6 +302,7 @@ const DevicesAdmin = () => {
                       type="text"
                       className="form-control"
                       id="name"
+                      defaultValue={infoImei.phoneNumber}
                     />
                   </div>
                 </div>
@@ -302,6 +320,7 @@ const DevicesAdmin = () => {
                       type="text"
                       className="form-control"
                       id="name"
+                      defaultValue={infoImei.imei}
                     />
                   </div>
                 </div>
@@ -326,14 +345,14 @@ const DevicesAdmin = () => {
         aria-labelledby="exampleModalLongTitle"
         aria-hidden="true"
       >
-        <div className="modal-dialog" role="document">
+        <div className="modal-dialog modal-dialog-centered" role="document">
           <div className="modal-content">
             <div className="modal-header">
               <h5 className="modal-title" id="exampleModalLongTitle">
                 Qurilma yaratish
               </h5>
               <button
-                className="btn-close"
+                className="btn-close btn-close-location"
                 type="button"
                 data-bs-dismiss="modal"
                 aria-label="Close"
@@ -355,6 +374,7 @@ const DevicesAdmin = () => {
                       className="form-control"
                       id="name"
                       required
+                      placeholder="Qurilma nomi"
                     />
                   </div>
                 </div>
@@ -373,6 +393,7 @@ const DevicesAdmin = () => {
                       className="form-control"
                       id="region"
                       required
+                      placeholder="Viloyat"
                     />
                   </div>
                 </div>
@@ -391,6 +412,7 @@ const DevicesAdmin = () => {
                       className="form-control"
                       id="district"
                       required
+                      placeholder="Tuman"
                     />
                   </div>
                 </div>
@@ -409,6 +431,7 @@ const DevicesAdmin = () => {
                       className="form-control"
                       id="name"
                       required
+                      placeholder="Latitude"
                     />
                   </div>
                 </div>
@@ -427,6 +450,7 @@ const DevicesAdmin = () => {
                       className="form-control"
                       id="longitude"
                       required
+                      placeholder="Longitude"
                     />
                   </div>
                 </div>
@@ -444,6 +468,7 @@ const DevicesAdmin = () => {
                       type="text"
                       className="form-control"
                       id="reservoir-id"
+                      placeholder="Reservoir Id"
                     />
                   </div>
                 </div>
@@ -462,6 +487,7 @@ const DevicesAdmin = () => {
                       className="form-control"
                       id="name"
                       required
+                      placeholder="Telefon raqam"
                     />
                   </div>
                 </div>
@@ -480,6 +506,7 @@ const DevicesAdmin = () => {
                       className="form-control"
                       id="name"
                       required
+                      placeholder="Imei"
                     />
                   </div>
                 </div>
@@ -490,6 +517,62 @@ const DevicesAdmin = () => {
                   </button>
                 </div>
               </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* MODAL PERMISSION   */}
+      <div
+        className="modal fade"
+        id="staticBackdrop"
+        data-bs-backdrop="static"
+        data-bs-keyboard="false"
+        tabIndex="-1"
+        aria-labelledby="staticBackdropLabel"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog modal-dialog-centered">
+          <div className="modal-content">
+            <div className="modal-header border-bottom-0 bg-danger pt-4 pb-4 d-flex align-items-center">
+              <div className="d-flex align-items-center justify-content-center w-100">
+                <p className="m-0 text-light fs-6 fw-bolder">
+                  Haqiqatan ham o'chirmoqchimisiz?
+                </p>
+              </div>
+              <button
+                type="button"
+                className="btn-close-location btn-close-delete-devices p-0"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              >
+                <img
+                  src="../../../src/assets/images/cancel.png"
+                  alt="cancel"
+                  width="18"
+                  height="18"
+                />
+              </button>
+            </div>
+            <div className="modal-body fw-semibold fs-5 text-dark text-center modal-delete-device">
+              O'ylab ko'ring! qurilmani oʻchirish doimiy boʻladi.
+            </div>
+            <div className="modal-footer border-top-0">
+              <button
+                type="button"
+                className="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Yo'q
+              </button>
+              <button
+                type="button"
+                className="btn btn-secondary"
+                data-bs-dismiss="modal"
+                onClick={deleteDevice}
+              >
+                Ha
+              </button>
             </div>
           </div>
         </div>
@@ -528,109 +611,120 @@ const DevicesAdmin = () => {
                 <span></span>
               </div>
             ) : (
-              <table className="c-table mt-4">
-                <thead className="c-table__header">
-                  <tr>
-                    <th className="c-table__col-label text-center">
-                      Qurilma nomi
-                    </th>
-                    <th className="c-table__col-label text-center">Viloyat</th>
-                    <th className="c-table__col-label text-center">Tuman</th>
-                    <th className="c-table__col-label text-center">Latitude</th>
-                    <th className="c-table__col-label text-center">
-                      Longitude
-                    </th>
-                    <th className="c-table__col-label text-center">
-                      Reservoir Id
-                    </th>
-                    <th className="c-table__col-label text-center">
-                      Telefon raqam
-                    </th>
-                    <th className="c-table__col-label text-center">Imei</th>
-                    <th className="c-table__col-label text-center">
-                      Foydalanuvchi
-                    </th>
-                    <th className="c-table__col-label text-center">
-                      O'zgartirish
-                    </th>
-                    <th className="c-table__col-label text-center">
-                      O'chirish
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="c-table__body">
-                  {info.length > 0 &&
-                    info.map((element, index) => {
-                      return (
-                        <tr className="fs-6" key={index}>
-                          <td className="c-table__cell text-center">
-                            {element.name}
-                          </td>
-                          <td className="c-table__cell text-center">
-                            {element.region}
-                          </td>
-                          <td className="c-table__cell text-center">
-                            {element.district}
-                          </td>
-                          <td className="c-table__cell text-center">
-                            {element.lat}
-                          </td>
-                          <td className="c-table__cell text-center">
-                            {element.lon}
-                          </td>
-                          <td className="c-table__cell text-center">
-                            {element.reservoirId}
-                          </td>
-                          <td className="c-table__cell text-center">
-                            {element.phoneNumber}
-                          </td>
-                          <td className="c-table__cell text-center">
-                            {element.imei}
-                          </td>
-                          <td
-                            className={
-                              element.user
-                                ? "c-table__cell text-center"
-                                : "c-table__cell text-danger text-center"
-                            }
-                          >
-                            {element.user
-                              ? element.user.name
-                              : "Foydalanuvchi o'chirilgan"}
-                          </td>
-                          <td className="c-table__cell text-center">
-                            <button
-                              className="btn-devices-edit"
-                              data-bs-toggle="modal"
-                              data-bs-target="#exampleModal"
-                              onClick={() => setInfoId(element._id)}
+              <div className="table-scrol m-auto">
+                <table className="c-table mt-4">
+                  <thead className="c-table__header">
+                    <tr>
+                      <th className="c-table__col-label text-center">
+                        Qurilma nomi
+                      </th>
+                      <th className="c-table__col-label text-center">
+                        Viloyat
+                      </th>
+                      <th className="c-table__col-label text-center">Tuman</th>
+                      <th className="c-table__col-label text-center">
+                        Latitude
+                      </th>
+                      <th className="c-table__col-label text-center">
+                        Longitude
+                      </th>
+                      <th className="c-table__col-label text-center">
+                        Reservoir Id
+                      </th>
+                      <th className="c-table__col-label text-center">
+                        Telefon raqam
+                      </th>
+                      <th className="c-table__col-label text-center">Imei</th>
+                      <th className="c-table__col-label text-center">
+                        Foydalanuvchi
+                      </th>
+                      <th className="c-table__col-label text-center">
+                        O'zgartirish
+                      </th>
+                      <th className="c-table__col-label text-center">
+                        O'chirish
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody className="c-table__body">
+                    {info.length > 0 &&
+                      info.map((element, index) => {
+                        return (
+                          <tr className="fs-6" key={index}>
+                            <td className="c-table__cell text-center">
+                              {element.name}
+                            </td>
+                            <td className="c-table__cell text-center">
+                              {element.region}
+                            </td>
+                            <td className="c-table__cell text-center">
+                              {element.district}
+                            </td>
+                            <td className="c-table__cell text-center">
+                              {element.lat}
+                            </td>
+                            <td className="c-table__cell text-center">
+                              {element.lon}
+                            </td>
+                            <td className="c-table__cell text-center">
+                              {element.reservoirId}
+                            </td>
+                            <td className="c-table__cell text-center">
+                              {element.phoneNumber}
+                            </td>
+                            <td className="c-table__cell text-center">
+                              {element.imei}
+                            </td>
+                            <td
+                              className={
+                                element.user
+                                  ? "c-table__cell text-center"
+                                  : "c-table__cell text-danger text-center"
+                              }
                             >
-                              <img
-                                src="https://cdn-icons-png.flaticon.com/128/9458/9458280.png"
-                                alt="update"
-                                width="16"
-                                height="16"
-                              />
-                            </button>
-                          </td>
-                          <td className="c-table__cell text-center">
-                            <button
-                              className="btn-devices-edit"
-                              onClick={() => deleteDevice(element._id)}
-                            >
-                              <img
-                                src="https://cdn-icons-png.flaticon.com/128/9713/9713380.png"
-                                alt="update"
-                                width="16"
-                                height="16"
-                              />
-                            </button>
-                          </td>
-                        </tr>
-                      );
-                    })}
-                </tbody>
-              </table>
+                              {element.user
+                                ? element.user.name
+                                : "Foydalanuvchi o'chirilgan"}
+                            </td>
+                            <td className="c-table__cell text-center">
+                              <button
+                                className="btn-devices-edit"
+                                data-bs-toggle="modal"
+                                data-bs-target="#exampleModal"
+                                onClick={() => {
+                                  getInfoImei(element.imei);
+                                  setInfoId(element._id);
+                                }}
+                              >
+                                <img
+                                  src="https://cdn-icons-png.flaticon.com/128/9458/9458280.png"
+                                  alt="update"
+                                  width="16"
+                                  height="16"
+                                />
+                              </button>
+                            </td>
+                            <td className="c-table__cell text-center">
+                              <button
+                                className="btn-devices-edit"
+                                data-bs-toggle="modal"
+                                data-bs-target="#staticBackdrop"
+                                onClick={() => setInfoIdDelete(element._id)}
+                              >
+                                <img
+                                  src="https://cdn-icons-png.flaticon.com/128/9713/9713380.png"
+                                  alt="update"
+                                  width="16"
+                                  height="16"
+                                />
+                              </button>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                  </tbody>
+                </table>
+              </div>
             )}
           </div>
         </section>

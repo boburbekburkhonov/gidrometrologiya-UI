@@ -5,21 +5,17 @@ import { Helmet } from "react-helmet-async";
 
 const Users = () => {
   const [users, setUsers] = useState([]);
+  const [user, setUser] = useState({});
   const [loader, setLoader] = useState(true);
   const [userId, setUserId] = useState("");
   const [count, setCount] = useState(0);
+  const [userIdDelete, setUserIdDelete] = useState("");
 
-  function updateDevice(e) {
+  function updateUser(e) {
     e.preventDefault();
 
     const { nameuser, username, password, email, role } = e.target;
-    console.log(
-      nameuser.value,
-      username.value,
-      password.value,
-      email.value,
-      role.value
-    );
+
     fetch(`${apiGlobal}/users/update/${userId}`, {
       method: "PATCH",
       headers: {
@@ -38,7 +34,7 @@ const Users = () => {
       .then((data) => {
         if (data._id) {
           setCount(count + 1);
-          toast.success("User updated successfully");
+          window.location.reload();
         }
       });
 
@@ -49,8 +45,8 @@ const Users = () => {
     role.value = "";
   }
 
-  function deleteDevice(id) {
-    fetch(`${apiGlobal}/users/delete/${id}`, {
+  function deleteUser(id) {
+    fetch(`${apiGlobal}/users/delete/${userIdDelete}`, {
       method: "DELETE",
       headers: {
         "content-type": "application/json",
@@ -65,6 +61,22 @@ const Users = () => {
         }
       });
   }
+
+  const getUserWithId = (id) => {
+    fetch(`http://localhost:3000/users/profile/${id}`, {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+        Authorization: "Bearer " + window.localStorage.getItem("token"),
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data) {
+          setUser(data);
+        }
+      });
+  };
 
   useEffect(() => {
     fetch(`${apiGlobal}/users/list`, {
@@ -94,27 +106,27 @@ const Users = () => {
           aria-labelledby="exampleModalLabel"
           aria-hidden="true"
         >
-          <div className="modal-dialog">
+          <div className="modal-dialog modal-dialog-centered">
             <div className="modal-content">
               <div className="modal-header">
                 <h1 className="modal-title fs-5" id="exampleModalLabel">
-                  Foydalanuvchi ma'lumotini o'zgartirish
+                  Foydalanuvchi ma'lumotlarini o'zgartirish
                 </h1>
                 <button
                   type="button"
-                  className="btn-close"
+                  className="btn-close btn-close-location"
                   data-bs-dismiss="modal"
                   aria-label="Close"
                 ></button>
               </div>
               <div className="modal-body">
-                <form onSubmit={updateDevice}>
+                <form onSubmit={updateUser}>
                   <div className="row mb-3">
                     <label
                       htmlFor="name"
                       className="col-md-4 col-lg-3 col-form-label modal-label"
                     >
-                      Name
+                      Ism
                     </label>
                     <div className="col-md-8 col-lg-9">
                       <input
@@ -122,6 +134,8 @@ const Users = () => {
                         type="text"
                         className="form-control"
                         id="name"
+                        placeholder="Ismi"
+                        defaultValue={user.name}
                       />
                     </div>
                   </div>
@@ -131,7 +145,7 @@ const Users = () => {
                       htmlFor="district"
                       className="col-md-4 col-lg-3 col-form-label modal-label"
                     >
-                      Username
+                      Foydalanuvchi nomi
                     </label>
                     <div className="col-md-8 col-lg-9">
                       <input
@@ -139,23 +153,8 @@ const Users = () => {
                         type="text"
                         className="form-control"
                         id="district"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="row mb-3">
-                    <label
-                      htmlFor="region"
-                      className="col-md-4 col-lg-3 col-form-label modal-label"
-                    >
-                      Password
-                    </label>
-                    <div className="col-md-8 col-lg-9">
-                      <input
-                        name="password"
-                        type="text"
-                        className="form-control"
-                        id="region"
+                        placeholder="Foydalanuvchi nomi"
+                        defaultValue={user.username}
                       />
                     </div>
                   </div>
@@ -173,6 +172,27 @@ const Users = () => {
                         type="text"
                         className="form-control"
                         id="name"
+                        placeholder="Email"
+                        defaultValue={user.email}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="row mb-3">
+                    <label
+                      htmlFor="region"
+                      className="col-md-4 col-lg-3 col-form-label modal-label"
+                    >
+                      Parol
+                    </label>
+                    <div className="col-md-8 col-lg-9">
+                      <input
+                        name="password"
+                        type="text"
+                        className="form-control"
+                        id="region"
+                        placeholder="Parol"
+                        defaultValue={user.password}
                       />
                     </div>
                   </div>
@@ -182,7 +202,7 @@ const Users = () => {
                       htmlFor="longitude"
                       className="col-md-4 col-lg-3 col-form-label modal-label"
                     >
-                      Role
+                      Roli
                     </label>
                     <div className="col-md-8 col-lg-9">
                       <input
@@ -190,6 +210,8 @@ const Users = () => {
                         type="text"
                         className="form-control"
                         id="longitude"
+                        placeholder="Roli"
+                        defaultValue={user.role}
                       />
                     </div>
                   </div>
@@ -204,6 +226,63 @@ const Users = () => {
             </div>
           </div>
         </div>
+
+        {/* MODAL PERMISSION   */}
+        <div
+          className="modal fade"
+          id="staticBackdrop"
+          data-bs-backdrop="static"
+          data-bs-keyboard="false"
+          tabIndex="-1"
+          aria-labelledby="staticBackdropLabel"
+          aria-hidden="true"
+        >
+          <div className="modal-dialog modal-dialog-centered">
+            <div className="modal-content">
+              <div className="modal-header border-bottom-0 bg-danger pt-4 pb-4 d-flex align-items-center">
+                <div className="d-flex align-items-center justify-content-center w-100">
+                  <p className="m-0 text-light fs-6 fw-bolder">
+                    Haqiqatan ham o'chirmoqchimisiz?
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  className="btn-close-location btn-close-delete-devices p-0"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <img
+                    src="../../../src/assets/images/cancel.png"
+                    alt="cancel"
+                    width="18"
+                    height="18"
+                  />
+                </button>
+              </div>
+              <div className="modal-body fw-semibold fs-5 text-dark text-center modal-delete-device">
+                O'ylab ko'ring! foydalanuvchini oʻchirish doimiy boʻladi.
+              </div>
+              <div className="modal-footer border-top-0">
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Yo'q
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                  onClick={deleteUser}
+                >
+                  Ha
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* ToastContainer */}
         <ToastContainer
           position="top-center"
@@ -229,27 +308,15 @@ const Users = () => {
                 <table className="c-table mt-4">
                   <thead className="c-table__header">
                     <tr>
-                      <th className="c-table__col-label text-center text-center">
-                        Name
+                      <th className="c-table__col-label text-center">Ism</th>
+                      <th className="c-table__col-label text-center">
+                        Foydalanuvchi nomi
                       </th>
-                      <th className="c-table__col-label text-center text-center">
-                        UserName
-                      </th>
-                      <th className="c-table__col-label text-center text-center">
-                        Passpord
-                      </th>
-                      <th className="c-table__col-label text-center text-center">
-                        Email
-                      </th>
-                      <th className="c-table__col-label text-center text-center">
-                        Role
-                      </th>
-                      <th className="c-table__col-label text-center text-center">
-                        Edit
-                      </th>
-                      <th className="c-table__col-label text-center text-center">
-                        Delete
-                      </th>
+                      <th className="c-table__col-label text-center">Parol</th>
+                      <th className="c-table__col-label text-center">Email</th>
+                      <th className="c-table__col-label text-center">Roli</th>
+                      <th className="c-table__col-label text-center">Edit</th>
+                      <th className="c-table__col-label text-center">Delete</th>
                     </tr>
                   </thead>
                   <tbody className="c-table__body">
@@ -277,7 +344,10 @@ const Users = () => {
                                 className="btn-devices-edit"
                                 data-bs-toggle="modal"
                                 data-bs-target="#exampleModal"
-                                onClick={() => setUserId(element._id)}
+                                onClick={() => {
+                                  getUserWithId(element._id);
+                                  setUserId(element._id);
+                                }}
                               >
                                 <img
                                   src="https://cdn-icons-png.flaticon.com/128/9458/9458280.png"
@@ -290,7 +360,9 @@ const Users = () => {
                             <td className="c-table__cell text-center">
                               <button
                                 className="btn-devices-edit"
-                                onClick={() => deleteDevice(element._id)}
+                                data-bs-toggle="modal"
+                                data-bs-target="#staticBackdrop"
+                                onClick={() => setUserIdDelete(element._id)}
                               >
                                 <img
                                   src="https://cdn-icons-png.flaticon.com/128/9713/9713380.png"

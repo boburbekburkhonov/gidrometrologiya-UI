@@ -250,8 +250,8 @@ const History = () => {
                           : month
                           ? "Bir oylik ma'lumotlar"
                           : filter
-                          ? "Qidirilgan ma'lumotlar" :
-                           null}
+                          ? "Qidirilgan ma'lumotlar"
+                          : null}
                       </h3>
                       <p className="present-day-data-desc">
                         {present
@@ -306,7 +306,10 @@ const History = () => {
                   </div>
 
                   <div className="history-btn-wrapper mb-3">
-                    <button className="custom-btn btn-1" onClick={presentData}>
+                    <button
+                      className="custom-btn custom-btn-start btn-1"
+                      onClick={presentData}
+                    >
                       Bugun kelgan ma'lumotlar
                     </button>
 
@@ -381,13 +384,13 @@ const History = () => {
                     </form>
                   </div>
 
-                  <div className="table-scrol m-auto table">
+                  <div className="table-scrol m-auto">
                     {data.length == 0 ? (
                       <div className="alert alert-primary mt-4 fs-4 text-center fw-bold">
                         Hozircha ma'lumot kelmadi ...
                       </div>
                     ) : (
-                      <table className="c-table mt-4 table-scroll">
+                      <table className="c-table mt-4">
                         <thead className="c-table__header">
                           <tr>
                             <th className="c-table__col-label text-center">
@@ -443,9 +446,10 @@ const History = () => {
                                       : month
                                       ? moment(time).format("L")
                                       : filter
-                                      ? moment(time).format("L") + ' ' +
-                                      String(element.time).slice(11, 19):
-                                      null}
+                                      ? moment(time).format("L") +
+                                        " " +
+                                        String(element.time).slice(11, 19)
+                                      : null}
                                   </td>
                                   <td className="c-table__cell text-center">
                                     {element.windDirection}°C

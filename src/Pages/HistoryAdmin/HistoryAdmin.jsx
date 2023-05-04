@@ -255,8 +255,8 @@ const HistoryAdmin = () => {
                           : month
                           ? "Bir oylik ma'lumotlar"
                           : filter
-                          ? "Qidirilgan ma'lumotlar" :
-                           null}
+                          ? "Qidirilgan ma'lumotlar"
+                          : null}
                       </h3>
                       <p className="present-day-data-desc">
                         {present
@@ -312,7 +312,10 @@ const HistoryAdmin = () => {
                   </div>
 
                   <div className="history-btn-wrapper mb-3">
-                    <button className="custom-btn btn-1" onClick={presentData}>
+                    <button
+                      className="custom-btn custom-btn-start btn-1"
+                      onClick={presentData}
+                    >
                       Bugun kelgan ma'lumotlar
                     </button>
 
@@ -393,7 +396,7 @@ const HistoryAdmin = () => {
                         Hozircha ma'lumot kelmadi ...
                       </div>
                     ) : (
-                      <table className="c-table mt-4 table-scroll">
+                      <table className="c-table mt-4">
                         <thead className="c-table__header">
                           <tr>
                             <th className="c-table__col-label text-center">
@@ -449,9 +452,10 @@ const HistoryAdmin = () => {
                                       : month
                                       ? moment(time).format("L")
                                       : filter
-                                      ? moment(time).format("L") + ' ' +
-                                      String(element.time).slice(11, 19):
-                                      null}
+                                      ? moment(time).format("L") +
+                                        " " +
+                                        String(element.time).slice(11, 19)
+                                      : null}
                                   </td>
                                   <td className="c-table__cell text-center">
                                     {element.windDirection}°C

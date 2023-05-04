@@ -37,11 +37,6 @@ const Profile = () => {
           toast.success("Information updated successfully");
         }
       });
-
-    name.value = "";
-    fullUserName.value = "";
-    email.value = "";
-    password.value = "";
   }
 
   useEffect(() => {
@@ -133,7 +128,7 @@ const Profile = () => {
 
                           <div className="row">
                             <div className="col-lg-3 col-md-4 label fw-bold profile-heading">
-                              Name
+                            Ismingiz
                             </div>
                             <div className="col-lg-9 col-md-8">
                               {dataProfile.name}
@@ -142,7 +137,7 @@ const Profile = () => {
 
                           <div className="row">
                             <div className="col-lg-3 col-md-4 label fw-bold profile-heading">
-                              Username
+                            Foydalanuvchi nomi
                             </div>
                             <div className="col-lg-9 col-md-8">
                               {dataProfile.username}
@@ -160,7 +155,7 @@ const Profile = () => {
 
                           <div className="row">
                             <div className="col-lg-3 col-md-4 label fw-bold profile-heading">
-                              Password
+                              Parol
                             </div>
                             <div className="col-lg-9 col-md-8">
                               {dataProfile.password}
@@ -175,7 +170,7 @@ const Profile = () => {
                           <form onSubmit={updateUserInformation}>
                             <div className="row mb-3">
                               <label className="col-md-4 col-lg-3 col-form-label profile-heading fw-bold">
-                                Name
+                              Ismingiz
                               </label>
                               <div className="col-md-8 col-lg-9">
                                 <input
@@ -183,13 +178,14 @@ const Profile = () => {
                                   type="text"
                                   className="form-control"
                                   id="name"
+                                  defaultValue={dataProfile.name}
                                 />
                               </div>
                             </div>
 
                             <div className="row mb-3">
                               <label className="col-md-4 col-lg-3 col-form-label profile-heading fw-bold">
-                                Username
+                              Foydalanuvchi nomi
                               </label>
                               <div className="col-md-8 col-lg-9">
                                 <input
@@ -197,6 +193,7 @@ const Profile = () => {
                                   type="text"
                                   className="form-control"
                                   id="fullName"
+                                  defaultValue={dataProfile.username}
                                 />
                               </div>
                             </div>
@@ -211,13 +208,14 @@ const Profile = () => {
                                   type="text"
                                   className="form-control"
                                   id="email"
+                                  defaultValue={dataProfile.email}
                                 />
                               </div>
                             </div>
 
                             <div className="row mb-3">
                               <label className="col-md-4 col-lg-3 col-form-label profile-heading fw-bold">
-                                Password
+                                Parol
                               </label>
                               <div className="col-md-8 col-lg-9">
                                 <input
@@ -225,6 +223,7 @@ const Profile = () => {
                                   type="text"
                                   className="form-control"
                                   id="password"
+                                  defaultValue={dataProfile.password}
                                 />
                               </div>
                             </div>

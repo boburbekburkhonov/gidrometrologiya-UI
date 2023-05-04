@@ -62,12 +62,20 @@ const LocationAdminList = () => {
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
       >
-        <div className="modal-dialog table-location-width">
+        <div className="modal-dialog table-location-width modal-dialog-centered">
           <div className="modal-content table-location-scrol">
-            <div className="modal-body">
+            <div className="modal-header lastdata-close pb-0">
+              <button
+                type="button"
+                className="btn-close btn-close-location"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div className="modal-body pt-0">
               <div className="m-auto">
                 {data.length == 0 ? (
-                  <div className="alert alert-info fw-bold">
+                  <div className="alert alert-info fw-bold mt-4">
                     Hozircha ma'lumot kelmadi
                   </div>
                 ) : (
@@ -104,9 +112,6 @@ const LocationAdminList = () => {
                         </th>
                         <th className="c-table__col-label text-center">
                           Yomg'ir qalingligi
-                        </th>
-                        <th className="c-table__col-label text-center">
-                          Sensor turi
                         </th>
                       </tr>
                     </thead>
@@ -149,9 +154,6 @@ const LocationAdminList = () => {
                               </td>
                               <td className="c-table__cell text-center">
                                 {element.rainHeight} mm
-                              </td>
-                              <td className="c-table__cell text-center">
-                                {element.typeSensor}
                               </td>
                             </tr>
                           );

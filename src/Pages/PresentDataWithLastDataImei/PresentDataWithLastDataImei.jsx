@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { apiGlobal } from "../Api/ApiGlobal";
 import * as XLSX from "xlsx";
 import moment from "moment";
+import { Helmet } from "react-helmet-async";
 
 const PresentDataWithLastDataImei = () => {
   const [data, setData] = useState();
@@ -38,108 +39,115 @@ const PresentDataWithLastDataImei = () => {
       <div className="pagetitle">
         <section className="section dashboard">
           <div className="row">
-            <button
-              className="custom-btn btn-1 ms-auto"
-              onClick={data?.length != 0 ? exportDataToExcel : null}
-            >
-              Ma'lumotlarni saqlash
-            </button>
+            <div className="text-end">
+              <button
+                className="custom-btn btn-1 ms-auto"
+                onClick={data?.length != 0 ? exportDataToExcel : null}
+              >
+                Ma'lumotlarni saqlash
+              </button>
+            </div>
             {data?.length == 0 ? (
               <div className="alert alert-primary mt-4 fs-4 text-center fw-bold">
                 Bugun ma'lumot kelmadi ...
               </div>
             ) : (
-              <table className="c-table mt-4 table-scroll">
-                <thead className="c-table__header">
-                  <tr>
-                    <th className="c-table__col-label text-center">Vaqt</th>
-                    <th className="c-table__col-label text-center">
-                      Shamol yo'nalishi
-                    </th>
-                    <th className="c-table__col-label text-center">
-                      Shamol tezligi
-                    </th>
-                    <th className="c-table__col-label text-center">
-                      Tuproq temperaturasi
-                    </th>
-                    <th className="c-table__col-label text-center">
-                      Tuproq namligi
-                    </th>
-                    <th className="c-table__col-label text-center">
-                      Havo temperaturasi
-                    </th>
-                    <th className="c-table__col-label text-center">
-                      Havo namligi
-                    </th>
-                    <th className="c-table__col-label text-center">
-                      Havo bosimi
-                    </th>
-                    <th className="c-table__col-label text-center">
-                      Barg temperaturasi
-                    </th>
-                    <th className="c-table__col-label text-center">
-                      Barg namligi
-                    </th>
-                    <th className="c-table__col-label text-center">
-                      Yomg'ir qalingligi
-                    </th>
-                    <th className="c-table__col-label text-center">
-                      Sensor turi
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="c-table__body">
-                  {data?.length > 0 &&
-                    data.map((element, index) => {
-                      const time = new Date(element.time);
-                      time.setHours(time.getHours() - 5);
-                      return (
-                        <tr className="fs-6" key={index}>
-                          <td className="c-table__cell text-center">
-                            {moment(time).format("L")}
-                          </td>
-                          <td className="c-table__cell text-center">
-                            {element.windDirection}°C
-                          </td>
-                          <td className="c-table__cell text-center">
-                            {element.windSpeed} m/s
-                          </td>
-                          <td className="c-table__cell text-center">
-                            {element.soilTemp}°C
-                          </td>
-                          <td className="c-table__cell text-center">
-                            {element.soilHumidity} %
-                          </td>
-                          <td className="c-table__cell text-center">
-                            {element.airTemp}°C
-                          </td>
-                          <td className="c-table__cell text-center">
-                            {element.airHumidity}%
-                          </td>
-                          <td className="c-table__cell text-center">
-                            {element.airPressure} kPa
-                          </td>
-                          <td className="c-table__cell text-center">
-                            {element.leafTemp}°C
-                          </td>
-                          <td className="c-table__cell text-center">
-                            {element.leafHumidity}%
-                          </td>
-                          <td className="c-table__cell text-center">
-                            {element.rainHeight} mm
-                          </td>
-                          <td className="c-table__cell text-center">
-                            {element.typeSensor}
-                          </td>
-                        </tr>
-                      );
-                    })}
-                </tbody>
-              </table>
+              <div className="table-scrol m-auto">
+                <table className="c-table mt-4 table-scroll">
+                  <thead className="c-table__header">
+                    <tr>
+                      <th className="c-table__col-label text-center">Vaqt</th>
+                      <th className="c-table__col-label text-center">
+                        Shamol yo'nalishi
+                      </th>
+                      <th className="c-table__col-label text-center">
+                        Shamol tezligi
+                      </th>
+                      <th className="c-table__col-label text-center">
+                        Tuproq temperaturasi
+                      </th>
+                      <th className="c-table__col-label text-center">
+                        Tuproq namligi
+                      </th>
+                      <th className="c-table__col-label text-center">
+                        Havo temperaturasi
+                      </th>
+                      <th className="c-table__col-label text-center">
+                        Havo namligi
+                      </th>
+                      <th className="c-table__col-label text-center">
+                        Havo bosimi
+                      </th>
+                      <th className="c-table__col-label text-center">
+                        Barg temperaturasi
+                      </th>
+                      <th className="c-table__col-label text-center">
+                        Barg namligi
+                      </th>
+                      <th className="c-table__col-label text-center">
+                        Yomg'ir qalingligi
+                      </th>
+                      <th className="c-table__col-label text-center">
+                        Sensor turi
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody className="c-table__body">
+                    {data?.length > 0 &&
+                      data.map((element, index) => {
+                        const time = new Date(element.time);
+                        time.setHours(time.getHours() - 5);
+                        return (
+                          <tr className="fs-6" key={index}>
+                            <td className="c-table__cell text-center">
+                              {moment(time).format("L")}
+                            </td>
+                            <td className="c-table__cell text-center">
+                              {element.windDirection}°C
+                            </td>
+                            <td className="c-table__cell text-center">
+                              {element.windSpeed} m/s
+                            </td>
+                            <td className="c-table__cell text-center">
+                              {element.soilTemp}°C
+                            </td>
+                            <td className="c-table__cell text-center">
+                              {element.soilHumidity} %
+                            </td>
+                            <td className="c-table__cell text-center">
+                              {element.airTemp}°C
+                            </td>
+                            <td className="c-table__cell text-center">
+                              {element.airHumidity}%
+                            </td>
+                            <td className="c-table__cell text-center">
+                              {element.airPressure} kPa
+                            </td>
+                            <td className="c-table__cell text-center">
+                              {element.leafTemp}°C
+                            </td>
+                            <td className="c-table__cell text-center">
+                              {element.leafHumidity}%
+                            </td>
+                            <td className="c-table__cell text-center">
+                              {element.rainHeight} mm
+                            </td>
+                            <td className="c-table__cell text-center">
+                              {element.typeSensor}
+                            </td>
+                          </tr>
+                        );
+                      })}
+                  </tbody>
+                </table>
+              </div>
             )}
           </div>
         </section>
       </div>
+      <Helmet>
+        <script src="/src/assets/js/table.js"></script>
+      </Helmet>
     </main>
   );
 };
