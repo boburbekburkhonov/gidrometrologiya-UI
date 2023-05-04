@@ -124,7 +124,7 @@ const DevicesAdmin = () => {
   const getInfoImei = (imei) => {
     setInfoImei({});
 
-    fetch(`http://localhost:3000/info/${imei}`, {
+    fetch(`${apiGlobal}/info/${imei}`, {
       method: "GET",
       headers: {
         "content-type": "application/json",

@@ -63,7 +63,7 @@ const Users = () => {
   }
 
   const getUserWithId = (id) => {
-    fetch(`http://localhost:3000/users/profile/${id}`, {
+    fetch(`${apiGlobal}users/profile/${id}`, {
       method: "GET",
       headers: {
         "content-type": "application/json",
