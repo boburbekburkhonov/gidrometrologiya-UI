@@ -63,7 +63,7 @@ const Users = () => {
   }
 
   const getUserWithId = (id) => {
-    fetch(`${apiGlobal}users/profile/${id}`, {
+    fetch(`${apiGlobal}/users/profile/${id}`, {
       method: "GET",
       headers: {
         "content-type": "application/json",
@@ -134,7 +134,6 @@ const Users = () => {
                         type="text"
                         className="form-control"
                         id="name"
-                        placeholder="Ismi"
                         defaultValue={user.name}
                       />
                     </div>
@@ -153,7 +152,6 @@ const Users = () => {
                         type="text"
                         className="form-control"
                         id="district"
-                        placeholder="Foydalanuvchi nomi"
                         defaultValue={user.username}
                       />
                     </div>
@@ -172,7 +170,6 @@ const Users = () => {
                         type="text"
                         className="form-control"
                         id="name"
-                        placeholder="Email"
                         defaultValue={user.email}
                       />
                     </div>
@@ -191,7 +188,6 @@ const Users = () => {
                         type="text"
                         className="form-control"
                         id="region"
-                        placeholder="Parol"
                         defaultValue={user.password}
                       />
                     </div>
@@ -210,7 +206,6 @@ const Users = () => {
                         type="text"
                         className="form-control"
                         id="longitude"
-                        placeholder="Roli"
                         defaultValue={user.role}
                       />
                     </div>
