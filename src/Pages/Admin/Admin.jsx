@@ -139,19 +139,6 @@ const Admin = () => {
                       <li>
                         <button
                           className="dropdown-item d-flex align-items-center"
-                          onClick={() => navigate("/admin/devices")}
-                        >
-                          <i className="bi bi-layout-text-window-reverse"></i>
-                          <span>Qurilmalar</span>
-                        </button>
-                      </li>
-                      <li>
-                        <hr className="dropdown-divider" />
-                      </li>
-
-                      <li>
-                        <button
-                          className="dropdown-item d-flex align-items-center"
                           onClick={() => navigate("/admin/history")}
                         >
                           <i className="bi bi-archive"></i>
@@ -174,7 +161,19 @@ const Admin = () => {
                           <span>Lokatsiya</span>
                         </button>
                       </li>
+                      <li>
+                        <hr className="dropdown-divider" />
+                      </li>
 
+                      <li>
+                        <button
+                          className="dropdown-item d-flex align-items-center"
+                          onClick={() => navigate("/admin/devices")}
+                        >
+                          <i className="bi bi-layout-text-window-reverse"></i>
+                          <span>Qurilmalar</span>
+                        </button>
+                      </li>
                       <li>
                         <hr className="dropdown-divider" />
                       </li>

@@ -118,20 +118,6 @@ const User = () => {
                       <li>
                         <hr className="dropdown-divider" />
                       </li>
-
-                      <li>
-                        <button
-                          className="dropdown-item d-flex align-items-center"
-                          onClick={() => navigate("/user/profile")}
-                        >
-                          <i className="bi bi-person"></i>
-                          <span>Mening Profilim</span>
-                        </button>
-                      </li>
-                      <li>
-                        <hr className="dropdown-divider" />
-                      </li>
-
                       <li>
                         <button
                           className="dropdown-item d-flex align-items-center"
@@ -148,12 +134,14 @@ const User = () => {
                       <li>
                         <button
                           className="dropdown-item d-flex align-items-center"
-                          onClick={() => navigate("/user/devices")}
+                          onClick={() => navigate("/user/history")}
                         >
-                          <i className="bi bi-layout-text-window-reverse"></i>
-                          <span>Qurilmalar</span>
+                          <i className="bi bi-archive"></i>
+
+                          <span>Tarix</span>
                         </button>
                       </li>
+
                       <li>
                         <hr className="dropdown-divider" />
                       </li>
@@ -172,18 +160,28 @@ const User = () => {
                       <li>
                         <hr className="dropdown-divider" />
                       </li>
+                      <li>
+                        <button
+                          className="dropdown-item d-flex align-items-center"
+                          onClick={() => navigate("/user/devices")}
+                        >
+                          <i className="bi bi-layout-text-window-reverse"></i>
+                          <span>Qurilmalar</span>
+                        </button>
+                      </li>
+                      <li>
+                        <hr className="dropdown-divider" />
+                      </li>
 
                       <li>
                         <button
                           className="dropdown-item d-flex align-items-center"
-                          onClick={() => navigate("/user/history")}
+                          onClick={() => navigate("/user/profile")}
                         >
-                          <i className="bi bi-archive"></i>
-
-                          <span>Tarix</span>
+                          <i className="bi bi-person"></i>
+                          <span>Mening Profilim</span>
                         </button>
                       </li>
-
                       <li>
                         <hr className="dropdown-divider" />
                       </li>
