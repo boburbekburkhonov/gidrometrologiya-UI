@@ -21,20 +21,6 @@ const StatisticAdmin = () => {
     })
       .then((res) => res.json())
       .then((data) => setDataDevicesStatistics(data));
-
-    fetch(
-      `https://api.openweathermap.org/data/2.5/weather?q=toshkent&units=metric&appid=277e160f5af509c9f6e384d7cbe3501c`,
-      {
-        method: "GET",
-        mode: "no-cors",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-      }
-    )
-      .then((res) => res.json())
-      .then((data) => console.log(data));
   }, []);
 
   useEffect(() => {
