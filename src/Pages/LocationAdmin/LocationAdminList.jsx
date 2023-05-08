@@ -126,7 +126,7 @@ const LocationAdminList = () => {
                                 {String(element.time).slice(11, 19)}
                               </td>
                               <td className="c-table__cell text-center">
-                                {element.windDirection}°C
+                                {element.windDirection}
                               </td>
                               <td className="c-table__cell text-center">
                                 {element.windSpeed} m/s

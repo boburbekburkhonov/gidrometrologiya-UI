@@ -1549,6 +1549,7 @@ th {
 
 .col-md-4-spinner {
   max-width: 300px;
+  transition: all 0.5s ease;
 }
 
 .date-wrapper {
@@ -1619,12 +1620,12 @@ th {
   margin: 0;
   font-weight: 600;
   color: #012970;
-  font-size: 28ypx;
+  font-size: 32px;
 }
 
 .present-day-data-desc {
   margin: 0;
-  font-size: 17px;
+  font-size: 20px;
   margin-left: 20px;
   font-weight: 600;
   color: #ff0000;
@@ -1869,4 +1870,33 @@ th {
 
 .modal-one-lastdata {
   max-width: 1000px !important;
+}
+
+.present-data-with-lastdata {
+  font-size: 32px;
+  margin: 0;
+  margin-left: 10px;
+  font-weight: 600;
+  color: #012970;
+}
+
+.col-md-4-spinner:hover {
+  box-shadow: 0px 1px 0px 0px rgba(100, 100, 111, 0.2), 1px 0px 0px 0px rgba(100, 100, 111, 0.2), 1px 2px 0px 0px rgba(100, 100, 111, 0.2), 2px 1px 0px 0px rgba(100, 100, 111, 0.2), 2px 3px 0px 0px rgba(100, 100, 111, 0.2), 3px 2px 0px 0px rgba(100, 100, 111, 0.2), 3px 4px 0px 0px rgba(100, 100, 111, 0.2), 4px 3px 0px 0px rgba(100, 100, 111, 0.2), 4px 5px 0px 0px rgba(100, 100, 111, 0.2), 5px 4px 0px 0px rgba(100, 100, 111, 0.2), 5px 6px 0px 0px rgba(100, 100, 111, 0.2), 6px 5px 0px 0px rgba(100, 100, 111, 0.2), 6px 7px 0px 0px rgba(100, 100, 111, 0.2), 7px 6px 0px 0px rgba(100, 100, 111, 0.2), 7px 8px 0px 0px rgba(100, 100, 111, 0.2), 8px 7px 0px 0px rgba(100, 100, 111, 0.2);
+}
+
+.col-md-4-spinner:active {
+  opacity: 0.4;
+}
+
+.statistic-working-devices {
+  max-height: 166px;
+  transition: all 0.5s ease;
+}
+
+.statistic-working-devices:hover {
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.statistic-working-devices:active {
+  opacity: 0.4;
 }

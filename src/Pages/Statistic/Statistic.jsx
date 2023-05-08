@@ -22,7 +22,9 @@ const Statistic = () => {
     })
       .then((res) => res.json())
       .then((data) => setDataDevicesStatistics(data));
+  }, []);
 
+  useEffect(() => {
     fetch(`${apiGlobal}/mqtt/lastdata`, {
       method: "GET",
       headers: {
@@ -37,7 +39,7 @@ const Statistic = () => {
           setLoader(false);
         }
       });
-  }, []);
+  }, [lastData]);
 
   const presentDate = new Date();
 
@@ -47,8 +49,16 @@ const Statistic = () => {
       new Date(time).getMonth() == presentDate.getMonth()
     ) {
       return presentDate.getDate() - new Date(time).getDate();
-    }else if(new Date(time).getFullYear() == presentDate.getFullYear() &&
-    presentDate.getMonth() - new Date(time).getMonth() == 1 && (presentDate.getDate() == 2 && 30<=new Date(time).getDate() && new Date(time).getDate()<=31) || (presentDate.getDate() == 1 && 29<=new Date(time).getDate() && new Date(time).getDate()<=31)){
+    } else if (
+      (new Date(time).getFullYear() == presentDate.getFullYear() &&
+        presentDate.getMonth() - new Date(time).getMonth() == 1 &&
+        presentDate.getDate() == 2 &&
+        30 <= new Date(time).getDate() &&
+        new Date(time).getDate() <= 31) ||
+      (presentDate.getDate() == 1 &&
+        29 <= new Date(time).getDate() &&
+        new Date(time).getDate() <= 31)
+    ) {
       return 1;
     }
   };
@@ -79,14 +89,19 @@ const Statistic = () => {
             <div className="card-block">
               <div className="d-flex align-items-center justify-content-center">
                 <img
-                  src="../../src/assets/images/location.png"
+                  src="../../src/assets/images/location-black.png"
                   alt="location"
                   width="25"
                   height="25"
                   className="me-auto"
                   onClick={() => navigate(`lastdata/location/${element.imei}`)}
                 />
-                <h2 className="m-b-20 fs-5 heading-lastdata time-lastdata">
+                <h2
+                  className="m-b-20 fs-5 heading-lastdata time-lastdata"
+                  onClick={() => getLastData(element.imei)}
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal"
+                >
                   {element.name}
                 </h2>
                 <img
@@ -107,6 +122,9 @@ const Statistic = () => {
                     ? "underline-warning"
                     : "underline-danger"
                 }
+                onClick={() => getLastData(element.imei)}
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
               ></span>
 
               <div
@@ -387,7 +405,7 @@ const Statistic = () => {
 
                 <h2 className="statis-heading mt-4">Ishlagan qurilmalar</h2>
                 <div
-                  className="col-xxl-4 col-md-6 cursor"
+                  className="col-xxl-4 col-md-6 statistic-working-devices cursor"
                   onClick={() => navigate("/user/working/devices/present")}
                 >
                   <div className="card info-card sales-card">
@@ -417,7 +435,7 @@ const Statistic = () => {
                 </div>
 
                 <div
-                  className="col-xxl-4 col-md-6 cursor"
+                  className="col-xxl-4 col-md-6 statistic-working-devices cursor"
                   onClick={() => navigate("/user/working/devices/three")}
                 >
                   <div className="card info-card sales-card">
@@ -447,7 +465,7 @@ const Statistic = () => {
                 </div>
 
                 <div
-                  className="col-xxl-4 col-md-6 cursor"
+                  className="col-xxl-4 col-md-6 statistic-working-devices cursor"
                   onClick={() => navigate("/user/working/devices/ten")}
                 >
                   <div className="card info-card sales-card">
@@ -477,7 +495,7 @@ const Statistic = () => {
                 </div>
 
                 <div
-                  className="col-xxl-4 col-md-6 cursor"
+                  className="col-xxl-4 col-md-6 statistic-working-devices cursor"
                   onClick={() => navigate("/user/working/devices/month")}
                 >
                   <div className="card info-card sales-card">
@@ -507,7 +525,7 @@ const Statistic = () => {
                 </div>
 
                 <div
-                  className="col-xxl-4 col-md-6 cursor"
+                  className="col-xxl-4 col-md-6 statistic-working-devices cursor"
                   onClick={() => navigate("/user/working/devices/year")}
                 >
                   <div className="card info-card sales-card">

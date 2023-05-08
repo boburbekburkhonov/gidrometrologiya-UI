@@ -4,6 +4,9 @@ import { apiGlobal } from "../Api/ApiGlobal";
 import * as XLSX from "xlsx";
 import moment from "moment";
 import { Helmet } from "react-helmet-async";
+import "moment/dist/locale/uz-latn";
+
+moment.locale("uz-latn");
 
 const PresentDataWithLastDataImei = () => {
   const [data, setData] = useState();
@@ -34,18 +37,47 @@ const PresentDataWithLastDataImei = () => {
     XLSX.writeFile(workBook, "History.xlsx");
   };
 
+  const time = new Date();
+
   return (
     <main id="main" className="main">
       <div className="pagetitle">
         <section className="section dashboard">
           <div className="row">
-            <div className="text-end">
-              <button
-                className="custom-btn btn-1 ms-auto"
-                onClick={data?.length != 0 ? exportDataToExcel : null}
-              >
-                Ma'lumotlarni saqlash
-              </button>
+            <div className="d-flex align-items-center">
+              <div className="d-flex align-items-center">
+                <img
+                  src="../../../src/assets/images/location-black.png"
+                  alt="location"
+                  width="25"
+                  height="25"
+                />
+                <h3 className="present-data-with-lastdata">
+                  {data?.length > 0 ? data[0].name : null}
+                </h3>
+              </div>
+              <div className="d-flex align-items-center m-auto">
+                <h3 className="mb-0 present-day-data-heading">
+                  Bugungi ma'lumotlar{" "}
+                </h3>
+                <p className="present-day-data-desc">
+                  {moment(time).format("LLLL").split(" ")[0] +
+                    " " +
+                    moment(time).format("LLLL").split(" ")[1] +
+                    " " +
+                    moment(time).format("LLLL").split(" ")[2] +
+                    " " +
+                    moment(time).format("LLLL").split(" ")[3]}
+                </p>
+              </div>
+              <div className="ms-auto">
+                <button
+                  className="custom-btn btn-1 ms-auto"
+                  onClick={data?.length != 0 ? exportDataToExcel : null}
+                >
+                  Ma'lumotlarni saqlash
+                </button>
+              </div>
             </div>
             {data?.length == 0 ? (
               <div className="alert alert-primary mt-4 fs-4 text-center fw-bold">
@@ -100,10 +132,10 @@ const PresentDataWithLastDataImei = () => {
                         return (
                           <tr className="fs-6" key={index}>
                             <td className="c-table__cell text-center">
-                              {moment(time).format("L")}
+                              {String(element.time).slice(11, 19)}
                             </td>
                             <td className="c-table__cell text-center">
-                              {element.windDirection}°C
+                              {element.windDirection}
                             </td>
                             <td className="c-table__cell text-center">
                               {element.windSpeed} m/s

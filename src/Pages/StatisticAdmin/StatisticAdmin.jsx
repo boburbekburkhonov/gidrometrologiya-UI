@@ -22,6 +22,22 @@ const StatisticAdmin = () => {
       .then((res) => res.json())
       .then((data) => setDataDevicesStatistics(data));
 
+    fetch(
+      `https://api.openweathermap.org/data/2.5/weather?q=toshkent&units=metric&appid=277e160f5af509c9f6e384d7cbe3501c`,
+      {
+        method: "GET",
+        mode: "no-cors",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      }
+    )
+      .then((res) => res.json())
+      .then((data) => console.log(data));
+  }, []);
+
+  useEffect(() => {
     fetch(`${apiGlobal}/mqtt/admin/lastdata`, {
       method: "GET",
       headers: {
@@ -36,7 +52,7 @@ const StatisticAdmin = () => {
           setLoader(false);
         }
       });
-  }, []);
+  }, [lastData]);
 
   const presentDate = new Date();
 
@@ -46,8 +62,16 @@ const StatisticAdmin = () => {
       new Date(time).getMonth() == presentDate.getMonth()
     ) {
       return presentDate.getDate() - new Date(time).getDate();
-    }else if(new Date(time).getFullYear() == presentDate.getFullYear() &&
-    presentDate.getMonth() - new Date(time).getMonth() == 1 && (presentDate.getDate() == 2 && 30<=new Date(time).getDate() && new Date(time).getDate()<=31) || (presentDate.getDate() == 1 && 29<=new Date(time).getDate() && new Date(time).getDate()<=31)){
+    } else if (
+      (new Date(time).getFullYear() == presentDate.getFullYear() &&
+        presentDate.getMonth() - new Date(time).getMonth() == 1 &&
+        presentDate.getDate() == 2 &&
+        30 <= new Date(time).getDate() &&
+        new Date(time).getDate() <= 31) ||
+      (presentDate.getDate() == 1 &&
+        29 <= new Date(time).getDate() &&
+        new Date(time).getDate() <= 31)
+    ) {
       return 1;
     }
   };
@@ -78,14 +102,19 @@ const StatisticAdmin = () => {
             <div className="card-block">
               <div className="d-flex align-items-center justify-content-center">
                 <img
-                  src="../../src/assets/images/location.png"
+                  src="../../src/assets/images/location-black.png"
                   alt="location"
-                  width="25"
-                  height="25"
+                  width="28"
+                  height="28"
                   className="me-auto"
                   onClick={() => navigate(`lastdata/location/${element.imei}`)}
                 />
-                <h2 className="m-b-20 fs-5 heading-lastdata time-lastdata">
+                <h2
+                  className="m-b-20 fs-5 heading-lastdata time-lastdata"
+                  onClick={() => getLastData(element.imei)}
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal"
+                >
                   {element.name}
                 </h2>
                 <img
@@ -106,6 +135,9 @@ const StatisticAdmin = () => {
                     ? "underline-warning"
                     : "underline-danger"
                 }
+                onClick={() => getLastData(element.imei)}
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
               ></span>
 
               <div
@@ -385,7 +417,7 @@ const StatisticAdmin = () => {
 
                 <h2 className="statis-heading mt-4">Ishlagan qurilmalar</h2>
                 <div
-                  className="col-xxl-4 col-md-6 cursor"
+                  className="col-xxl-4 col-md-6 statistic-working-devices cursor"
                   onClick={() => navigate("/admin/working/devices/present")}
                 >
                   <div className="card info-card sales-card">
@@ -415,7 +447,7 @@ const StatisticAdmin = () => {
                 </div>
 
                 <div
-                  className="col-xxl-4 col-md-6 cursor"
+                  className="col-xxl-4 col-md-6 statistic-working-devices cursor"
                   onClick={() => navigate("/admin/working/devices/three")}
                 >
                   <div className="card info-card sales-card">
@@ -445,7 +477,7 @@ const StatisticAdmin = () => {
                 </div>
 
                 <div
-                  className="col-xxl-4 col-md-6 cursor"
+                  className="col-xxl-4 col-md-6 statistic-working-devices cursor"
                   onClick={() => navigate("/admin/working/devices/ten")}
                 >
                   <div className="card info-card sales-card">
@@ -475,7 +507,7 @@ const StatisticAdmin = () => {
                 </div>
 
                 <div
-                  className="col-xxl-4 col-md-6 cursor"
+                  className="col-xxl-4 col-md-6 statistic-working-devices cursor"
                   onClick={() => navigate("/admin/working/devices/month")}
                 >
                   <div className="card info-card sales-card">
@@ -505,7 +537,7 @@ const StatisticAdmin = () => {
                 </div>
 
                 <div
-                  className="col-xxl-4 col-md-6 cursor"
+                  className="col-xxl-4 col-md-6 statistic-working-devices cursor"
                   onClick={() => navigate("/admin/working/devices/year")}
                 >
                   <div className="card info-card sales-card">
