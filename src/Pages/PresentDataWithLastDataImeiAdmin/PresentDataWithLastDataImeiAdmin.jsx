@@ -45,17 +45,19 @@ const PresentDataWithLastDataImeiAdmin = () => {
         <section className="section dashboard">
           <div className="row">
             <div className="d-flex align-items-center">
-              <div className="d-flex align-items-center">
-                <img
-                  src="../../../src/assets/images/location-black.png"
-                  alt="location"
-                  width="28"
-                  height="28"
-                />
-                <h3 className="present-data-with-lastdata">
-                  {data?.length > 0 ? data[0].name : null}
-                </h3>
-              </div>
+              {data?.length != 0 ? (
+                <div className="d-flex align-items-center">
+                  <img
+                    src="../../../src/assets/images/location-black.png"
+                    alt="location"
+                    width="28"
+                    height="28"
+                  />
+                  <h3 className="present-data-with-lastdata">
+                    {data?.length > 0 ? data[0].name : null}
+                  </h3>
+                </div>
+              ) : null}
               <div className="d-flex align-items-center m-auto">
                 <h3 className="mb-0 present-day-data-heading">
                   Bugungi ma'lumotlar{" "}

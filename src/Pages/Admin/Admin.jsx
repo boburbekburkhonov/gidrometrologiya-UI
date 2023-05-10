@@ -21,6 +21,7 @@ import ErrorPage from "../Error/ErrorPage";
 import LastDataLocation from "../LastDataLocation/LastDataLocation";
 import PresentDataWithLastDataImeiAdmin from "../PresentDataWithLastDataImeiAdmin/PresentDataWithLastDataImeiAdmin";
 import moment from "moment";
+import d2d from "degrees-to-direction";
 
 const Admin = () => {
   const token = window.localStorage.getItem("token");
@@ -104,73 +105,72 @@ const Admin = () => {
                 </button>
               </div>
 
-              <div className="d-flex justify-content-between align-items-center flex-wrap admin-weather-wrapper marquee">
-                <div className="marquee__inner">
-                  <h3 className="m-0 admin-weather-header fs-3">
-                    {dataWeather.name}
+              <div className="d-flex justify-content-between align-items-center admin-weather-wrapper">
+                <h3 className="m-0 admin-weather-header fs-3">
+                  {dataWeather.name}
+                </h3>
+                <div className="d-flex justify-content-between align-items-center admin-weather-item">
+                  <h3 className="m-0 admin-weather-header">
+                    {moment(time).format("dddd")}
                   </h3>
-                  <div className="d-flex justify-content-between align-items-center admin-weather-item">
-                    <h3 className="m-0 admin-weather-header">
-                      {moment(time).format("dddd")}
-                    </h3>
-                    <img
-                      src={
-                        mainWeather == "Rain"
-                          ? "/src/assets/images/rain.png"
-                          : mainWeather == "Clear"
-                          ? "/src/assets/images/clear.svg"
-                          : mainWeather == "Clouds"
-                          ? "/src/assets/images/clouds.png"
-                          : null
-                      }
-                      alt="weather"
-                      width="38"
-                      height="29"
-                    />
-                    <p className="m-0 admin-weather-desc">
-                      {Math.ceil(dataWeather.main?.temp)}°C
-                    </p>
-                  </div>
+                  <img
+                    src={
+                      mainWeather == "Rain"
+                        ? "/src/assets/images/rain.png"
+                        : mainWeather == "Clear"
+                        ? "/src/assets/images/clear.svg"
+                        : mainWeather == "Clouds"
+                        ? "/src/assets/images/clouds.png"
+                        : "/src/assets/images/clouds.png"
+                    }
+                    alt="weather"
+                    width="38"
+                    height="29"
+                  />
+                  <p className="m-0 admin-weather-desc">
+                    {Math.ceil(dataWeather.main?.temp)}°C
+                  </p>
+                </div>
 
-                  <div className="d-flex justify-content-between align-items-center admin-weather-item">
-                    <h3 className="m-0 admin-weather-header me-2">Namlik</h3>
-                    <img
-                      src="/src/assets/images/humidity.png"
-                      alt="weather"
-                      width="30"
-                      height="26"
-                    />
-                    <p className="m-0 admin-weather-desc ms-2">
-                      {Math.ceil(dataWeather.main?.humidity)}%
-                    </p>
-                  </div>
+                <div className="d-flex justify-content-between align-items-center admin-weather-item">
+                  <h3 className="m-0 admin-weather-header me-2">Namlik</h3>
+                  <img
+                    src="/src/assets/images/humidity.png"
+                    alt="weather"
+                    width="30"
+                    height="26"
+                  />
+                  <p className="m-0 admin-weather-desc ms-2">
+                    {Math.ceil(dataWeather.main?.humidity)}%
+                  </p>
+                </div>
 
-                  <div className="d-flex justify-content-between align-items-center admin-weather-item">
-                    <h3 className="m-0 admin-weather-header me-2">
-                      Shamol tezligi
-                    </h3>
-                    <img
-                      src="/src/assets/images/wind-speed.png"
-                      alt="weather"
-                      width="36"
-                      height="29"
-                    />
-                    <p className="m-0 admin-weather-desc ms-2">
-                      {Math.ceil(dataWeather.wind?.speed)}%
-                    </p>
-                  </div>
+                <div className="d-flex justify-content-between align-items-center admin-weather-item">
+                  <h3 className="m-0 admin-weather-header me-2">
+                    Shamol tezligi
+                  </h3>
+                  <img
+                    src="/src/assets/images/wind-speed.png"
+                    alt="weather"
+                    width="36"
+                    height="29"
+                  />
+                  <p className="m-0 admin-weather-desc ms-2">
+                    {Math.ceil(dataWeather.wind?.speed)}km/h{" "}
+                    {d2d(dataWeather.wind?.deg)}
+                  </p>
                 </div>
               </div>
 
               <nav className="header-nav ms-auto">
                 <ul className="d-flex align-items-center">
-                  <li className="nav-item dropdown">
+                  <li className="nav-item dropdown nav-item-none">
                     <a className="nav-link nav-icon" href="#">
                       <i className="bi bi-bell"></i>
                     </a>
                   </li>
 
-                  <li className="nav-item dropdown">
+                  <li className="nav-item dropdown nav-item-none">
                     <a className="nav-link nav-icon" href="#">
                       <i className="bi bi-chat-left-text"></i>
                     </a>

@@ -3,12 +3,15 @@ import { apiGlobal } from "../Api/ApiGlobal";
 import { useNavigate } from "react-router-dom";
 import AliceCarousel from "react-alice-carousel";
 import moment from "moment";
+import d2d from "degrees-to-direction";
 
 const StatisticAdmin = () => {
   const [dataDevicesStatistics, setDataDevicesStatistics] = useState([]);
   const [lastData, setLastData] = useState([]);
   const [loader, setLoader] = useState(true);
   const [oneLastData, setOneLastData] = useState([]);
+  const [mainWeather, setMainWeather] = useState();
+  const [weather, setWeather] = useState({});
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -38,7 +41,7 @@ const StatisticAdmin = () => {
           setLoader(false);
         }
       });
-  }, [lastData]);
+  }, []);
 
   const presentDate = new Date();
 
@@ -76,6 +79,19 @@ const StatisticAdmin = () => {
           setOneLastData(data);
         }
       });
+  };
+
+  const getWeatherByName = (nameCity) => {
+    const getCountries = async () => {
+      const request = await fetch(
+        `https://api.openweathermap.org/data/2.5/weather?q=${nameCity}&units=metric&appid=277e160f5af509c9f6e384d7cbe3501c`
+      );
+
+      const data = await request.json();
+      setMainWeather(data.weather[0].main);
+      setWeather(data);
+    };
+    getCountries();
   };
 
   const items = [
@@ -127,39 +143,53 @@ const StatisticAdmin = () => {
               ></span>
 
               <div
+                className="d-flex align-items-end justify-content-between"
                 onClick={() => getLastData(element.imei)}
                 data-bs-toggle="modal"
                 data-bs-target="#exampleModal"
               >
-                <p className="text-right m-1">
-                  <span className="fs-6 time-lastdata lastdata-desc">
-                    Havo temperaturasi : {element.airTemp}°C
-                  </span>
-                </p>
+                <div>
+                  <p className="text-right m-1">
+                    <span className="fs-6 time-lastdata lastdata-desc">
+                      Havo temperaturasi : {element.airTemp}°C
+                    </span>
+                  </p>
 
-                <p className="text-right m-1">
-                  <span className="fs-6 time-lastdata lastdata-desc">
-                    Tuproq namligi : {element.soilHumidity}%
-                  </span>
-                </p>
+                  <p className="text-right m-1">
+                    <span className="fs-6 time-lastdata lastdata-desc">
+                      Tuproq namligi : {element.soilHumidity}%
+                    </span>
+                  </p>
 
-                <p className="text-right m-1">
-                  <span className="fs-6 time-lastdata lastdata-desc">
-                    Havo bosimi : {element.airPressure}kPa
-                  </span>
-                </p>
-                <p className="text-right mt-2">
-                  <span className="fs-6 time-lastdata">
-                    {new Date().getDate() == new Date(element.time).getDate() &&
-                    new Date().getFullYear() ==
-                      new Date(element.time).getFullYear() &&
-                    new Date().getMonth() == new Date(element.time).getMonth()
-                      ? String(element.time).slice(11, 19)
-                      : moment(time).format("L") +
-                        " " +
-                        String(element.time).slice(11, 19)}
-                  </span>
-                </p>
+                  <p className="text-right m-1">
+                    <span className="fs-6 time-lastdata lastdata-desc">
+                      Havo bosimi : {element.airPressure}kPa
+                    </span>
+                  </p>
+                  <p className="text-right mt-2">
+                    <span className="fs-6 time-lastdata">
+                      {new Date().getDate() ==
+                        new Date(element.time).getDate() &&
+                      new Date().getFullYear() ==
+                        new Date(element.time).getFullYear() &&
+                      new Date().getMonth() == new Date(element.time).getMonth()
+                        ? String(element.time).slice(11, 19)
+                        : moment(time).format("L") +
+                          " " +
+                          String(element.time).slice(11, 19)}
+                    </span>
+                  </p>
+                </div>
+
+                <img
+                  onClick={() => getWeatherByName(element.name)}
+                  src="../../../src/assets/images/weather.png"
+                  alt="weather"
+                  width="35"
+                  height="35"
+                  data-bs-toggle="modal"
+                  data-bs-target="#staticBackdrop"
+                />
               </div>
             </div>
           </div>
@@ -167,6 +197,8 @@ const StatisticAdmin = () => {
       );
     }),
   ];
+
+  const time = new Date();
 
   return (
     <main id="main" className="main">
@@ -364,6 +396,105 @@ const StatisticAdmin = () => {
                     </div>
                   );
                 })}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Modal Weather */}
+      <div
+        className="modal fade"
+        id="staticBackdrop"
+        data-bs-backdrop="static"
+        data-bs-keyboard="false"
+        tabIndex="-1"
+        aria-labelledby="staticBackdropLabel"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog modal-location-width-weather modal-dialog-centered">
+          <div className="modal-content">
+            <div className="modal-header border-bottom-0 d-flex align-items-center justify-content-between">
+              <h1
+                className="admin-weather-header fs-5 m-0"
+                id="staticBackdropLabel"
+              >
+                {weather.name}
+              </h1>
+              <h3 className="m-0 admin-weather-header text-center">
+                {moment(time).format("dddd")}
+              </h3>
+              <button
+                type="button"
+                className="btn-close ms-0 btn-close-location"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div className="modal-body">
+              <div className="d-flex justify-content-center align-items-center admin-weather-item">
+                <img
+                  className="weather-lastdata-img"
+                  src={
+                    mainWeather == "Rain"
+                      ? "/src/assets/images/rain.png"
+                      : mainWeather == "Clear"
+                      ? "/src/assets/images/clear-sky.png"
+                      : mainWeather == "Clouds"
+                      ? "/src/assets/images/clouds.png"
+                      : "/src/assets/images/clouds.png"
+                  }
+                  alt="weather"
+                  width="68"
+                  height="59"
+                />
+                <p className="m-0 ms-3 weather-lastdata-desc">
+                  {Math.ceil(weather.main?.temp)}°C
+                </p>
+              </div>
+              <div className="d-flex align-items-center justify-content-around mt-4">
+                <div className="d-flex flex-column align-items-center justify-content-center">
+                  <img
+                    src="/src/assets/images/wind-speed.png"
+                    alt="weather"
+                    width="35"
+                    height="29"
+                  />
+                  <h3 className="weather-lastdata-heading mt-1 mb-1">
+                    Shamol tezligi
+                  </h3>
+                  <p className="weather-lastdata-desc-wind">
+                    {weather.wind?.speed}km/h {d2d(weather.wind?.deg)}
+                  </p>
+                </div>
+
+                <div className="d-flex flex-column align-items-center justify-content-center">
+                  <img
+                    src="/src/assets/images/humidity.png"
+                    alt="weather"
+                    width="35"
+                    height="29"
+                  />
+                  <h3 className="weather-lastdata-heading mt-1 mb-1">Namlik</h3>
+                  <p className="weather-lastdata-desc-wind">
+                    {weather.main?.humidity}%
+                  </p>
+                </div>
+
+                <div className="d-flex flex-column align-items-center justify-content-center">
+                  <img
+                    src="/src/assets/images/airpressure.png"
+                    alt="weather"
+                    width="40"
+                    height="35"
+                  />
+                  <h3 className="weather-lastdata-heading mt-1 mb-1">
+                    Havo bosimi
+                  </h3>
+                  <p className="weather-lastdata-desc-wind">
+                    {weather.main?.pressure}kPa
+                  </p>
+                </div>
               </div>
             </div>
           </div>

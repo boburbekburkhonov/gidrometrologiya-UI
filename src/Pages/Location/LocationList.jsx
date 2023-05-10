@@ -74,8 +74,8 @@ const LocationList = () => {
             <div className="modal-body pt-0">
               <div className="m-auto">
                 {data.length == 0 ? (
-                  <div className="alert alert-info fw-bold mt-4">
-                    Hozircha ma'lumot kelmadi
+                  <div className="alert alert-info fw-bold mt-4 text-center">
+                    Hozircha ma'lumot kelmadi...
                   </div>
                 ) : (
                   <table className="c-table mt-4 table-scroll">

@@ -37,7 +37,10 @@ const WorkingDevices = () => {
                 <span></span>
               </div>
             ) : dataDevices.length == 0 && !loader ? (
-              <div className="alert alert-info fs-4 fw-semibold" role="alert">
+              <div
+                className="alert alert-info fs-4 fw-semibold text-center"
+                role="alert"
+              >
                 Hozircha bu qurilmadan ma'lumot kelmadi!
               </div>
             ) : (
