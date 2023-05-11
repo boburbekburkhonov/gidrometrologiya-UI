@@ -60,7 +60,7 @@ const CharStatistic = (param) => {
             return (
               value +
               ` ${checkUnitOfMeasure(
-                dataStatistic.length > 0 ? dataStatistic[2] : null
+                dataStatistic?.length > 0 ? dataStatistic[2] : null
               )}`
             );
           },
@@ -82,7 +82,7 @@ const CharStatistic = (param) => {
             return `Bugungi ma'lumot: ${
               context.formattedValue
             } ${checkUnitOfMeasure(
-              dataStatistic.length > 0 ? dataStatistic[2] : null
+              dataStatistic?.length > 0 ? dataStatistic[2] : null
             )}`;
           },
         },

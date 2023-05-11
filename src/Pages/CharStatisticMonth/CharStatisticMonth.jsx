@@ -62,7 +62,7 @@ const CharStatisticMonth = (param) => {
             return (
               value +
               `${checkUnitOfMeasure(
-                dataStatistic.length > 0 ? dataStatistic[2] : null
+                dataStatistic?.length > 0 ? dataStatistic[2] : null
               )}`
             );
           },
@@ -84,7 +84,7 @@ const CharStatisticMonth = (param) => {
             return `Bir oylik ma'lumotlar: ${
               context.formattedValue
             } ${checkUnitOfMeasure(
-              dataStatistic.length > 0 ? dataStatistic[2] : null
+              dataStatistic?.length > 0 ? dataStatistic[2] : null
             )}`;
           },
         },
