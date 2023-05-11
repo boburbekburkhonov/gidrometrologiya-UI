@@ -1625,7 +1625,7 @@ th {
 
 .present-day-data-desc {
   margin: 0;
-  font-size: 20px;
+  font-size: 22px;
   margin-left: 20px;
   font-weight: 600;
   color: #ff0000;
@@ -1837,6 +1837,8 @@ th {
 }
 
 .statis-heading {
+  font-weight: 600;
+  font-size: 32px;
   color: #012970;
 }
 
@@ -1981,5 +1983,61 @@ th {
   .weather-lastdata-img {
     max-width: 230px !important;
     height: 140px !important;
+  }
+}
+
+.statis-char-select {
+  max-width: 200px;
+}
+
+.statis-present-device-name {
+  max-width: 330px;
+  width: 100%;
+}
+
+.statis-present-device-span {
+  color: #012970;
+  font-weight: 700;
+}
+
+.statis-present-device-btn {
+  max-width: 150px;
+  width: 100%;
+  background: #012970;
+}
+
+.char-statistic-wrapper {
+  margin-top: 20px;
+  max-height: 400px;
+}
+
+.statistic-char-wrapper {
+  border: 2px solid #012970;
+  max-width: 738px;
+  padding: 10px 20px;
+  border-radius: 20px;
+}
+
+
+@media (max-width: 770px) {
+  .statis-present-device-name {
+    flex-direction: column;
+    margin: 0 !important;
+  }
+
+  .statis-present-device-name-margin {
+    margin-top: 15px !important;
+  }
+
+  .statis-heading {
+    font-size: 25px;
+  }
+
+  .present-day-data-heading {
+    font-size: 25px;
+  }
+
+  .present-day-data-desc {
+    font-size: 18px;
   }
 }

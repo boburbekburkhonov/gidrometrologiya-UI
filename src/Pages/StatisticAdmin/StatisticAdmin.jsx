@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import AliceCarousel from "react-alice-carousel";
 import moment from "moment";
 import d2d from "degrees-to-direction";
+import CharStatistic from "../CharStatistic/CharStatistic";
+import CharStatisticMonth from "../CharStatisticMonth/CharStatisticMonth";
 
 const StatisticAdmin = () => {
   const [dataDevicesStatistics, setDataDevicesStatistics] = useState([]);
@@ -12,6 +14,12 @@ const StatisticAdmin = () => {
   const [oneLastData, setOneLastData] = useState([]);
   const [mainWeather, setMainWeather] = useState();
   const [weather, setWeather] = useState({});
+  const [dataName, setDataName] = useState([]);
+  const [searchStatisChar, setSearchStatisChar] = useState();
+  const [searchStatisCharMonth, setSearchStatisCharMonth] = useState();
+  const [selectDeviceName, setSelectDeviceName] = useState();
+  const [selectDeviceValue, setSelectDeviceValue] = useState("windSpeed");
+  const [checkDataName, setCheckDataName] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -24,9 +32,23 @@ const StatisticAdmin = () => {
     })
       .then((res) => res.json())
       .then((data) => setDataDevicesStatistics(data));
-  }, []);
 
-  useEffect(() => {
+    fetch(`${apiGlobal}/mqtt/admin/data/device/name`, {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+        Authorization: "Bearer " + window.localStorage.getItem("token"),
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data) {
+          setDataName(data);
+          setSelectDeviceName(data[0]);
+          setCheckDataName(true);
+        }
+      });
+
     fetch(`${apiGlobal}/mqtt/admin/lastdata`, {
       method: "GET",
       headers: {
@@ -42,6 +64,44 @@ const StatisticAdmin = () => {
         }
       });
   }, []);
+
+  useEffect(() => {
+    fetch(`${apiGlobal}/mqtt/admin/data/present/name/value`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        Authorization: "Bearer " + window.localStorage.getItem("token"),
+      },
+      body: JSON.stringify({
+        name: selectDeviceName,
+        value: selectDeviceValue,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data) {
+          setSearchStatisChar(data);
+        }
+      });
+
+    fetch(`${apiGlobal}/mqtt/admin/data/month/name/value`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        Authorization: "Bearer " + window.localStorage.getItem("token"),
+      },
+      body: JSON.stringify({
+        name: selectDeviceName,
+        value: selectDeviceValue,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data) {
+          setSearchStatisCharMonth(data);
+        }
+      });
+  }, [checkDataName, selectDeviceName, selectDeviceValue]);
 
   const presentDate = new Date();
 
@@ -464,7 +524,8 @@ const StatisticAdmin = () => {
                     Shamol tezligi
                   </h3>
                   <p className="weather-lastdata-desc-wind">
-                    {weather.wind?.speed}km/h {d2d(weather.wind?.deg)}
+                    {Math.ceil(weather.wind?.speed)}km/h{" "}
+                    {d2d(weather.wind?.deg)}
                   </p>
                 </div>
 
@@ -526,162 +587,87 @@ const StatisticAdmin = () => {
                       autoPlayStrategy="all"
                       animationDuration="2000"
                       disableButtonsControls={true}
+                      disableDotsControls={true}
                       mouseTracking
                       items={items}
                     />
                   )
                 )}
 
-                <h2 className="statis-heading mt-4">Ishlagan qurilmalar</h2>
-                <div
-                  className="col-xxl-4 col-md-6 statistic-working-devices cursor"
-                  onClick={() => navigate("/admin/working/devices/present")}
-                >
-                  <div className="card info-card sales-card">
-                    <div className="card-body">
-                      <h5 className="card-title">
-                        Qurilmalar <span>| Bugungi</span>
-                      </h5>
+                <div className="pt-4">
+                  <div className="d-flex align-items-center pb-4">
+                    <h3 className="present-day-data-heading">
+                      Bugun ma'lumotlar
+                    </h3>
+                    <p className="present-day-data-desc">
+                      {moment(time).format("LLLL").split(" ")[0] +
+                        " " +
+                        moment(time).format("LLLL").split(" ")[1] +
+                        " " +
+                        moment(time).format("LLLL").split(" ")[2] +
+                        " " +
+                        moment(time).format("LLLL").split(" ")[3]}
+                    </p>
+                  </div>
 
-                      <div className="d-flex align-items-center">
-                        <div className="card-icon ms-5 rounded-circle d-flex align-items-center justify-content-center">
-                          <img
-                            src="../../src/assets/images/iot.png"
-                            alt="device"
-                            width="40"
-                            height="40"
-                          />
-                        </div>
-                        <div className="ps-3">
-                          <h6>{dataDevicesStatistics.presentDay} ta</h6>
-                          <span className="text-success small pt-1 fw-bold">
-                            ishlagan
-                          </span>
-                        </div>
-                      </div>
+                  <div className="d-flex align-items-center flex-wrap justify-content-center statistic-char-wrapper">
+                    <div className="d-flex align-items-center statis-present-device-name me-3">
+                      <span className="me-3 statis-present-device-span">
+                        Qurilma nomi
+                      </span>
+                      <select
+                        className="form-select statis-char-select"
+                        name="statisDeviceName"
+                        onChange={(e) => setSelectDeviceName(e.target.value)}
+                      >
+                        {dataName.map((element, index) => {
+                          return (
+                            <option value={element} key={index}>
+                              {element}
+                            </option>
+                          );
+                        })}
+                      </select>
+                    </div>
+
+                    <div className="d-flex align-items-center statis-present-device-name me-3 statis-present-device-name-margin">
+                      <span className="me-3 statis-present-device-span">
+                        Qiymatlari
+                      </span>
+                      <select
+                        className="form-select statis-char-select"
+                        name="statisDeviceValues"
+                        onChange={(e) => setSelectDeviceValue(e.target.value)}
+                      >
+                        <option value="windSpeed">Shamol tezligi</option>
+                        <option value="windDirection">Shamol yo'nalishi</option>
+                        <option value="soilTemp">Tuproq temperaturasi</option>
+                        <option value="soilHumidity">Tuproq namligi</option>
+                        <option value="airTemp">Havo temperaturasi</option>
+                        <option value="airHumidity">Havo namligi</option>
+                        <option value="airPressure">Havo bosimi</option>
+                        <option value="leafTemp">Barg temperaturasi</option>
+                        <option value="leafHumidity">Barg namligi</option>
+                        <option value="rainHeight">Yomg'ir qalingligi</option>
+                      </select>
                     </div>
                   </div>
                 </div>
 
-                <div
-                  className="col-xxl-4 col-md-6 statistic-working-devices cursor"
-                  onClick={() => navigate("/admin/working/devices/three")}
-                >
-                  <div className="card info-card sales-card">
-                    <div className="card-body">
-                      <h5 className="card-title">
-                        Qurilmalar <span>| Uch kunlik</span>
-                      </h5>
+                <CharStatistic dataStatistic={searchStatisChar} />
 
-                      <div className="d-flex align-items-center">
-                        <div className="card-icon ms-5 rounded-circle d-flex align-items-center justify-content-center">
-                          <img
-                            src="../../src/assets/images/iot.png"
-                            alt="device"
-                            width="40"
-                            height="40"
-                          />
-                        </div>
-                        <div className="ps-3">
-                          <h6>{dataDevicesStatistics.dataThreeDay} ta</h6>
-                          <span className="text-success small pt-1 fw-bold">
-                            ishlagan
-                          </span>
-                        </div>
-                      </div>
-                    </div>
+                <div className="pt-4">
+                  <div className="d-flex align-items-center pb-4">
+                    <h3 className="present-day-data-heading">
+                      Bir oylik ma'lumotlar
+                    </h3>
+                    <p className="present-day-data-desc">
+                      {moment(time).format("LL").split(" ")[1]}
+                    </p>
                   </div>
                 </div>
 
-                <div
-                  className="col-xxl-4 col-md-6 statistic-working-devices cursor"
-                  onClick={() => navigate("/admin/working/devices/ten")}
-                >
-                  <div className="card info-card sales-card">
-                    <div className="card-body">
-                      <h5 className="card-title">
-                        Qurilmalar <span>| O'n kunlik</span>
-                      </h5>
-
-                      <div className="d-flex align-items-center">
-                        <div className="card-icon ms-5 rounded-circle d-flex align-items-center justify-content-center">
-                          <img
-                            src="../../src/assets/images/iot.png"
-                            alt="device"
-                            width="40"
-                            height="40"
-                          />
-                        </div>
-                        <div className="ps-3">
-                          <h6>{dataDevicesStatistics.dataTenDay} ta</h6>
-                          <span className="text-success small pt-1 fw-bold">
-                            ishlagan
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div
-                  className="col-xxl-4 col-md-6 statistic-working-devices cursor"
-                  onClick={() => navigate("/admin/working/devices/month")}
-                >
-                  <div className="card info-card sales-card">
-                    <div className="card-body">
-                      <h5 className="card-title">
-                        Qurilmalar <span>| Bir oylik</span>
-                      </h5>
-
-                      <div className="d-flex align-items-center">
-                        <div className="card-icon ms-5 rounded-circle d-flex align-items-center justify-content-center">
-                          <img
-                            src="../../src/assets/images/iot.png"
-                            alt="device"
-                            width="40"
-                            height="40"
-                          />
-                        </div>
-                        <div className="ps-3">
-                          <h6>{dataDevicesStatistics.dataMonthDay} ta</h6>
-                          <span className="text-success small pt-1 fw-bold">
-                            ishlagan
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div
-                  className="col-xxl-4 col-md-6 statistic-working-devices cursor"
-                  onClick={() => navigate("/admin/working/devices/year")}
-                >
-                  <div className="card info-card sales-card">
-                    <div className="card-body">
-                      <h5 className="card-title">
-                        Qurilmalar <span>| Bir yillik</span>
-                      </h5>
-
-                      <div className="d-flex align-items-center">
-                        <div className="card-icon ms-5 rounded-circle d-flex align-items-center justify-content-center">
-                          <img
-                            src="../../src/assets/images/iot.png"
-                            alt="device"
-                            width="40"
-                            height="40"
-                          />
-                        </div>
-                        <div className="ps-3">
-                          <h6>{dataDevicesStatistics.dataYear} ta</h6>
-                          <span className="text-success small pt-1 fw-bold">
-                            devices
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <CharStatisticMonth dataStatistic={searchStatisCharMonth} />
               </>
             )}
           </div>
