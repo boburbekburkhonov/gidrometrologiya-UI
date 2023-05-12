@@ -599,7 +599,7 @@ const Statistic = () => {
                 <div className="pt-4">
                   <div className="d-flex align-items-center pb-4">
                     <h3 className="present-day-data-heading">
-                      Bugun ma'lumotlar
+                      Bugungi ma'lumotlar
                     </h3>
                     <p className="present-day-data-desc">
                       {moment(time).format("LLLL").split(" ")[0] +
