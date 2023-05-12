@@ -8,7 +8,6 @@ import CharStatistic from "../CharStatistic/CharStatistic";
 import CharStatisticMonth from "../CharStatisticMonth/CharStatisticMonth";
 
 const StatisticAdmin = () => {
-  const [dataDevicesStatistics, setDataDevicesStatistics] = useState([]);
   const [lastData, setLastData] = useState([]);
   const [loader, setLoader] = useState(true);
   const [oneLastData, setOneLastData] = useState([]);
@@ -23,16 +22,6 @@ const StatisticAdmin = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`${apiGlobal}/mqtt/admin/data/statistics/devices`, {
-      method: "GET",
-      headers: {
-        "content-type": "application/json",
-        Authorization: "Bearer " + window.localStorage.getItem("token"),
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => setDataDevicesStatistics(data));
-
     fetch(`${apiGlobal}/mqtt/admin/data/device/name`, {
       method: "GET",
       headers: {
