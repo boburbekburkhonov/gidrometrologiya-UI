@@ -22,6 +22,7 @@ import LastDataLocation from "../LastDataLocation/LastDataLocation";
 import PresentDataWithLastDataImei from "../PresentDataWithLastDataImei/PresentDataWithLastDataImei";
 import moment from "moment";
 import d2d from "degrees-to-direction";
+import smart from "../../assets/images/logo.svg";
 
 const User = () => {
   const token = window.localStorage.getItem("token");
@@ -92,10 +93,7 @@ const User = () => {
             >
               <div className="d-flex align-items-center justify-content-between">
                 <a href="#" className="logo d-flex align-items-center">
-                  <img
-                    src="https://smart-solution.uz/assets/img/apple-touch-icon.png"
-                    alt=""
-                  />
+                  <img src={smart} alt="smart" />
                   <span className="d-none d-lg-block fs-5">
                     Smart Solutions System
                   </span>

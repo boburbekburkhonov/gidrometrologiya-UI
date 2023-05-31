@@ -8,6 +8,7 @@ import "../../assets/vendor/quill/quill.bubble.css";
 import "../../assets/vendor/remixicon/remixicon.css";
 import "../../assets/vendor/simple-datatables/style.css";
 import "../../assets/css/style.css";
+import smart from "../../assets/images/logo.svg";
 
 const Login = () => {
   const [errorMessage, setErrorMessage] = useState("");
@@ -60,10 +61,7 @@ const Login = () => {
                       href="#"
                       className="logo d-flex align-items-center w-auto"
                     >
-                      <img
-                        src="https://smart-solution.uz/assets/img/apple-touch-icon.png"
-                        alt=""
-                      />
+                      <img src={smart} alt="smart" />
                       <span className="d-none d-lg-block fs-5">
                         Smart Solutions System
                       </span>

@@ -8,18 +8,16 @@ import "../../assets/vendor/quill/quill.bubble.css";
 import "../../assets/vendor/remixicon/remixicon.css";
 import "../../assets/vendor/simple-datatables/style.css";
 import "../../assets/css/style.css";
+import smart from "../../assets/images/logo.svg";
 
 const Register = () => {
-
   const registerUser = (e) => {
     e.preventDefault();
     const { name, username, email, password } = e.target;
 
     fetch(`${apiGlobal}/users/register`, {
       method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
+
       body: JSON.stringify({
         name: name.value,
         username: username.value,
@@ -56,10 +54,7 @@ const Register = () => {
                       href="#"
                       className="logo d-flex align-items-center w-auto"
                     >
-                      <img
-                        src="https://smart-solution.uz/assets/img/apple-touch-icon.png"
-                        alt=""
-                      />
+                      <img src={smart} alt="smart" />
                       <span className="d-none d-lg-block fs-5">
                         Smart Solutions System
                       </span>

@@ -96,20 +96,23 @@ const Statistic = () => {
   const presentDate = new Date();
 
   const checkingData = (time) => {
+    let startDate = new Date(time);
+    startDate.setHours(startDate.getHours() - 5);
+
     if (
-      new Date(time).getFullYear() == presentDate.getFullYear() &&
-      new Date(time).getMonth() == presentDate.getMonth()
+      startDate.getFullYear() == presentDate.getFullYear() &&
+      startDate.getMonth() == presentDate.getMonth()
     ) {
-      return presentDate.getDate() - new Date(time).getDate();
+      return presentDate.getDate() - startDate.getDate();
     } else if (
-      (new Date(time).getFullYear() == presentDate.getFullYear() &&
-        presentDate.getMonth() - new Date(time).getMonth() == 1 &&
+      (startDate.getFullYear() == presentDate.getFullYear() &&
+        presentDate.getMonth() - startDate.getMonth() == 1 &&
         presentDate.getDate() == 2 &&
-        30 <= new Date(time).getDate() &&
-        new Date(time).getDate() <= 31) ||
+        30 <= startDate.getDate() &&
+        startDate.getDate() <= 31) ||
       (presentDate.getDate() == 1 &&
-        29 <= new Date(time).getDate() &&
-        new Date(time).getDate() <= 31)
+        29 <= startDate.getDate() &&
+        startDate.getDate() <= 31)
     ) {
       return 1;
     }

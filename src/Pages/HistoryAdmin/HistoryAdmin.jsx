@@ -276,13 +276,7 @@ const HistoryAdmin = () => {
                             " " +
                             moment(timeYesterday).format("LLLL").split(" ")[3]
                           : month
-                          ? moment(timeMonth).format("LLLL").split(" ")[0] +
-                            " " +
-                            moment(timeMonth).format("LLLL").split(" ")[1] +
-                            " " +
-                            moment(timeMonth).format("LLLL").split(" ")[2] +
-                            " " +
-                            moment(timeMonth).format("LLLL").split(" ")[3]
+                          ? moment(time).format("LL").split(" ")[1]
                           : null}
                       </p>
                     </div>
