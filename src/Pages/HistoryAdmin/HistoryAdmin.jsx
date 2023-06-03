@@ -15,9 +15,9 @@ const HistoryAdmin = () => {
   const [yesterday, setYesterday] = useState(false);
   const [present, setPresent] = useState(true);
   const [month, setMonth] = useState(false);
+  const [year, setYear] = useState(false);
   const [filter, setFilter] = useState(false);
   const [checkDataName, setCheckDataName] = useState(false);
-
 
   function filterDate(e) {
     e.preventDefault();
@@ -40,10 +40,11 @@ const HistoryAdmin = () => {
         .then((res) => res.json())
         .then((data) => {
           if (data) {
-            setPresent(false)
-            setYesterday(false)
-            setMonth(false)
-            setFilter(true)
+            setPresent(false);
+            setYesterday(false);
+            setMonth(false);
+            setYear(false);
+            setFilter(true);
             setData(data);
           }
         });
@@ -63,7 +64,7 @@ const HistoryAdmin = () => {
         if (data) {
           setDataName(data);
           setDataNameSearch(data);
-          setCheckDataName(true)
+          setCheckDataName(true);
         }
       });
   }, []);
@@ -79,15 +80,11 @@ const HistoryAdmin = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data) {
-          const mySet = new Set();
-          data.filter((e) => {
-            mySet.add(e.name);
-          });
           setData(data.filter((e) => e.name == dataNameSearch[0]));
           setLoader(false);
         }
       });
-  }, [checkDataName])
+  }, [checkDataName]);
 
   const exportDataToExcel = () => {
     const workBook = XLSX.utils.book_new();
@@ -111,10 +108,11 @@ const HistoryAdmin = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data) {
-          setFilter(false)
+          setFilter(false);
           setYesterday(true);
           setPresent(false);
           setMonth(false);
+          setYear(false);
           setDataNameSearch(dataName);
           setData(data.filter((e) => e.name == dataNameSearch[0]));
         }
@@ -134,10 +132,11 @@ const HistoryAdmin = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data) {
-          setFilter(false)
+          setFilter(false);
           setYesterday(false);
           setPresent(true);
           setMonth(false);
+          setYear(false);
           setDataNameSearch(dataName);
           setData(data.filter((e) => e.name == dataNameSearch[0]));
         }
@@ -157,10 +156,35 @@ const HistoryAdmin = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data) {
-          setFilter(false)
+          setFilter(false);
           setYesterday(false);
           setPresent(false);
           setMonth(true);
+          setYear(false);
+          setDataNameSearch(dataName);
+          setData(data.filter((e) => e.name == dataNameSearch[0]));
+        }
+      });
+  };
+
+  const yearData = () => {
+    setDataNameSearch([]);
+
+    fetch(`${apiGlobal}/mqtt/admin/one/year/data/statistics`, {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+        Authorization: "Bearer " + window.localStorage.getItem("token"),
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data) {
+          setFilter(false);
+          setYesterday(false);
+          setPresent(false);
+          setMonth(false);
+          setYear(true);
           setDataNameSearch(dataName);
           setData(data.filter((e) => e.name == dataNameSearch[0]));
         }
@@ -223,6 +247,23 @@ const HistoryAdmin = () => {
             setData(data);
           }
         });
+    } else if (year) {
+      fetch(`${apiGlobal}/mqtt/admin/one/year/data/statistics/found/name`, {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+          Authorization: "Bearer " + window.localStorage.getItem("token"),
+        },
+        body: JSON.stringify({
+          name: deviceName,
+        }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data) {
+            setData(data);
+          }
+        });
     }
   };
   const time = new Date();
@@ -254,6 +295,8 @@ const HistoryAdmin = () => {
                           ? "Kecha kelgan ma'lumotlar"
                           : month
                           ? "Bir oylik ma'lumotlar"
+                          : year
+                          ? "Bir yillik ma'lumotlar"
                           : filter
                           ? "Qidirilgan ma'lumotlar"
                           : null}
@@ -277,6 +320,8 @@ const HistoryAdmin = () => {
                             moment(timeYesterday).format("LLLL").split(" ")[3]
                           : month
                           ? moment(time).format("LL").split(" ")[1]
+                          : year
+                          ? moment(time).format("L").split("/")[2] + " year"
                           : null}
                       </p>
                     </div>
@@ -322,6 +367,10 @@ const HistoryAdmin = () => {
 
                     <button className="custom-btn btn-1" onClick={monthData}>
                       Bir oylik ma'lumotlar
+                    </button>
+
+                    <button className="custom-btn btn-1" onClick={yearData}>
+                      Bir yillik ma'lumotlar
                     </button>
 
                     <button
@@ -445,6 +494,8 @@ const HistoryAdmin = () => {
                                       ? String(element.time).slice(11, 19)
                                       : month
                                       ? moment(time).format("L")
+                                      : year
+                                      ? moment(time).format("LL").split(" ")[1]
                                       : filter
                                       ? moment(time).format("L") +
                                         " " +
