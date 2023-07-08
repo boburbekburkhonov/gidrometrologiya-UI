@@ -147,6 +147,22 @@ const Statistic = () => {
     getCountries();
   };
 
+  const dataDate = time => {
+    let startDate = new Date(time);
+    startDate.setHours(startDate.getHours() - 5);
+
+    if(new Date().getDate() ==
+      startDate.getDate() &&
+      new Date().getFullYear() ==
+      startDate.getFullYear() &&
+      new Date().getMonth() == startDate.getMonth()
+    ){
+      return true
+    }else {
+      return false
+    }
+  }
+
   const items = [
     lastData.map((element, index) => {
       const time = new Date(element.time);
@@ -221,15 +237,13 @@ const Statistic = () => {
                   </p>
                   <p className="text-right mt-2">
                     <span className="fs-6 time-lastdata">
-                      {new Date().getDate() ==
-                        new Date(element.time).getDate() &&
-                      new Date().getFullYear() ==
-                        new Date(element.time).getFullYear() &&
-                      new Date().getMonth() == new Date(element.time).getMonth()
+                      {
+                        dataDate(element.time)
                         ? String(element.time).slice(11, 19)
                         : moment(time).format("L") +
                           " " +
-                          String(element.time).slice(11, 19)}
+                          String(element.time).slice(11, 19)
+                          }
                     </span>
                   </p>
                 </div>
